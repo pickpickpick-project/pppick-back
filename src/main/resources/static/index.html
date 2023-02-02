@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<a href="/oauth2/authorization/google" role="button">Google Login</a>
+<a href="/oauth2/authorization/naver"  role="button">Naver Login</a>
+<a href="/oauth2/authorization/kakao"  role="button">kakao</a>
+
+<input type="text" th:value="${session.get(#response)}" name="userName" id="userName" readonly>
+</body>
+</html>
