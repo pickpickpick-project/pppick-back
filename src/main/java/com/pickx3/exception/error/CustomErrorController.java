@@ -44,32 +44,37 @@ public class CustomErrorController implements ErrorController {
 
             // 400 error
             if (statusCode == HttpStatus.BAD_REQUEST.value()) {
-
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  TIMESTAMP : " + new Date());
                 return ERROR_400_PAGE_PATH;
             }
 
             // 403 error
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
-
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  TIMESTAMP : " + new Date());
                 return ERROR_403_PAGE_PATH;
             }
 
             // 404 error
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  TIMESTAMP : " + new Date());
                 return ERROR_404_PAGE_PATH;
             }
 
             // 408 error
             if (statusCode == HttpStatus.REQUEST_TIMEOUT.value()) {
-
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  TIMESTAMP : " + new Date());
                 return ERROR_408_PAGE_PATH;
             }
 
             // 500 error
             if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                log.info("ERROR CODE 500 :::::::::::  MSG: " + httpStatus.getReasonPhrase());
-                log.info("ERROR CODE 500 :::::::::::  TIMESTAMP : " + new Date());
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE 500 ::::::::::::::::::::::  TIMESTAMP : " + new Date());
+        //        log.info("ERROR CODE 500 :::::::::::  trace:" + )
                 return ERROR_500_PAGE_PATH;
             }
         }

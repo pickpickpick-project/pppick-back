@@ -14,6 +14,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry
                 // CORS 적용할 URI 패턴
                 .addMapping("/**")
+                .allowedOrigins("http://localhost:3000")
                 //자원을 공유 할 오리진 지정
                 .allowedOriginPatterns("*")
                 //요청 허용 메서드
