@@ -26,4 +26,11 @@ public class Work {
     @JoinColumn(name="userNum")
     private User userInfo;
 
+
+    public void updateWork(String workName, int workPrice, String workDesc){
+        this.workName = workName;
+        this.workPrice = workPrice;
+        this.workDesc = workDesc;
+    }
+
 }
