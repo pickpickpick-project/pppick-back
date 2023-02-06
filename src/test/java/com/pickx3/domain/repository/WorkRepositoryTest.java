@@ -9,12 +9,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+@Transactional
 @SpringBootTest
 class WorkRepositoryTest {
 
@@ -44,7 +46,7 @@ class WorkRepositoryTest {
 
         Assertions.assertEquals(1L, result.getWorkNum());
     }
-
+        
     @Test
     public void 상품목록조회(){
         User user = 회원생성();
@@ -84,6 +86,23 @@ class WorkRepositoryTest {
         int size = workRepository.findByUserInfo_id(user.getId()).size();
 
         Assertions.assertEquals(5, size);
+    }
+    
+    @Test
+    public void 상품상세정보조회(){
+        User user = 회원생성();
+        Work work =  Work.builder()
+                .workName("상품1")
+                .workDesc("상품 설명1")
+                .workPrice(25000)
+                .userInfo(user)
+                .build();
+
+        workRepository.save(work);
+
+        Work result = workRepository.findById(7L).get();
+
+        assertThat(result).usingRecursiveComparison().isEqualTo(work);
     }
 
     public User 회원생성(){

@@ -42,4 +42,11 @@ public class WorkService {
     public List<Work> getWorks(Long workerNum){
         return workRepository.findByUserInfo_id(workerNum);
     }
+    
+    /*
+     * 상품 상세정보 조회
+     * */
+    public Work getWorkInfo(Long workNum){
+        return workRepository.findById(workNum).get();
+    }
 }
