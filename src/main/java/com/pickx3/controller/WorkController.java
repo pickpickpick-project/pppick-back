@@ -2,6 +2,7 @@ package com.pickx3.controller;
 
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.dto.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
 import com.pickx3.service.WorkService;
 import com.pickx3.util.ApiResponseMessage;
 import io.swagger.annotations.Api;
@@ -26,7 +27,7 @@ public class WorkController {
     * */
     @ApiOperation(value = "상품 정보 저장", notes = "회원은 상품을 등록할 수 있다")
     @PostMapping
-    public ResponseEntity<?> createWork(WorkForm workForm){
+    public ResponseEntity<?> createWork(@RequestBody WorkForm workForm){
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
@@ -82,4 +83,22 @@ public class WorkController {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
      }
+
+    /*
+     * 상품 정보 수정
+     * */
+    @ApiOperation(value = "상품 정보 수정", notes = "회원은 상품정보를 수정 할 수 있다")
+    @PatchMapping
+    public ResponseEntity<?> updateWork(@RequestBody WorkUpdateForm workUpdateForm){
+        ApiResponseMessage result;
+        try{
+            HashMap data = new HashMap();
+            data.put("workInfo", workService.updateWork(workUpdateForm));
+            result = new ApiResponseMessage(true, "Success" ,"200", "", data );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

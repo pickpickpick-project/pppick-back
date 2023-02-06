@@ -3,6 +3,7 @@ package com.pickx3.service;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.dto.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
 import net.bytebuddy.asm.MemberRemoval;
@@ -54,14 +55,16 @@ public class WorkService {
     /*
      * 상품 정보 수정
      * */
-    public void updateWork(WorkForm workForm){
-        Long workNum = workForm.getWorkNum();
-        String workName = workForm.getWorkName();
-        int workPrice = workForm.getWorkPrice();
-        String workDesc = workForm.getWorkDesc();
+    public Work updateWork(WorkUpdateForm workUpdateForm){
+        Long workNum = workUpdateForm.getWorkNum();
+        String workName = workUpdateForm.getWorkName();
+        int workPrice = workUpdateForm.getWorkPrice();
+        String workDesc = workUpdateForm.getWorkDesc();
 
         Work work = workRepository.findById(workNum).get();
 
         work.updateWork(workName, workPrice, workDesc);
+
+        return work;
     }
 }

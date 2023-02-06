@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class WorkForm {
-    private Long workNum;
     private Long workerNum;
     private String workName;
     private String workDesc;
