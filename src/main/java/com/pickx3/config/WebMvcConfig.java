@@ -1,7 +1,9 @@
 package com.pickx3.config;
 
+import com.pickx3.exception.error.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -25,4 +27,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(MAX_AGE_SECS);
     }
+
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LogInterceptor())
+                    .addPathPatterns("/*"); // 해당 경로에 접근하기 전에 인터셉터가 가로챈다.
+                    //.excludePathPatterns("/"); // 해당 경로는 인터셉터가 가로채지 않는다.
+    }
+
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "UserInfo")
 @NoArgsConstructor
 public class User {
+
     @Id
     @Column(name = "userNum")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +52,8 @@ public class User {
 
     @Column(name = "userProviderId")
     private String providerId;
+
+
 
     @Builder
     private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName) {

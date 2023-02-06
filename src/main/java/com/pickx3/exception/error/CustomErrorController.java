@@ -40,48 +40,56 @@ public class CustomErrorController implements ErrorController {
             int statusCode = Integer.valueOf(status.toString());
 
             // 로그로 상태값을 기록 및 출력
-                log.info("ERROR CODE NUMBER :::::::::::::::::::::::::  ERROR CODE : " + statusCode +" 번 에러");
+            log.info("ERROR CODE NUMBER ::::::::::::::::::::::::::::::::::::::::::::   : " + statusCode + " 번 에러");
 
             // 400 error
             if (statusCode == HttpStatus.BAD_REQUEST.value()) {
-                log.info("ERROR CODE MSG ::::::::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
-                log.info("ERROR CODE TIMESTAMP ::::::::::::::::::::::  TIMESTAMP : " + new Date());
+                log.info("ERROR CODE MSG :::::::::::::::::::::::::::::::::::::::::::::::   " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE TIMESTAMP :::::::::::::::::::::::::::::::::::::::::   : " + new Date());
                 return ERROR_400_PAGE_PATH;
             }
 
             // 403 error
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                log.info("ERROR CODE MSG ::::::::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
-                log.info("ERROR CODE TIMESTAMP ::::::::::::::::::::::  TIMESTAMP : " + new Date());
+                log.info("ERROR CODE MSG :::::::::::::::::::::::::::::::::::::::::::::::   " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE TIMESTAMP :::::::::::::::::::::::::::::::::::::::::   : " + new Date());
                 return ERROR_403_PAGE_PATH;
             }
 
             // 404 error
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
-                log.info("ERROR CODE MSG ::::::::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
-                log.info("ERROR CODE TIMESTAMP ::::::::::::::::::::::  TIMESTAMP : " + new Date());
+                log.info("ERROR CODE MSG :::::::::::::::::::::::::::::::::::::::::::::::   " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE TIMESTAMP :::::::::::::::::::::::::::::::::::::::::   : " + new Date());
                 return ERROR_404_PAGE_PATH;
             }
 
             // 408 error
             if (statusCode == HttpStatus.REQUEST_TIMEOUT.value()) {
-                log.info("ERROR CODE MSG ::::::::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
-                log.info("ERROR CODE TIMESTAMP ::::::::::::::::::::::  TIMESTAMP : " + new Date());
+                log.info("ERROR CODE MSG :::::::::::::::::::::::::::::::::::::::::::::::   " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE TIMESTAMP :::::::::::::::::::::::::::::::::::::::::   : " + new Date());
                 return ERROR_408_PAGE_PATH;
             }
 
             // 500 error
             if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                log.info("ERROR CODE MSG ::::::::::::::::::::::::::::  MSG: " + httpStatus.getReasonPhrase());
-                log.info("ERROR CODE TIMESTAMP ::::::::::::::::::::::  TIMESTAMP : " + new Date());
-        //        log.info("ERROR CODE 500 :::::::::::  trace:" + )
+                log.info("ERROR CODE MSG :::::::::::::::::::::::::::::::::::::::::::::::   " + httpStatus.getReasonPhrase());
+                log.info("ERROR CODE TIMESTAMP :::::::::::::::::::::::::::::::::::::::::   : " + new Date());
+                //        log.info("ERROR CODE 500 :::::::::::  trace:" + )
                 return ERROR_500_PAGE_PATH;
             }
         }
+
+        log.info("ERROR CODE MSG :::::::::::::::::::::::::::::::::::::::::::::::   " + httpStatus.getReasonPhrase());
+        log.info("ERROR CODE TIMESTAMP :::::::::::::::::::::::::::::::::::::::::   : " + new Date());
 
         // 정의한 에러 외 모든 에러는 error/error 페이지로 보낸다.
         return ERROR_ETC_PAGE_PATH;
     }
 
+    public Object Error(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
 
+        return httpStatus;
+    }
 }

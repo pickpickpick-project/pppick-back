@@ -1,20 +1,22 @@
 package com.pickx3.domain.entity.portfolio_package;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-public class PortpolioTag {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long portfolioTagNum;
+public class PortfolioTag {
+
+    @Column(name="portfolioTagNum")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolioNum")
     private Portfolio portfolio;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToMany
     @JoinColumn(name = "tagNum")
-    private Tag tag;
+    private List<Tag> tag;
 
 
 }

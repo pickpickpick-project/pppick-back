@@ -7,12 +7,14 @@ import javax.persistence.*;
 
 @Entity
 public class Favorites {
+
+    @Column(name="favoritesNum")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long favoritesNum;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "userNum")
-    private User userInfo;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "portfolioNum")
