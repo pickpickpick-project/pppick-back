@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 @Api(tags = "상품 CRUD 컨트롤러")
@@ -27,7 +28,7 @@ public class WorkController {
     * */
     @ApiOperation(value = "상품 정보 저장", notes = "회원은 상품을 등록할 수 있다")
     @PostMapping
-    public ResponseEntity<?> createWork(@RequestBody WorkForm workForm){
+    public ResponseEntity<?> createWork(@RequestBody @Valid WorkForm workForm){
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
@@ -89,7 +90,7 @@ public class WorkController {
      * */
     @ApiOperation(value = "상품 정보 수정", notes = "회원은 상품정보를 수정 할 수 있다")
     @PatchMapping
-    public ResponseEntity<?> updateWork(@RequestBody WorkUpdateForm workUpdateForm){
+    public ResponseEntity<?> updateWork(@RequestBody @Valid WorkUpdateForm workUpdateForm){
         ApiResponseMessage result;
         try{
             HashMap data = new HashMap();
