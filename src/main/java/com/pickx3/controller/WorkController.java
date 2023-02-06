@@ -10,7 +10,9 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -40,6 +42,21 @@ public class WorkController {
             result = new ApiResponseMessage(true, "Success", "200", "",data);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
+            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @ApiOperation(value = "상품 상세 정보 조회", notes = "회원은 상품 상세 정보를 조회할 수 있다")
+    @GetMapping
+    public ResponseEntity<?> getWorkInfo(@RequestParam(name = "workNum") Long workNum){
+        ApiResponseMessage result;
+        try{
+            HashMap data = new HashMap();
+            data.put("workInfo", workService.getWorkInfo(workNum));
+            result = new ApiResponseMessage(true, "Success" ,"200", "", data );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
             result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
