@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Service
 public class WorkService {
@@ -18,6 +20,9 @@ public class WorkService {
     @Autowired
     private UserRepository userRepository;
 
+    /*
+    * 상품 등록
+    * */
     public Work createWork(WorkForm workForm){
         User user = userRepository.findById(workForm.getWorkerNum()).get();
         Work work = Work.builder()
@@ -31,6 +36,16 @@ public class WorkService {
         return work;
     }
 
+    /*
+     * 회원별 상품 목록 조회
+     * */
+    public List<Work> getWorks(Long workerNum){
+        return workRepository.findByUserInfo_id(workerNum);
+    }
+    
+    /*
+     * 상품 상세정보 조회
+     * */
     public Work getWorkInfo(Long workNum){
         return workRepository.findById(workNum).get();
     }

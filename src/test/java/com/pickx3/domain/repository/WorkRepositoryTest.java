@@ -1,15 +1,19 @@
 package com.pickx3.domain.repository;
 
 import com.nimbusds.openid.connect.sdk.claims.UserInfo;
+import com.pickx3.domain.entity.user_package.Role;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
@@ -21,6 +25,12 @@ class WorkRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @BeforeEach
+    public void clear(){
+        userRepository.deleteAll();
+        workRepository.deleteAll();
+    }
 
     @Test
     public void 상품등록(){
@@ -36,8 +46,48 @@ class WorkRepositoryTest {
 
         Assertions.assertEquals(1L, result.getWorkNum());
     }
+        
+    @Test
+    public void 상품목록조회(){
+        User user = 회원생성();
+        User user2 = User.builder()
+                .email("test2@naver.com")
+                .nickName("test2")
+                .name("test2")
+                .providerId("naver")
+                .role(Role.USER)
+                .build();
+        userRepository.save(user2);
 
+        List<Work> works = new ArrayList<>();
 
+//      given
+        for(int i = 0; i < 5; i++){
+            Work work =  Work.builder()
+                    .workName("상품"+i)
+                    .workDesc("상품 설명" + i)
+                    .workPrice(25000 + i)
+                    .userInfo(user)
+                    .build();
+
+            workRepository.save(work);
+            works.add(work);
+        }
+
+        Work work2 = Work.builder()
+                .workName("상품6")
+                .workDesc("상품 설명6")
+                .workPrice(35000)
+                .userInfo(user2)
+                .build();
+        workRepository.save(work2);
+        works.add(work2);
+//      when
+        int size = workRepository.findByUserInfo_id(user.getId()).size();
+
+        Assertions.assertEquals(5, size);
+    }
+    
     @Test
     public void 상품상세정보조회(){
         User user = 회원생성();
