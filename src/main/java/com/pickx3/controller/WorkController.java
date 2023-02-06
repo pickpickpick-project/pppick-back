@@ -10,16 +10,13 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-
 @Api(tags = "상품 CRUD 컨트롤러")
-@RestController("/work")
+@RequestMapping("/works")
+@RestController
 public class WorkController {
     @Autowired
     private WorkService workService;
@@ -52,8 +49,8 @@ public class WorkController {
      * 회원별 상품 목록 조회
      * */
     @ApiOperation(value = "회원별 상품 목록 조회", notes = "회원은 자신이 등록한 상품 목록을 조회 할 수 있다")
-    @GetMapping
-    public ResponseEntity<?> getWorks(@RequestParam(value = "workerNum") Long workerNum){
+    @GetMapping("/users/{workerNum}")
+    public ResponseEntity<?> getWorks(@PathVariable(value = "workerNum") Long workerNum){
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
@@ -67,13 +64,13 @@ public class WorkController {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
     }
-    
+
    /*
-    * 상품 상세정 조회
+    * 상품 상세정보 조회
     * */
     @ApiOperation(value = "상품 상세 정보 조회", notes = "회원은 상품 상세 정보를 조회할 수 있다")
-    @GetMapping
-    public ResponseEntity<?> getWorkInfo(@RequestParam(name = "workNum") Long workNum){
+    @GetMapping("/{workNum}")
+    public ResponseEntity<?> getWorkInfo(@PathVariable(value = "workNum") Long workNum){
         ApiResponseMessage result;
         try{
             HashMap data = new HashMap();
