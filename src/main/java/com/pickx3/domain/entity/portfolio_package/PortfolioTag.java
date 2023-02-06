@@ -1,8 +1,14 @@
 package com.pickx3.domain.entity.portfolio_package;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class PortfolioTag {
 
@@ -14,9 +20,10 @@ public class PortfolioTag {
     @JoinColumn(name = "portfolioNum")
     private Portfolio portfolio;
 
-    @OneToMany
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "tagNum")
-    private List<Tag> tag;
+    private Tag tag;
+
 
 
 }

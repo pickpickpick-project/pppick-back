@@ -1,6 +1,8 @@
 package com.pickx3.dto;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
+import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
+import com.pickx3.domain.entity.portfolio_package.Tag;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +11,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -25,15 +29,6 @@ public class PortfolioRequestDto {
     private int portfolioType;
 
     private Date portfolioDate;
-
-    @Builder
-    public PortfolioRequestDto(Long id, User userNum, String portfolioName, int portfolioType, Date portfolioDate) {
-        this.id = id;
-        this.userNum = userNum;
-        this.portfolioName = portfolioName;
-        this.portfolioType = portfolioType;
-        this.portfolioDate = portfolioDate;
-    }
 
     // DTO -> Entity
     public Portfolio toEntity(){

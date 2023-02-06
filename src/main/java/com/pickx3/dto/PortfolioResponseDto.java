@@ -1,10 +1,14 @@
 package com.pickx3.dto;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
+import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
+import com.pickx3.domain.entity.portfolio_package.Tag;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 public class PortfolioResponseDto {
@@ -17,8 +21,6 @@ public class PortfolioResponseDto {
     private int portfolioType;
 
     private Date portfolioDate;
-
-
 
 
     // Entitiy -> DTO

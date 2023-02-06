@@ -1,6 +1,10 @@
 package com.pickx3.domain.entity.portfolio_package;
 
+import lombok.Builder;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Tag {
@@ -11,7 +15,13 @@ public class Tag {
 
     private String tagName;
 
-    private int tagHits;
+    @OneToMany(mappedBy = "id")
+    private List<PortfolioTag> tags = new ArrayList<>();
 
-
+    @Builder
+    public Tag(Long id, String tagName, List<PortfolioTag> tags) {
+        this.id = id;
+        this.tagName = tagName;
+        this.tags = tags;
+    }
 }
