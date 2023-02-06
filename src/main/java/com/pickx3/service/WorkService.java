@@ -30,4 +30,8 @@ public class WorkService {
         workRepository.save(work);
         return work;
     }
+
+    public Work getWorkInfo(Long workNum){
+        return workRepository.findById(workNum).get();
+    }
 }
