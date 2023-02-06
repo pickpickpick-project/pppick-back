@@ -67,4 +67,11 @@ public class WorkService {
 
         return work;
     }
+
+    /*
+     * 상품 정보 삭제
+     * */
+    public void removeWork(Long workNum){
+        workRepository.deleteById(workNum);
+    }
 }
