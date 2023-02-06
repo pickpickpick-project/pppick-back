@@ -100,9 +100,9 @@ class WorkRepositoryTest {
                 .userInfo(user)
                 .build();
 
-        workRepository.save(work);
+        work = workRepository.save(work);
 
-        Work result = workRepository.findById(7L).get();
+        Work result = workRepository.findById(work.getWorkNum()).get();
 
         assertThat(result).usingRecursiveComparison().isEqualTo(work);
     }
@@ -118,6 +118,33 @@ class WorkRepositoryTest {
         work2.updateWork("만화", 55000, "만화 설명");
 
         assertEquals(work.getWorkName(), work2.getWorkName());
+    }
+
+    @Test
+    public void 상품정보삭제(){
+//      given
+        User user = 회원생성();
+        List<Work> works = new ArrayList<>();
+
+        for(int i = 0; i < 5; i++){
+            Work work =  Work.builder()
+                    .workName("상품"+i)
+                    .workDesc("상품 설명" + i)
+                    .workPrice(25000 + i)
+                    .userInfo(user)
+                    .build();
+
+            workRepository.save(work);
+            works.add(work);
+        }
+
+//      when
+        workRepository.deleteById(2L);
+
+//      then
+        assertEquals(4, workRepository.findAll().size() );
+
+
     }
 
     public User 회원생성(){
