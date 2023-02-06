@@ -25,6 +25,7 @@ public class WorkService {
     * */
     public Work createWork(WorkForm workForm){
         User user = userRepository.findById(workForm.getWorkerNum()).get();
+
         Work work = Work.builder()
                 .workName(workForm.getWorkName())
                 .workDesc(workForm.getWorkDesc())
@@ -48,5 +49,19 @@ public class WorkService {
      * */
     public Work getWorkInfo(Long workNum){
         return workRepository.findById(workNum).get();
+    }
+
+    /*
+     * 상품 정보 수정
+     * */
+    public void updateWork(WorkForm workForm){
+        Long workNum = workForm.getWorkNum();
+        String workName = workForm.getWorkName();
+        int workPrice = workForm.getWorkPrice();
+        String workDesc = workForm.getWorkDesc();
+
+        Work work = workRepository.findById(workNum).get();
+
+        work.updateWork(workName, workPrice, workDesc);
     }
 }
