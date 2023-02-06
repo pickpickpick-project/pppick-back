@@ -1,6 +1,7 @@
 package com.pickx3.domain.repository;
 
 import com.nimbusds.openid.connect.sdk.claims.UserInfo;
+import com.pickx3.domain.entity.user_package.Role;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
 import org.junit.jupiter.api.Assertions;
@@ -47,6 +48,15 @@ class WorkRepositoryTest {
     @Test
     public void 상품목록조회(){
         User user = 회원생성();
+        User user2 = User.builder()
+                .email("test2@naver.com")
+                .nickName("test2")
+                .name("test2")
+                .providerId("naver")
+                .role(Role.USER)
+                .build();
+        userRepository.save(user2);
+
         List<Work> works = new ArrayList<>();
 
 //      given
@@ -62,8 +72,16 @@ class WorkRepositoryTest {
             works.add(work);
         }
 
+        Work work2 = Work.builder()
+                .workName("상품6")
+                .workDesc("상품 설명6")
+                .workPrice(35000)
+                .userInfo(user2)
+                .build();
+        workRepository.save(work2);
+        works.add(work2);
 //      when
-        int size = workRepository.findAll().size();
+        int size = workRepository.findByUserInfo_id(user.getId()).size();
 
         Assertions.assertEquals(5, size);
     }
