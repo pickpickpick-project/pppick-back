@@ -3,6 +3,7 @@ package com.pickx3.service;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.dto.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
 import net.bytebuddy.asm.MemberRemoval;
@@ -25,6 +26,7 @@ public class WorkService {
     * */
     public Work createWork(WorkForm workForm){
         User user = userRepository.findById(workForm.getWorkerNum()).get();
+
         Work work = Work.builder()
                 .workName(workForm.getWorkName())
                 .workDesc(workForm.getWorkDesc())
@@ -48,5 +50,21 @@ public class WorkService {
      * */
     public Work getWorkInfo(Long workNum){
         return workRepository.findById(workNum).get();
+    }
+
+    /*
+     * 상품 정보 수정
+     * */
+    public Work updateWork(WorkUpdateForm workUpdateForm){
+        Long workNum = workUpdateForm.getWorkNum();
+        String workName = workUpdateForm.getWorkName();
+        int workPrice = workUpdateForm.getWorkPrice();
+        String workDesc = workUpdateForm.getWorkDesc();
+
+        Work work = workRepository.findById(workNum).get();
+
+        work.updateWork(workName, workPrice, workDesc);
+
+        return work;
     }
 }
