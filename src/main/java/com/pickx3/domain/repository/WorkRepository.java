@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface WorkRepository extends JpaRepository<Work, Long> {
 
-    List<Work> findByUserInfo_id(Long userNum);
+    List<Work> findByUserInfo_id(Long workerNum);
 }
