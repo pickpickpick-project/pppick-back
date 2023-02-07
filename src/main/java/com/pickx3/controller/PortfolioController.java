@@ -1,20 +1,17 @@
 package com.pickx3.controller;
 
-
-import com.pickx3.domain.entity.portfolio_package.Portfolio;
+import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.dto.PortfolioRequestDto;
 import com.pickx3.security.CurrentUser;
-import com.pickx3.security.UserPrincipal;
-import com.pickx3.security.token.TokenProvider;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.ApiResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 @Slf4j
@@ -34,7 +31,6 @@ public class PortfolioController {
         /*
             userNum
          */
-
         data.put("Portfolio_id", portfolioService.savePf(pfDto));
 
         return getResponseEntity(data);
@@ -63,8 +59,8 @@ public class PortfolioController {
     @GetMapping("/portfolio/{id}")
     public ResponseEntity<?> read(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap();
+        data.put("read", portfolioService.read(id) );
 
-        data.put("", portfolioService.read(id) );
 
         return getResponseEntity(data);
     }
@@ -77,7 +73,7 @@ public class PortfolioController {
     public ResponseEntity<?> list(){
         HashMap data = new HashMap();
 
-        data.put("", portfolioService.list());
+        data.put("list", portfolioService.list());
 
         return getResponseEntity(data);
     }
@@ -98,7 +94,6 @@ public class PortfolioController {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
     }
-
 
 }
 
