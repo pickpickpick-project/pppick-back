@@ -30,7 +30,7 @@ public class Portfolio {
     @CreationTimestamp
     private Date portfolioDate;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioImg> portfolioImgList = new ArrayList<>();
 
 

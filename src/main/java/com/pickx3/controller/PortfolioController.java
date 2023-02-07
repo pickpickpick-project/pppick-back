@@ -2,10 +2,9 @@ package com.pickx3.controller;
 
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
-import com.pickx3.domain.entity.portfolio_package.Tag;
-import com.pickx3.domain.repository.TagRepository;
 import com.pickx3.dto.PortfolioRequestDto;
-import com.pickx3.dto.TagRequestDto;
+import com.pickx3.security.CurrentUser;
+import com.pickx3.security.UserPrincipal;
 import com.pickx3.security.token.TokenProvider;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.ApiResponseMessage;
@@ -15,51 +14,72 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
 public class PortfolioController {
     private final PortfolioService portfolioService;
-    private final TokenProvider tokenProvider;
 
     /**
-     * 포트폴리오 등록
+     * 포폴 등록
      * @param pfDto
      * @return
      */
     @PostMapping("/portfolio/save")
     public ResponseEntity<?> savePf(@RequestBody PortfolioRequestDto pfDto) {
-        ApiResponseMessage result = null;
         HashMap data = new HashMap<>();
-        Portfolio portfolio = portfolioService.savePf(pfDto);
+        /*
+            userNum
+         */
 
-        try{
-            data.put("portfolio_id", portfolio.getId());
+        data.put("Portfolio_id", portfolioService.savePf(pfDto));
 
-            result = new ApiResponseMessage(true, "Success", "200", "",data);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (Exception e) {
-            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
-            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        }
+        return getResponseEntity(data);
     }
 
+    /**
+     * 포폴 삭제
+     * @param id
+     * @return
+     */
     @DeleteMapping("/portfolio/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id){
-        ApiResponseMessage result = null;
+    public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
 
-        try{
-            portfolioService.delete(id);
-            result = new ApiResponseMessage(true, "Success", "200", "",data);
-            return new ResponseEntity<>(result, HttpStatus.OK);
-        } catch (Exception e) {
-            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
-            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        }
+        portfolioService.delete(id);
+
+        return getResponseEntity(data);
+    }
+
+    /**
+     * 포폴 조회
+     * @param id
+     * @return
+     * @throws IllegalAccessException
+     */
+    @GetMapping("/portfolio/{id}")
+    public ResponseEntity<?> read(@PathVariable long id) throws IllegalAccessException {
+        HashMap data = new HashMap();
+
+        data.put("", portfolioService.read(id) );
+
+        return getResponseEntity(data);
+    }
+
+    /**
+     * 포폴 목록 전체 조회
+     * @return
+     */
+    @GetMapping("/portfolio/list")
+    public ResponseEntity<?> list(){
+        HashMap data = new HashMap();
+
+        data.put("", portfolioService.list());
+
+        return getResponseEntity(data);
     }
 
 
@@ -68,10 +88,16 @@ public class PortfolioController {
 
 
 
-
-
-
-
+    private ResponseEntity<?> getResponseEntity(HashMap data) {
+        ApiResponseMessage result;
+        try{
+            result = new ApiResponseMessage(true, "Success", "200", "",data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 }

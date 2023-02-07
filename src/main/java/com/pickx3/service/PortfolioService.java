@@ -2,27 +2,18 @@ package com.pickx3.service;
 
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
-import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
-import com.pickx3.domain.entity.portfolio_package.Tag;
-import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.TagRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.dto.PortfolioRequestDto;
-import com.pickx3.dto.TagRequestDto;
-import com.pickx3.exception.BadRequestException;
-import com.pickx3.security.UserPrincipal;
+import com.pickx3.dto.PortfolioResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 
 @Slf4j
@@ -33,19 +24,41 @@ public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final TagRepository tagRepository;
     private final UserRepository userRepository;
+
     //저장
     @Transactional
-    public Portfolio savePf(PortfolioRequestDto pfDto){
+    public Long savePf(PortfolioRequestDto pfDto){
+/*
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("id가 존재하지 않습니다." + id));
 
-        Portfolio portfolio = portfolioRepository.save(pfDto.toEntity());
+        pfDto.setUserNum(user);
+*/
+        Portfolio portfolio = pfDto.toEntity();
+        portfolioRepository.save(portfolio);
 
-        return portfolio;
+        return portfolio.getId();
     }
 
     //삭제
-    public void delete(long id){
-        Portfolio portfolio = portfolioRepository.findById(id).get();
+    public void delete(long id) throws IllegalAccessException {
+        Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오가 존재하지 않음 id ="+id));
+        portfolioRepository.delete(portfolio);
+    }
 
-        portfolioRepository.deleteById(id);
+    //조회
+    public PortfolioResponseDto read(long id) throws IllegalAccessException {
+        Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오 찾을 수 없음 id =" + id));
+
+        return new PortfolioResponseDto(portfolio);
+    }
+
+    //전체 조회
+    public List<PortfolioResponseDto> list(){
+        List<Portfolio> portfolio = portfolioRepository.findAll();
+        List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();
+        portfolio.forEach(s -> portfolioResponseDtos.add(new PortfolioResponseDto(s)));
+
+        return portfolioResponseDtos;
     }
 }
