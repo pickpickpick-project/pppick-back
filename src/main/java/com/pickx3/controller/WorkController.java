@@ -102,4 +102,21 @@ public class WorkController {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
     }
+
+    /*
+     * 상품 정보 수정
+     * */
+    @ApiOperation(value = "상품 정보 삭제", notes = "회원은 상품정보를 삭제 할 수 있다")
+    @DeleteMapping("/{workNum}")
+    public ResponseEntity<?> removeWork(@PathVariable(value = "workNum") Long workNum){
+        ApiResponseMessage result;
+        try{
+            workService.removeWork(workNum);
+            result = new ApiResponseMessage(true, "Success" ,"200", "", null );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new ApiResponseMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
