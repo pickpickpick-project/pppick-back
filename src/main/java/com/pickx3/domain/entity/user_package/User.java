@@ -9,14 +9,14 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@Table(name = "UserInfo")
+@Table(name = "userInfo")
 @NoArgsConstructor
 public class User {
-    @Id
-    @Column(name = "userNum")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userNum")
+    private Long id;
     @Column(name="userName")
     private String name;
 
@@ -52,6 +52,7 @@ public class User {
     @Column(name = "userProviderId")
     private String providerId;
 
+
     @Builder
     private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName) {
         this.name = name;
@@ -70,4 +71,6 @@ public class User {
         this.imageUrl = imageUrl;
         return this;
     }
+
+
 }

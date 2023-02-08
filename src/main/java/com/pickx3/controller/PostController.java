@@ -1,0 +1,74 @@
+package com.pickx3.controller;
+
+import com.pickx3.domain.dto.*;
+import com.pickx3.domain.entity.user_package.User;
+import com.pickx3.service.PostService;
+import com.pickx3.service.PostImgService;
+import com.pickx3.service.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RequiredArgsConstructor
+@RestController
+public class PostController {
+
+    private final PostService postService;
+    private final PostImgService postImgService;
+    private final UserService userService;
+
+    @PostMapping(path ="/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long create(@ModelAttribute PostFileVO postFileVO) throws Exception {
+	// Member id로 조회하는 메소드 존재한다고 가정하에 진행
+        User user = userService.searchUserById(
+        	Long.parseLong(postFileVO.getUserNum()));
+
+        PostCreateRequestDto requestDto =
+        	PostCreateRequestDto.builder()
+            			     .user(user)
+                             .postTitle(postFileVO.getPostTitle())
+            			     .postContent(postFileVO.getPostContent())
+                             .postPwd(postFileVO.getPostPwd())
+            			     .build();
+
+        return postService.create(requestDto, postFileVO.getFiles());
+    }
+
+
+    @PutMapping("/post/{id}")
+    public Long update(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
+        return postService.update(id, requestDto);
+    }
+
+    //개별 조회
+    @GetMapping("/post/{id}")
+    public PostResponseDto searchById(@PathVariable Long id) {
+        return postService.searchById(id);
+    }
+
+    //전체 조회(목록)
+    @GetMapping("/post")
+    public List<PostListResponseDto> searchAllDesc() {
+        return postService.searchAllDesc();
+    }
+
+    @DeleteMapping("/post/{id}")
+    public void delete(@PathVariable Long id){
+        postService.delete(id);
+    }
+
+
+
+
+
+
+}

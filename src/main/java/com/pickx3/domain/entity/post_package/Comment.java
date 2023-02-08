@@ -10,11 +10,15 @@ import java.time.LocalDateTime;
 @Getter @Setter
 @Entity
 public class Comment {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name="commentNum")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentNum;
 
+    @Column(name = "commentContent")
     private String commentContent;
 
+    @Column(name = "commentDate")
     private LocalDateTime commentDate;
 
     @ManyToOne
