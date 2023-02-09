@@ -42,4 +42,14 @@ public class FavoritesService {
         return favorites.getId();
     }
 
+    // 좋아요 취소
+    public void delete(FavoritesDto favoritesDto) {
+        Portfolio portfolio = portfolioRepository.findById(favoritesDto.getPortfolio().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
+
+        User user = userRepository.findById(favoritesDto.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
+
+        Favorites favorites = favoriteRepository.findByUserAndPortfolio(user, portfolio).orElseThrow(() -> new IllegalArgumentException("id(user, portfolio)가 존재하지 않습니다." ));
+
+        favoriteRepository.delete(favorites);
+    }
 }

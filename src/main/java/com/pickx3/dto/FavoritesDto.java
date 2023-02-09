@@ -19,6 +19,7 @@ public class FavoritesDto {
 
     private Portfolio portfolio;
 
+    // DTO -> Entity
     @Builder
     public Favorites toEntity(){
         return Favorites.builder()
