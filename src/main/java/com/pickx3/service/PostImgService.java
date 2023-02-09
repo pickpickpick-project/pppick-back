@@ -29,7 +29,7 @@ public class PostImgService {
         PostImgDto postImgDto = PostImgDto.builder()
                 .origFileName(entity.getOrigFileName())
                 .filePath(entity.getFilePath())
-                .fileSize(entity.getFileSize())
+                .postImgSize(entity.getPostImgSize())
                 .build();
 
         return postImgDto;

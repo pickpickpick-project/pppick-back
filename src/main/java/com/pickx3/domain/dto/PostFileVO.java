@@ -16,6 +16,6 @@ public class PostFileVO {
     private String postContent;
     private String postPwd;
 
-    @Schema(title = "멀티파트 File Arrya", description = "멀티 파트 File Array")
+    @Schema(title = "멀티파트 File Array", description = "멀티 파트 File Array")
     private List<MultipartFile> files;
 }

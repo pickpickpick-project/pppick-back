@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 public class PostImgDto {
     private String postImgOriginName;
     private String postImgSrcPath;
-    private Long fileSize;
+    private String postImgName;
+    private Long postImgSize;
 
     @Builder
-    public PostImgDto(String origFileName, String filePath, Long fileSize){
+    public PostImgDto(String origFileName, String filePath, Long postImgSize, String postImgName){
         this.postImgOriginName = origFileName;
+        this.postImgName = postImgName;
         this.postImgSrcPath = filePath;
-        this.fileSize = fileSize;
+        this.postImgSize = postImgSize;
     }
 }

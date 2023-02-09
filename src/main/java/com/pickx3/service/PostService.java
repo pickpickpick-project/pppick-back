@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -38,17 +39,23 @@ public class PostService {
                 requestDto.getPostPwd()
         );
 
+        Post post1 = postRepository.save(post);
+
+
+
         List<PostImg> postImgList = fileHandler.parseFileInfo(files);
 
         // 파일이 존재할 때에만 처리
         if(!postImgList.isEmpty()) {
             for(PostImg postImg : postImgList) {
                 // 파일을 DB에 저장
-                post.addPostImg(postImgRepository.save(postImg));
+                postImg.setPost(post1);
+                post1.addPostImg(postImgRepository.save(postImg));
             }
         }
 
-        return postRepository.save(post).getPostNum();
+
+        return post1.getPostNum();
     }
 
     @Transactional

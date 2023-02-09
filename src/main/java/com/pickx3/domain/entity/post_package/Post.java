@@ -15,7 +15,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "post")
+@Table(name = "Post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +34,8 @@ public class Post {
     @Column(name="postPwd")
     private String pwd;
 
-    @Column(name = "postDate", nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp date;
+    @Column(name = "postDate")
+    private Date date;
 
     @OneToMany(
             mappedBy = "post",
