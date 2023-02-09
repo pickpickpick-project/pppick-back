@@ -25,28 +25,12 @@ public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
-/*
-    //저장
+
+    // 저장
     @Transactional
     public Long savePf(PortfolioRequestDto pfDto){
 
-       Portfolio portfolio = pfDto.toEntity();
-      // Tag tag = tagDto.toEntity();
-      // List<String> a = tagUtil.tagParser(tag);
-
-      //  tagRepository.save(tag);
-       portfolioRepository.save(portfolio);
-
-
-       return portfolio.getId();
-
-    }
-*/
-
-    @Transactional
-    public Long savePf(PortfolioRequestDto pfDto){
-
-        log.debug("user Num = = = = " + pfDto.getUser().getId());
+        log.debug(" 로그인 유저 ID 값 ========================= " + pfDto.getUser().getId());
         User user = userRepository.findById(pfDto.getUser().getId()).orElseThrow(() ->
                 new IllegalArgumentException("id가 존재하지 않습니다." ));
 
@@ -59,16 +43,10 @@ public class PortfolioService {
                 .user(pfDto.getUser())
                 .build();
 
-
         portfolioRepository.save(portfolio);
 
-
         return portfolio.getId();
-
-
     }
-
-
 
     //삭제
     public void delete(long id) throws IllegalAccessException {
@@ -81,10 +59,9 @@ public class PortfolioService {
         Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오 찾을 수 없음 id =" + id));
 
         return new PortfolioResponseDto(portfolio);
-
     }
 
-    //전체 조회
+    //전체 목록 조회
     public List<PortfolioResponseDto> list(){
         List<Portfolio> portfolio = portfolioRepository.findAll();
         List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();
