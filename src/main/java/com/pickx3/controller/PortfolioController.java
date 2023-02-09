@@ -38,8 +38,9 @@ public class PortfolioController {
      * @return
      */
     @DeleteMapping("/portfolio/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id){
+    public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
+        portfolioService.delete(id);
 
         return getResponseEntity(data);
     }
@@ -76,7 +77,7 @@ public class PortfolioController {
      */
 
     private ResponseEntity<?> getResponseEntity(Object data) {
-        rsMessage result;
+        rsMessage result = null;
         try{
             result = new rsMessage(true, "Success", "200", "요청에 성공 하셧습니다", data);
             return new ResponseEntity<>(result, HttpStatus.OK);

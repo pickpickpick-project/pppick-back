@@ -31,8 +31,7 @@ public class PortfolioService {
     public Long savePf(PortfolioRequestDto pfDto){
 
         log.debug(" 로그인 유저 ID 값 ========================= " + pfDto.getUser().getId());
-        User user = userRepository.findById(pfDto.getUser().getId()).orElseThrow(() ->
-                new IllegalArgumentException("id가 존재하지 않습니다." ));
+        User user = userRepository.findById(pfDto.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
 
         pfDto.setUser(user);
 

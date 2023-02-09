@@ -12,6 +12,7 @@ public class rsMessage {
     private String msg;
     private String code;
     private String errorMsg;
+
     private Object data;
 
     public rsMessage(Boolean result, String msg, String errorCode, String errorMsg) {

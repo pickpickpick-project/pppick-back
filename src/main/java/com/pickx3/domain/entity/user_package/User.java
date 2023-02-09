@@ -56,8 +56,13 @@ public class User {
     @Column(name = "userProviderId")
     private String providerId;
 
+
+    ///////////////////////////////////////////////////
     @OneToMany(mappedBy = "user")
     private List<Portfolio> portfolioList = new ArrayList<>();
+
+
+
 
     @Builder
     private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName) {

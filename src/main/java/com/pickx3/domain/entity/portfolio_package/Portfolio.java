@@ -1,6 +1,7 @@
 package com.pickx3.domain.entity.portfolio_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pickx3.domain.entity.Favorites;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,9 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @NoArgsConstructor
@@ -39,6 +38,10 @@ public class Portfolio {
     /* 연관관계 */
     @OneToMany(mappedBy = "id")
     private List<PortfolioTag> portfolioTagList = new ArrayList<>();
+
+    /* 연관관계 */
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
+    public Set<Favorites> favorites = new HashSet<>();
 
     @Builder
     public Portfolio(Long id, User user, String portfolioName, int portfolioType,
