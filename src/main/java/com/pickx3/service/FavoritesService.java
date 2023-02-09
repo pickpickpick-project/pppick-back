@@ -43,7 +43,7 @@ public class FavoritesService {
     }
 
     // 좋아요 취소
-    public void delete(FavoritesDto favoritesDto) {
+    public void cancelLike(FavoritesDto favoritesDto) {
         Portfolio portfolio = portfolioRepository.findById(favoritesDto.getPortfolio().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
 
         User user = userRepository.findById(favoritesDto.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
