@@ -8,10 +8,8 @@ import com.pickx3.domain.repository.TagRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.dto.PortfolioRequestDto;
 import com.pickx3.dto.PortfolioResponseDto;
-import com.pickx3.security.CurrentUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,35 +23,40 @@ import java.util.List;
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
-    private final TagRepository tagRepository;
     private final UserRepository userRepository;
-
+    private final TagRepository tagRepository;
+/*
     //저장
     @Transactional
     public Long savePf(PortfolioRequestDto pfDto){
 
        Portfolio portfolio = pfDto.toEntity();
+      // Tag tag = tagDto.toEntity();
+      // List<String> a = tagUtil.tagParser(tag);
+
+      //  tagRepository.save(tag);
        portfolioRepository.save(portfolio);
 
 
        return portfolio.getId();
 
     }
+*/
 
-/*
     @Transactional
-    public Long savePf(PortfolioRequestDto pfDto, @AuthenticationPrincipal User user){
+    public Long savePf(PortfolioRequestDto pfDto){
 
-        User finduser = userRepository.findById(user.getId()).orElseThrow(() ->
+        log.debug("user Num = = = = " + pfDto.getUser().getId());
+        User user = userRepository.findById(pfDto.getUser().getId()).orElseThrow(() ->
                 new IllegalArgumentException("id가 존재하지 않습니다." ));
 
-        pfDto.setUserNum(finduser);
+        pfDto.setUser(user);
 
         Portfolio portfolio = Portfolio.builder()
                 .portfolioName(pfDto.getPortfolioName())
                 .portfolioType(pfDto.getPortfolioType())
                 .portfolioDate(pfDto.getPortfolioDate())
-                .user(pfDto.getUserNum())
+                .user(pfDto.getUser())
                 .build();
 
 
@@ -65,7 +68,7 @@ public class PortfolioService {
 
     }
 
-*/
+
 
     //삭제
     public void delete(long id) throws IllegalAccessException {

@@ -3,6 +3,7 @@ package com.pickx3.domain.entity.portfolio_package;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -20,12 +21,13 @@ public class PortfolioImg {
     private Portfolio portfolio;
 
     @Column(name="portfolioImgOriginName")
-    private String originFilename;
+    private String originFilename;  //원본
 
     @Column(name="portfolioImgName")
-    private String storeFilename;
+    private String storeFilename;   //서버저장이름
 
     private String portfolioImgAddr;
+
 
     @Builder
     public PortfolioImg(Long id, Portfolio portfolio, String originFilename, String storeFilename, String portfolioImgAddr) {

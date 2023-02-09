@@ -1,15 +1,12 @@
 package com.pickx3.controller;
 
-import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.dto.PortfolioRequestDto;
-import com.pickx3.security.CurrentUser;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.ApiResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,6 +28,8 @@ public class PortfolioController {
         /*
             userNum
          */
+
+
         data.put("Portfolio_id", portfolioService.savePf(pfDto));
 
         return getResponseEntity(data);
@@ -77,6 +76,16 @@ public class PortfolioController {
 
         return getResponseEntity(data);
     }
+
+
+
+
+
+
+
+
+
+
 
 
 

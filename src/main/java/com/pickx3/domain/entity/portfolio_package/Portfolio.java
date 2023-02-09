@@ -1,5 +1,6 @@
 package com.pickx3.domain.entity.portfolio_package;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Portfolio {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "userNum")
     private User user;
@@ -30,15 +32,11 @@ public class Portfolio {
     @CreationTimestamp
     private Date portfolioDate;
 
+    /* 연관관계 */
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioImg> portfolioImgList = new ArrayList<>();
 
-
-
-
-
-
-
+    /* 연관관계 */
     @OneToMany(mappedBy = "id")
     private List<PortfolioTag> portfolioTagList = new ArrayList<>();
 
@@ -53,3 +51,5 @@ public class Portfolio {
         this.portfolioTagList = portfolioTagList;
     }
 }
+
+

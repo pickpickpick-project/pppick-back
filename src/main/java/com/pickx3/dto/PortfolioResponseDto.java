@@ -1,20 +1,16 @@
 package com.pickx3.dto;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
-import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
-import com.pickx3.domain.entity.portfolio_package.Tag;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 public class PortfolioResponseDto {
 
     private Long id;
-    private User userNum;
+    private User user;
 
     private String portfolioName;
 
@@ -26,7 +22,7 @@ public class PortfolioResponseDto {
     // Entitiy -> DTO
     public PortfolioResponseDto(Portfolio portfolio) {
         this.id = portfolio.getId();
-        this.userNum = portfolio.getUser();
+        this.user = portfolio.getUser();
         this.portfolioName = portfolio.getPortfolioName();
         this.portfolioType = portfolio.getPortfolioType();
         this.portfolioDate = portfolio.getPortfolioDate();
