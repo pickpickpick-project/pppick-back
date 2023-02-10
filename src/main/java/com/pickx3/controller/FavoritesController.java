@@ -18,7 +18,12 @@ public class FavoritesController {
 
     private final FavoritesService favoritesService;
 
-    @PostMapping("/Favorites/add")
+    /**
+     * 좋아요
+     * @param favoritesDto
+     * @return
+     */
+    @PostMapping("/favorites/add")
     public ResponseEntity<?> addLike(@RequestBody FavoritesDto favoritesDto){
         HashMap data = new HashMap<>();
         favoritesService.addLike(favoritesDto);
@@ -26,7 +31,12 @@ public class FavoritesController {
         return getResponseEntity(data);
     }
 
-    @PatchMapping("/Favorites/cancelLike")
+    /**
+     * 좋아요 취소
+     * @param favoritesDto
+     * @return
+     */
+    @PatchMapping("/favorites/cancelLike")
     public ResponseEntity<?> cancelLike(@RequestBody FavoritesDto favoritesDto){
         HashMap data = new HashMap<>();
         favoritesService.cancelLike(favoritesDto);
@@ -34,6 +44,18 @@ public class FavoritesController {
         return getResponseEntity(data);
     }
 
+    /**
+     * 좋아요한 작업물 '목록' 보기
+     * @param id
+     * @return
+     */
+    @GetMapping("/favorites/{id}")
+    public ResponseEntity<?> select(@PathVariable Long id){
+        HashMap data = new HashMap<>();
+        favoritesService.select(id);
+
+        return getResponseEntity(data);
+    }
 
     /**
      * 에러 메세지 호출

@@ -39,7 +39,7 @@ public class Portfolio {
     @OneToMany(mappedBy = "id")
     private List<PortfolioTag> portfolioTagList = new ArrayList<>();
 
-    /* 연관관계 */
+    /* 연관관계 */  //N+1 SET 으로 해결
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     public Set<Favorites> favorites = new HashSet<>();
 

@@ -19,6 +19,7 @@ public class PortfolioResponseDto {
     private Date portfolioDate;
 
 
+
     // Entitiy -> DTO
     public PortfolioResponseDto(Portfolio portfolio) {
         this.id = portfolio.getId();

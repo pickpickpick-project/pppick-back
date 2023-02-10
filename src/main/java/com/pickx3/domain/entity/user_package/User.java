@@ -59,7 +59,7 @@ public class User {
 
     ///////////////////////////////////////////////////
     @OneToMany(mappedBy = "user")
-    private List<Portfolio> portfolioList = new ArrayList<>();
+    private List<Portfolio> portfolio = new ArrayList<>();
 
 
 

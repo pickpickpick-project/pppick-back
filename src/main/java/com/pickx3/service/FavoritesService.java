@@ -8,12 +8,14 @@ import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.dto.FavoritesDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @RequiredArgsConstructor
-@Transactional
+@Transactional @Slf4j
 @Service
 public class FavoritesService {
 
@@ -51,5 +53,25 @@ public class FavoritesService {
         Favorites favorites = favoriteRepository.findByUserAndPortfolio(user, portfolio).orElseThrow(() -> new IllegalArgumentException("id(user, portfolio)가 존재하지 않습니다." ));
 
         favoriteRepository.delete(favorites);
+    }
+
+    //좋아요한 작업물 목록 조회
+    public Long select(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(" userid가 존재하지 않습니다." ));
+        log.debug("useruseruseruseruseruseruseruseruser = user.getId() === " + user.getId());
+
+        Portfolio portfolio = portfolioRepository.findByUser_portfolioId(user.getId());
+        log.debug("portfolioportfolioportfolioportfolio = user.getId() === " + user.getId());
+
+     //   Portfolio portfolio = Portfolio.builder();
+
+        Favorites favorites = favoriteRepository.findByUserAndPortfolio(user, portfolio).orElseThrow(() -> new IllegalArgumentException("id(user, portfolio)가 존재하지 않습니다." ));
+
+
+        Optional<Portfolio> portfolioList = portfolioRepository.findById(favorites.getPortfolio().getId());
+
+        return portfolioList.get().getId();
+
+    //where userid = {id}
     }
 }
