@@ -2,6 +2,7 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.WorkImg;
+import com.pickx3.domain.entity.work_package.dto.WorkImgForm;
 import com.pickx3.domain.repository.WorkImgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class WorkImgService {
     @Autowired
     private WorkImgRepository workImgRepository;
 
+    /**
+     * 상품 이미지 업로드
+     */
     public void uploadWorkImg(List<MultipartFile> files, Work work) {
 
         uploadPath = Paths.get(path).toAbsolutePath().normalize();
@@ -49,23 +53,35 @@ public class WorkImgService {
                     throw new IllegalStateException("형식이 잘못되었습니다");
                 }
 
-                // Copy file to the target location (Replacing existing file with the same name)
+                // target location에서 파일 복사
                 Path targetLocation = this.uploadPath.resolve(fileName);
                 Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-                WorkImg workImg = new WorkImg();
-                workImg.setWork(work);
-                workImg.setWorkImgName(fileName);
-                workImg.setWorkImgOriginName(originalFilename);
-                workImg.setWorkImgSrcPath(targetLocation.toString());
+                WorkImg workImg = WorkImg.builder()
+                        .workImgName(fileName)
+                        .workImgOriginName(originalFilename)
+                        .workImgSrcPath(targetLocation.toString())
+                        .work(work)
+                        .build();
 
                 workImgRepository.save(workImg);
+
+                file.getInputStream().close();
 
 //                return fileName;
             } catch (IOException ex) {
                 throw new IllegalStateException("파일이 저장되지않았습니다");
             }
         }
+    }
+
+    /**
+     * 상품 이미지 목록 조회
+     * @param workNum
+     * @return
+     */
+    public List<WorkImgForm> getWorkImages(Long workNum){
+        return workImgRepository.findByWork_workNum(workNum);
     }
 
 }
