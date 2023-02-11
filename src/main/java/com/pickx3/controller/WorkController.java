@@ -134,7 +134,6 @@ public class WorkController {
     public ResponseEntity<?> removeWork(@PathVariable(value = "workNum") Long workNum){
         ApiResponseMessage result;
         try{
-            workImgService.removeWorkImages(workNum);
             workService.removeWork(workNum);
             result = new ApiResponseMessage(true, "Success" ,"200", "", null );
             return new ResponseEntity<>(result, HttpStatus.OK);
