@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PayRepository extends JpaRepository<Payment, Long> {
-    List<PaymentForm> findByUser_userNum(Long userNum);
+    List<PaymentForm> findByUser_id(Long userNum);
 }
