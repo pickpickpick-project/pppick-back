@@ -59,7 +59,7 @@ public class User {
     private List<Portfolio> portfolio = new ArrayList<>();
 
     @Builder
-    private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName) {
+    private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName, String phone) {
         this.name = name;
         this.email = email;
         this.imageUrl = imageUrl;
@@ -69,6 +69,7 @@ public class User {
         this.provider = provider;
         this.providerId = providerId;
         this.nickName = nickName;
+        this.phone = phone;
     }
 
     public User update(String name, String imageUrl) {

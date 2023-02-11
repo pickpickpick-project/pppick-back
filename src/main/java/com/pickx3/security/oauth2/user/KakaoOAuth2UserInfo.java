@@ -30,5 +30,11 @@ public class KakaoOAuth2UserInfo extends OAuth2UserInfo {
     public String getImageUrl() {
         return (String) kakaoProperties.get("profile_image");
     }
+
+    @Override
+    public String getPhone() {
+//        return (String) kakaoProperties.get("phone_number");
+        return null;
+    }
 }
 
