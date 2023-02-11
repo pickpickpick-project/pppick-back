@@ -1,9 +1,9 @@
 package com.pickx3.service;
 
 import com.pickx3.domain.entity.user_package.User;
-import com.pickx3.domain.entity.work_package.Pay;
+import com.pickx3.domain.entity.work_package.Payment;
 import com.pickx3.domain.entity.work_package.Work;
-import com.pickx3.domain.entity.work_package.dto.pay.PayForm;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentForm;
 import com.pickx3.domain.repository.PayRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
@@ -21,21 +21,21 @@ public class PayService {
     @Autowired
     private WorkRepository workRepository;
 
-    public void payWork(PayForm payForm){
-        User user = userRepository.findById(payForm.getUserNum()).get();
-        Work work = workRepository.findById(payForm.getWorkNum()).get();
+    public void payWork(PaymentForm paymentForm){
+        User user = userRepository.findById(paymentForm.getUserNum()).get();
+        Work work = workRepository.findById(paymentForm.getWorkNum()).get();
 
-        Pay pay  = Pay.builder()
-                .payDate(LocalDate.now())
-                .payPrice(payForm.getPayPrice())
-                .payCount(payForm.getPayCount())
-                .payMethod(payForm.getPayMethod())
-                .pg(payForm.getPg())
-                .merchant_uid(payForm.getMerchant_uid())
+        Payment payment = Payment.builder()
+                .paymentDate(LocalDate.now())
+                .paymentPrice(paymentForm.getPaymentPrice())
+                .paymentCount(paymentForm.getPaymentCount())
+                .payMethod(paymentForm.getPayMethod())
+                .pg(paymentForm.getPg())
+                .merchant_uid(paymentForm.getMerchant_uid())
                 .user(user)
                 .work(work)
                 .build();
 
-        payRepository.save(pay);
+        payRepository.save(payment);
     }
 }

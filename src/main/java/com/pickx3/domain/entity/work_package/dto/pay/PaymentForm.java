@@ -3,11 +3,11 @@ package com.pickx3.domain.entity.work_package.dto.pay;
 import lombok.Data;
 
 @Data
-public class PayForm {
+public class PaymentForm {
     private String merchant_uid;
     private String pg;
-    private int payCount;
-    private int payPrice;
+    private int paymentCount;
+    private int paymentPrice;
     private String payMethod;
 
     private String buyerEmail;

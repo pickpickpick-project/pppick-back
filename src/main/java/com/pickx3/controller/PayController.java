@@ -1,6 +1,6 @@
 package com.pickx3.controller;
 
-import com.pickx3.domain.entity.work_package.dto.pay.PayForm;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentForm;
 import com.pickx3.service.PayService;
 import com.pickx3.util.ApiResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,11 +27,11 @@ public class PayController {
     * */
     @Operation(summary = "상품 결제", description = "회원은 상품을 결제할 수 있다")
     @PostMapping
-    public ResponseEntity<?> payWork(PayForm payForm){
+    public ResponseEntity<?> payWork(PaymentForm paymentForm){
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
-            payService.payWork(payForm);
+            payService.payWork(paymentForm);
 //            data.put("payInfo",payForm);
             result = new ApiResponseMessage(true, "Success", "200", "",data);
             return new ResponseEntity<>(result, HttpStatus.OK);

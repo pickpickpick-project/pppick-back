@@ -12,22 +12,22 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Pay{
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long payNum;
+    private Long paymentNum;
 
     private String merchant_uid;
 
-    private LocalDate payDate;
+    private LocalDate paymentDate;
 
-    private int payPrice;
+    private int paymentPrice;
 
     private String payMethod;
 
-    private int payCount;
+    private int paymentCount;
 
-    private int payStatus;
+    private int paymentStatus;
 
     private String pg;
 
