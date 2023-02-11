@@ -23,7 +23,7 @@ public class Work {
 
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name="userNum")
+    @JoinColumn(name="workerNum")
     private User userInfo;
 
 
