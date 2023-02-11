@@ -1,17 +1,21 @@
 package com.pickx3.domain.entity.user_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
 @Table(name = "UserInfo")
 @NoArgsConstructor
 public class User {
+
     @Id
     @Column(name = "userNum")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +55,14 @@ public class User {
 
     @Column(name = "userProviderId")
     private String providerId;
+
+
+    ///////////////////////////////////////////////////
+    @OneToMany(mappedBy = "user")
+    private List<Portfolio> portfolio = new ArrayList<>();
+
+
+
 
     @Builder
     private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName) {
