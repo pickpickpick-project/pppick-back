@@ -6,6 +6,7 @@ import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
 import com.pickx3.service.WorkImgService;
 import com.pickx3.service.WorkService;
 import com.pickx3.util.ApiResponseMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class WorkController {
     /*
     * 상품 등록
     * */
-//    @Operation(summary = "상품 정보 저장", description = "회원은 상품을 등록할 수 있다")
+    @Operation(summary = "상품 정보 저장", description = "회원은 상품을 등록할 수 있다")
     @PostMapping(consumes =  MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> createWork(@ModelAttribute WorkForm workForm){
         ApiResponseMessage result;
@@ -49,7 +50,7 @@ public class WorkController {
             data.put("workName",work.getWorkName());
             data.put("workPrice",work.getWorkPrice());
             data.put("workDesc",work.getWorkDesc());
-            data.put("workImg", workForm.getFiles());
+//            data.put("workImg", workForm.getFiles());
 
             result = new ApiResponseMessage(true, "Success", "200", "",data);
             return new ResponseEntity<>(result, HttpStatus.OK);
@@ -59,10 +60,12 @@ public class WorkController {
         }
     }
 
-    /*
+    /**
      * 회원별 상품 목록 조회
-     * */
-//    @Operation(summary = "회원별 상품 목록 조회", description = "회원은 자신이 등록한 상품 목록을 조회 할 수 있다")
+     * @param workerNum
+     * @return
+     */
+    @Operation(summary = "회원별 상품 목록 조회", description = "회원은 자신이 등록한 상품 목록을 조회 할 수 있다")
     @GetMapping("/users/{workerNum}")
     public ResponseEntity<?> getWorks(@Parameter(description = "회원 고유 ID", required = true, example = "1") @PathVariable(value = "workerNum") Long workerNum){
         ApiResponseMessage result;
@@ -79,10 +82,13 @@ public class WorkController {
         }
     }
 
-   /*
-    * 상품 상세정보 조회
-    * */
-//    @Operation(summary = "상품 상세 정보 조회", description = "회원은 상품 상세 정보를 조회할 수 있다")
+
+    /**
+     * 상품 상세정보 조회
+     * @param workNum
+     * @return
+     */
+    @Operation(summary = "상품 상세 정보 조회", description = "회원은 상품 상세 정보를 조회할 수 있다")
     @GetMapping("/{workNum}")
     public ResponseEntity<?> getWorkInfo(@PathVariable(value = "workNum") Long workNum){
         ApiResponseMessage result;
@@ -97,10 +103,13 @@ public class WorkController {
         }
      }
 
-    /*
+
+    /**
      * 상품 정보 수정
-     * */
-//    @Operation(summary = "상품 정보 수정", description = "회원은 상품정보를 수정 할 수 있다")
+     * @param workUpdateForm
+     * @return
+     */
+    @Operation(summary = "상품 정보 수정", description = "회원은 상품정보를 수정 할 수 있다")
     @PatchMapping
     public ResponseEntity<?> updateWork(@RequestBody @Valid WorkUpdateForm workUpdateForm){
         ApiResponseMessage result;
@@ -115,10 +124,12 @@ public class WorkController {
         }
     }
 
-    /*
-     * 상품 정보 수정
-     * */
-//    @Operation(summary = "상품 정보 삭제", description = "회원은 상품정보를 삭제 할 수 있다")
+    /**
+     * 상품 정보 삭제
+     * @param workNum
+     * @return
+     */
+    @Operation(summary = "상품 정보 삭제", description = "회원은 상품정보를 삭제 할 수 있다")
     @DeleteMapping("/{workNum}")
     public ResponseEntity<?> removeWork(@PathVariable(value = "workNum") Long workNum){
         ApiResponseMessage result;
