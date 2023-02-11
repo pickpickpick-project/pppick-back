@@ -1,11 +1,13 @@
 package com.pickx3.domain.entity.work_package;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter @Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class WorkImg {
     @Id
