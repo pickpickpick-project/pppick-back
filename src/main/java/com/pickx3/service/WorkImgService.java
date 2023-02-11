@@ -2,7 +2,7 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.WorkImg;
-import com.pickx3.domain.entity.work_package.dto.WorkImgForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import com.pickx3.domain.repository.WorkImgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

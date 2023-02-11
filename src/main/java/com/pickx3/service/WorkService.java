@@ -2,10 +2,10 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
-import com.pickx3.domain.entity.work_package.dto.WorkDetailDTO;
-import com.pickx3.domain.entity.work_package.dto.WorkForm;
-import com.pickx3.domain.entity.work_package.dto.WorkImgForm;
-import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkDetailDTO;
+import com.pickx3.domain.entity.work_package.dto.work.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkUpdateForm;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkImgRepository;
 import com.pickx3.domain.repository.WorkRepository;

@@ -1,8 +1,8 @@
 package com.pickx3.controller;
 
 import com.pickx3.domain.entity.work_package.Work;
-import com.pickx3.domain.entity.work_package.dto.WorkForm;
-import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkUpdateForm;
 import com.pickx3.service.WorkImgService;
 import com.pickx3.service.WorkService;
 import com.pickx3.util.ApiResponseMessage;
