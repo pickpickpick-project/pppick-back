@@ -1,4 +1,4 @@
-package com.pickx3.domain.dto;
+package com.pickx3.domain.dto.post_package;
 
 import lombok.Builder;
 import lombok.Getter;

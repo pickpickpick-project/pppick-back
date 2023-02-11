@@ -1,4 +1,4 @@
-package com.pickx3.domain.dto;
+package com.pickx3.domain.dto.post_package;
 
 import com.pickx3.domain.entity.post_package.PostImg;
 import lombok.Getter;

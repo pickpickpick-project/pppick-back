@@ -1,10 +1,10 @@
-package com.pickx3.service;
+package com.pickx3.service.post_package;
 
-import com.pickx3.domain.dto.PostImgDto;
-import com.pickx3.domain.dto.PostImgResponseDto;
+import com.pickx3.domain.dto.post_package.PostImgDto;
+import com.pickx3.domain.dto.post_package.PostImgResponseDto;
 import com.pickx3.domain.entity.post_package.PostImg;
-import com.pickx3.domain.repository.PostImgRepository;
-import com.pickx3.domain.repository.PostRepository;
+import com.pickx3.domain.repository.post_package.PostImgRepository;
+import com.pickx3.domain.repository.post_package.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

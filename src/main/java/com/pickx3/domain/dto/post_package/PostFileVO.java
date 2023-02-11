@@ -1,4 +1,4 @@
-package com.pickx3.domain.dto;
+package com.pickx3.domain.dto.post_package;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

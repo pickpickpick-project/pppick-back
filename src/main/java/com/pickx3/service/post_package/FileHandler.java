@@ -1,17 +1,13 @@
-package com.pickx3.service;
+package com.pickx3.service.post_package;
 
-import com.pickx3.domain.dto.PostImgDto;
+import com.pickx3.domain.dto.post_package.PostImgDto;
 import com.pickx3.domain.entity.post_package.PostImg;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
