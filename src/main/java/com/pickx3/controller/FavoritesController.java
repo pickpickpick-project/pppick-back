@@ -1,6 +1,7 @@
 package com.pickx3.controller;
 
 import com.pickx3.dto.FavoritesDto;
+import com.pickx3.dto.PortfolioResponseDto;
 import com.pickx3.service.FavoritesService;
 import com.pickx3.util.rsMessage;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -51,9 +53,9 @@ public class FavoritesController {
      */
     @GetMapping("/favorites/{id}")
     public ResponseEntity<?> select(@PathVariable Long id){
-        HashMap data = new HashMap<>();
-        favoritesService.select(id);
-
+      //  HashMap data = new HashMap<>();
+     //   favoritesService.select(id);
+        List<PortfolioResponseDto> data = favoritesService.select(id);
         return getResponseEntity(data);
     }
 
