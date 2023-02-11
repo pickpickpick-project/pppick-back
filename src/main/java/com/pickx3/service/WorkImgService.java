@@ -82,7 +82,7 @@ public class WorkImgService {
     }
 
     /**
-     * 상품 이미지 단일 삭제
+     * 상품 이미지 삭제
      * @param workImgNum
      */
     public void removeWorkImage(Long workImgNum){
@@ -98,32 +98,7 @@ public class WorkImgService {
         }catch (IOException e){
             e.printStackTrace();
         }
-    }
 
-    /**
-     * 상품의 이미지 목록 삭제
-     * @param workNum
-     */
-    public void removeWorkImages(Long workNum){
-        List<WorkImgForm> images =  workImgRepository.findByWork_workNum(workNum);
 
-        try{
-            for(WorkImgForm workImgForm : images){
-                WorkImg workImg = new WorkImg();
-
-                workImg.setWorkImgNum(workImgForm.getWorkImgNum());
-                workImg.setWorkImgName(workImgForm.getWorkImgName());
-                workImg.setWorkImgName(workImgForm.getWorkImgName());
-                workImg.setWorkImgOriginName(workImgForm.getWorkImgOriginName());
-                workImg.setWorkImgSrcPath(workImgForm.getWorkImgSrcPath());
-
-                Path filePath = Paths.get(workImgForm.getWorkImgSrcPath());
-                Files.delete(filePath);
-
-                workImgRepository.delete(workImg);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }

@@ -12,8 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class WorkImgForm {
-    private Long workImgNum;
-
     private String workImgName;
     private String workImgOriginName;
     private String workImgSrcPath;
@@ -23,8 +21,7 @@ public class WorkImgForm {
     @Schema(title = "이미지 파일", description = "이미지 파일")
     private List<MultipartFile> files;
 
-    public WorkImgForm(Long workImgNum, String workImgName, String workImgOriginName, String workImgSrcPath){
-        this.workImgNum = workImgNum;
+    public WorkImgForm(String workImgName, String workImgOriginName, String workImgSrcPath){
         this.workImgName = workImgName;
         this.workImgOriginName = workImgOriginName;
         this.workImgSrcPath = workImgSrcPath;
