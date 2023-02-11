@@ -78,6 +78,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .providerId(oAuth2UserInfo.getId())
                 .role(Role.USER)
                 .nickName(rs.nextString())
+                .phone(oAuth2UserInfo.getPhone())
                 .build()
         );
     }
