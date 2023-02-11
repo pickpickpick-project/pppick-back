@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PortfolioRepository extends JpaRepository<Portfolio, Long> {
 
-    List<Portfolio> findByUser_portfolioId(Long id);
+    List<Portfolio> findByUser_id(Long id);
 
 
 //    List<Portfolio> findByFavoritesAndUser(Favorites favorites, User user);
