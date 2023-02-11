@@ -1,6 +1,6 @@
 package com.pickx3.controller;
 
-import com.pickx3.domain.entity.work_package.dto.WorkImgForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import com.pickx3.service.WorkImgService;
 import com.pickx3.util.ApiResponseMessage;
 import lombok.extern.slf4j.Slf4j;

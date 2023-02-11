@@ -3,7 +3,7 @@ package com.pickx3.domain.repository;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.WorkImg;
-import com.pickx3.domain.entity.work_package.dto.WorkImgForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
