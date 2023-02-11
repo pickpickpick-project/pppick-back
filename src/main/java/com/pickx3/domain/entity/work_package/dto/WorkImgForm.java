@@ -15,7 +15,7 @@ public class WorkImgForm {
     private String workImgName;
     private String workImgOriginName;
     private String workImgSrcPath;
-    private long size;
+//    private long size;
 
     @JsonIgnore
     @Schema(title = "이미지 파일", description = "이미지 파일")
