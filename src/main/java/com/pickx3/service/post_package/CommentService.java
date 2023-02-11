@@ -1,13 +1,14 @@
 package com.pickx3.service.post_package;
 
-import com.pickx3.domain.dto.post_package.*;
+import com.pickx3.domain.dto.post_package.CommentCreateRequestDto;
+import com.pickx3.domain.dto.post_package.CommentResponseDto;
+import com.pickx3.domain.dto.post_package.CommentUpdateRequestDto;
 import com.pickx3.domain.entity.post_package.Comment;
 import com.pickx3.domain.entity.post_package.Post;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.post_package.CommentRepository;
 import com.pickx3.domain.repository.post_package.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,7 +63,7 @@ public class CommentService {
     @Transactional
     public void delete(Long commentNum) {
         Comment comment = commentRepository.findById(commentNum)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         commentRepository.delete(comment);
     }
