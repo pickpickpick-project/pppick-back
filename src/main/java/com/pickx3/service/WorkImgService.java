@@ -10,10 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -84,4 +81,24 @@ public class WorkImgService {
         return workImgRepository.findByWork_workNum(workNum);
     }
 
+    /**
+     * 상품 이미지 삭제
+     * @param workImgNum
+     */
+    public void removeWorkImage(Long workImgNum){
+        WorkImg workImg = workImgRepository.findById(workImgNum).get();
+
+        Path filePath = Paths.get(workImg.getWorkImgSrcPath());
+//      파일 삭제가 성공한 경우, 테이블에 데이터 삭제
+        try{
+//          파일 삭제
+            Files.delete(filePath);
+//          테이블에 해당 데이터 샂게
+            workImgRepository.delete(workImg);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
 }
