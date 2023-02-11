@@ -2,22 +2,28 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Work;
+import com.pickx3.domain.entity.work_package.dto.WorkDetailDTO;
 import com.pickx3.domain.entity.work_package.dto.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.WorkImgForm;
 import com.pickx3.domain.entity.work_package.dto.WorkUpdateForm;
 import com.pickx3.domain.repository.UserRepository;
+import com.pickx3.domain.repository.WorkImgRepository;
 import com.pickx3.domain.repository.WorkRepository;
-import net.bytebuddy.asm.MemberRemoval;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Transactional
 @Service
 public class WorkService {
     @Autowired
     private WorkRepository workRepository;
+    @Autowired
+    private WorkImgRepository workImgRepository;
     @Autowired
     private UserRepository userRepository;
 
@@ -25,6 +31,7 @@ public class WorkService {
     * 상품 등록
     * */
     public Work createWork(WorkForm workForm){
+        log.info("==========user===========" +workForm.getWorkerNum());
         User user = userRepository.findById(workForm.getWorkerNum()).get();
 
         Work work = Work.builder()
@@ -48,8 +55,19 @@ public class WorkService {
     /*
      * 상품 상세정보 조회
      * */
-    public Work getWorkInfo(Long workNum){
-        return workRepository.findById(workNum).get();
+    public WorkDetailDTO getWorkInfo(Long workNum){
+        Work work = workRepository.findById(workNum).get();
+        List<WorkImgForm> workImages = workImgRepository.findByWork_workNum(workNum);
+
+        log.info("상품 이미지 정보" + workImages.get(0).getWorkImgName());
+        WorkDetailDTO workDetailDTO = new WorkDetailDTO();
+        workDetailDTO.setWorkerNum(work.getWorkNum());
+        workDetailDTO.setWorkName(work.getWorkName());
+        workDetailDTO.setWorkDesc(work.getWorkDesc());
+        workDetailDTO.setWorkPrice(work.getWorkPrice());
+        workDetailDTO.setWorkImages(workImages);
+
+        return workDetailDTO;
     }
 
     /*
