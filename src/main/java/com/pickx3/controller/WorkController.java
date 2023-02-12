@@ -1,7 +1,9 @@
 package com.pickx3.controller;
 
 import com.pickx3.domain.entity.work_package.Work;
+import com.pickx3.domain.entity.work_package.WorkImg;
 import com.pickx3.domain.entity.work_package.dto.work.WorkForm;
+import com.pickx3.domain.entity.work_package.dto.work.WorkResponseDTO;
 import com.pickx3.domain.entity.work_package.dto.work.WorkUpdateForm;
 import com.pickx3.service.WorkImgService;
 import com.pickx3.service.WorkService;
@@ -43,13 +45,14 @@ public class WorkController {
             log.info("===========상품명=============" +  workForm.toString().toString());
             Work work = workService.createWork(workForm);
             List<MultipartFile> files = workForm.getFiles();
-            workImgService.uploadWorkImg(files, work);
+            List<WorkImg> workImages = workImgService.uploadWorkImg(files, work);
 
             data.put("workNum",work.getWorkNum());
-            data.put("workerNum",work.getWorkNum());
+            data.put("workerNum",work.getUserInfo().getId());
             data.put("workName",work.getWorkName());
             data.put("workPrice",work.getWorkPrice());
             data.put("workDesc",work.getWorkDesc());
+            data.put("workImages", workImages);
 //            data.put("workImg", workForm.getFiles());
 
             result = new ApiResponseMessage(true, "Success", "200", "",data);
@@ -71,7 +74,7 @@ public class WorkController {
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
-            List<Work> works = workService.getWorks(workerNum);
+            List<WorkResponseDTO> works = workService.getWorks(workerNum);
             data.put("works",works);
 
             result = new ApiResponseMessage(true, "Success", "200", "",data);
