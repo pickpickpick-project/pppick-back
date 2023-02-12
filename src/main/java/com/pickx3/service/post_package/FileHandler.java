@@ -42,7 +42,8 @@ public class FileHandler {
 
 
             // 파일을 저장할 세부 경로 지정
-            String path = "images" + File.separator +"post"+File.separator+current_date;
+            String path = "images" + File.separator + "post" + File.separator + current_date;
+
             File file = new File(path);
   
             // 디렉터리가 존재하지 않을 경우
@@ -80,7 +81,7 @@ public class FileHandler {
                     // 파일 DTO 생성
                     PostImgDto postImgDto = PostImgDto.builder()
                             .origFileName(multipartFile.getOriginalFilename())
-                            .filePath(path + File.separator + new_file_name)
+                            .filePath(absolutePath + path + new_file_name)
                             .postImgName(new_file_name)
                             .postImgSize(multipartFile.getSize())
                             .build();
