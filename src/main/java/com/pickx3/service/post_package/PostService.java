@@ -44,13 +44,11 @@ public class PostService {
 
         );
 
-        Post post1 = postRepository.save(post);
-
-
         List<PostImg> postImgList = fileHandler.parseFileInfo(files);
 
-        // 파일이 존재할 때에만 처리
-        if (!postImgList.isEmpty()) {
+        Post post1 = postRepository.save(post);
+        // 파일이 존재할 때에만 처리 - list size 0이면 저장 x
+        if (postImgList.size()!=0) {
             for (PostImg postImg : postImgList) {
                 // 파일을 DB에 저장
                 postImg.setPost(post1);
