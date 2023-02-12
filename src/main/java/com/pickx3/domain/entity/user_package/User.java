@@ -55,6 +55,7 @@ public class User {
     @Column(name = "userProviderId")
     private String providerId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Portfolio> portfolio = new ArrayList<>();
 

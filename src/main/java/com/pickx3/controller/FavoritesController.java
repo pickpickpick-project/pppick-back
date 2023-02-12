@@ -3,6 +3,7 @@ package com.pickx3.controller;
 import com.pickx3.dto.FavoritesDto;
 import com.pickx3.service.FavoritesService;
 import com.pickx3.util.rsMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class FavoritesController {
      * @param favoritesDto
      * @return
      */
+    @Operation(summary = "좋아요", description = "{user : id }, {portfolio : id} 값 필요")
     @PostMapping("/favorites/add")
     public ResponseEntity<?> addLike(@RequestBody FavoritesDto favoritesDto){
         HashMap data = new HashMap<>();
@@ -39,6 +41,7 @@ public class FavoritesController {
      * @param favoritesDto
      * @return
      */
+    @Operation(summary = "좋아요 취소", description = "좋아요 누른 {user : id }, {portfolio : id} 값 필요")
     @PatchMapping("/favorites/cancelLike")
     public ResponseEntity<?> cancelLike(@RequestBody FavoritesDto favoritesDto){
         HashMap data = new HashMap<>();

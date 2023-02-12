@@ -4,6 +4,7 @@ import com.pickx3.dto.PortfolioRequestDto;
 import com.pickx3.dto.PortfolioResponseDto;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.rsMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class PortfolioController {
      * @param pfDto
      * @return
      */
+    @Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
     @PostMapping("/portfolio/save")
     public ResponseEntity<?> savePf(@RequestBody PortfolioRequestDto pfDto) {
         HashMap data = new HashMap<>();
@@ -76,7 +78,7 @@ public class PortfolioController {
      * @return
      */
 
-    private ResponseEntity<?> getResponseEntity(Object data) {
+    private ResponseEntity<?> getResponseEntity(Object data){
         rsMessage result = null;
         try{
             result = new rsMessage(true, "Success", "200", "요청에 성공 하셧습니다", data);
