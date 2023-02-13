@@ -3,9 +3,9 @@ package com.pickx3.domain.entity.portfolio_package;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+
 
 @Getter
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class PortfolioImg {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "portfolioNum")
     private Portfolio portfolio;
 
@@ -27,6 +27,8 @@ public class PortfolioImg {
     private String storeFilename;   //서버저장이름
 
     private String portfolioImgAddr;
+
+
 
 
     @Builder

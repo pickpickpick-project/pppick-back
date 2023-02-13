@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 
 @Slf4j
 @RequiredArgsConstructor
@@ -31,9 +29,10 @@ public class PortfolioService {
     private final TagService tagService;
 
     // 저장
+    /*
     @Transactional
-    public Long savePf(PortfolioForm portfolioForm) throws IllegalAccessException {
-        User user = userRepository.findById(portfolioForm.getUserNum()).orElseThrow(() -> new IllegalAccessException("포트폴리오가 존재하지 않음 id ="+id));
+    public Portfolio savePf(PortfolioForm portfolioForm) throws IllegalAccessException {
+        User user = userRepository.findById(portfolioForm.getUserNum()).get();
 
         Portfolio portfolio = Portfolio.builder()
                 .portfolioName(portfolioForm.getPortfolioName())
@@ -52,6 +51,26 @@ public class PortfolioService {
 
         return portfolio.getId();
     }
+*/
+    // 저장(이미지 진행중)
+    @Transactional
+    public Portfolio createPf(PortfolioForm portfolioForm) throws IllegalAccessException {
+        User user = userRepository.findById(portfolioForm.getUserNum()).get();
+        //User user = userRepository.findById(portfolioForm.getPortfolioNum()).orElseThrow(() -> new IllegalAccessException("portfolioForm.getUserNum())id ="+id));
+
+        Portfolio portfolio = Portfolio.builder()
+                .portfolioName(portfolioForm.getPortfolioName())
+                .portfolioType(Integer.parseInt(portfolioForm.getPortfolioType()))
+                .portfolioDate(new Date())
+                .user(user)
+                .build();
+
+        portfolioRepository.save(portfolio);
+
+        return portfolio;
+    }
+
+
 
     //삭제
     public void delete(long id) throws IllegalAccessException {

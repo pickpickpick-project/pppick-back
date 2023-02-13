@@ -90,6 +90,7 @@ public class WorkImgService {
                         .build();
 
                 fileList.add(workImg);
+                log.debug(" =========== portfolioImg ======= ============================== " + workImg.getWork());
 
                 workImgRepository.save(workImg);
 
