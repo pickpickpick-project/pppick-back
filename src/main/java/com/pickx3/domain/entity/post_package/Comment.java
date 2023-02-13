@@ -30,7 +30,6 @@ public class Comment {
     private String commentDate;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "userNum")
     private User userInfo;
 

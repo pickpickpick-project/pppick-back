@@ -29,7 +29,6 @@ public class Post {
     private Long postBoardNum;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "userNum")
     private User user;
 
