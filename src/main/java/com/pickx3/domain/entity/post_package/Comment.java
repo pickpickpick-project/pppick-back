@@ -25,15 +25,17 @@ public class Comment {
     @Column(name = "commentContent")
     private String commentContent;
 
-    @JsonIgnore
+
     @Column(name = "commentDate")
     private String commentDate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "userNum")
     private User userInfo;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "postNum")
     private Post post;
 

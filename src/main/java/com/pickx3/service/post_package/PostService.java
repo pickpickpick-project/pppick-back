@@ -1,12 +1,11 @@
 package com.pickx3.service.post_package;
 
-import com.pickx3.domain.dto.post_package.PostCreateRequestDto;
-import com.pickx3.domain.dto.post_package.PostListResponseDto;
-import com.pickx3.domain.dto.post_package.PostResponseDto;
-import com.pickx3.domain.dto.post_package.PostUpdateRequestDto;
+import com.pickx3.domain.entity.post_package.dto.PostCreateRequestDto;
+import com.pickx3.domain.entity.post_package.dto.PostListResponseDto;
+import com.pickx3.domain.entity.post_package.dto.PostResponseDto;
+import com.pickx3.domain.entity.post_package.dto.PostUpdateRequestDto;
 import com.pickx3.domain.entity.post_package.Post;
 import com.pickx3.domain.entity.post_package.PostImg;
-import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import com.pickx3.domain.repository.post_package.PostRepository;
 import com.pickx3.domain.repository.post_package.PostImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,9 +49,11 @@ public class PostService {
 
         );
 
+        Post post1 = postRepository.save(post);
+
         List<PostImg> postImgList = fileHandler.parseFileInfo(files);
 
-        Post post1 = postRepository.save(post);
+
         // 파일이 존재할 때에만 처리 - list size 0이면 저장 x
         if (postImgList.size()!=0) {
             for (PostImg postImg : postImgList) {

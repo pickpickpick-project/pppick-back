@@ -1,5 +1,6 @@
 package com.pickx3.domain.entity.post_package;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class PostImg {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "postNum")
     private Post post;
 

@@ -1,20 +1,14 @@
 package com.pickx3.service.post_package;
 
-import com.pickx3.domain.dto.post_package.PostFileVO;
-import com.pickx3.domain.dto.post_package.PostImgDto;
-import com.pickx3.domain.dto.post_package.PostImgResponseDto;
+import com.pickx3.domain.entity.post_package.dto.PostImgDto;
+import com.pickx3.domain.entity.post_package.dto.PostImgResponseDto;
 import com.pickx3.domain.entity.post_package.PostImg;
-import com.pickx3.domain.entity.work_package.WorkImg;
-import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import com.pickx3.domain.repository.post_package.PostImgRepository;
 import com.pickx3.domain.repository.post_package.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 

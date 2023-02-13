@@ -1,6 +1,6 @@
 package com.pickx3.service.post_package;
 
-import com.pickx3.domain.dto.post_package.PostImgDto;
+import com.pickx3.domain.entity.post_package.dto.PostImgDto;
 import com.pickx3.domain.entity.post_package.PostImg;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
