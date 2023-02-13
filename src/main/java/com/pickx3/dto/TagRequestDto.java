@@ -3,8 +3,7 @@ package com.pickx3.dto;
 import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
 import com.pickx3.domain.entity.portfolio_package.Tag;
 
-
-import java.util.List;
+import java.util.Set;
 
 public class TagRequestDto {
 
@@ -12,7 +11,7 @@ public class TagRequestDto {
 
     private String tagName;
 
-    private List<PortfolioTag> tags ;
+    private Set<PortfolioTag> tags ;
 
     // DTO -> Entity
     public Tag toEntity(){

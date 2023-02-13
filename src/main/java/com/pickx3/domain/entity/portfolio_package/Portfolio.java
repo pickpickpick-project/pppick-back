@@ -32,20 +32,22 @@ public class Portfolio {
     private Date portfolioDate;
 
     /* 연관관계 */
+    @JsonIgnore
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private List<PortfolioImg> portfolioImgList = new ArrayList<>();
 
     /* 연관관계 */
     @OneToMany(mappedBy = "portfolio")
-    private List<PortfolioTag> portfolioTagList = new ArrayList<>();
+    private Set<PortfolioTag> portfolioTagList = new HashSet<>();
 
     /* 연관관계 */  //N+1 SET 으로 해결
+    @JsonIgnore
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     public Set<Favorites> favorites = new HashSet<>();
 
     @Builder
     public Portfolio(Long id, User user, String portfolioName, int portfolioType,
-                     Date portfolioDate, List<PortfolioTag> portfolioTagList) {
+                     Date portfolioDate, Set<PortfolioTag> portfolioTagList) {
         this.id = id;
         this.user = user;
         this.portfolioName = portfolioName;

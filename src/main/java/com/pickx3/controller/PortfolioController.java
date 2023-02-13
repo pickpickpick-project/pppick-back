@@ -2,7 +2,6 @@ package com.pickx3.controller;
 
 import com.pickx3.dto.PortfolioRequestDto;
 import com.pickx3.dto.PortfolioResponseDto;
-import com.pickx3.dto.TagRequestDto;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +27,7 @@ public class PortfolioController {
      */
     @Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
     @PostMapping("/portfolio/save")
-    public ResponseEntity<?> savePf(@RequestBody PortfolioRequestDto pfDto, @RequestBody TagRequestDto tagDto) {
+    public ResponseEntity<?> savePf(@RequestBody PortfolioRequestDto pfDto) {
         HashMap data = new HashMap<>();
         data.put("Portfolio_id", portfolioService.savePf(pfDto));
 

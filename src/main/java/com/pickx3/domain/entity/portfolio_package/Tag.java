@@ -1,5 +1,6 @@
 package com.pickx3.domain.entity.portfolio_package;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class Tag {
     private Long id;
 
     private String tagName;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "tag")
     private Set<PortfolioTag> tags = new HashSet<>();
 

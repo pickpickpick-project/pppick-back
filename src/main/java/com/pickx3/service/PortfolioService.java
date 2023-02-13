@@ -25,6 +25,7 @@ public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
+    private final TagService tagService;
 
     // 저장
     @Transactional
@@ -41,6 +42,8 @@ public class PortfolioService {
                 .build();
 
         portfolioRepository.save(portfolio);
+        // 태그
+        tagService.createTag(pfDto);
 
         return portfolio.getId();
     }

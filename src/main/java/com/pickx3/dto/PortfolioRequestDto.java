@@ -1,12 +1,14 @@
 package com.pickx3.dto;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
+import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -23,6 +25,8 @@ public class PortfolioRequestDto {
 
     private Date portfolioDate;
 
+    private Set<PortfolioTag> portfolioTag;
+
     // DTO -> Entity
     public Portfolio toEntity(){
         return Portfolio.builder()
@@ -31,6 +35,7 @@ public class PortfolioRequestDto {
                 .portfolioDate(portfolioDate)
                 .portfolioName(portfolioName)
                 .portfolioType(portfolioType)
+                .portfolioTagList(portfolioTag)
             .build();
     }
 }
