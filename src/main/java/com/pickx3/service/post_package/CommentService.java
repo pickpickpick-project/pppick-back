@@ -71,7 +71,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public CommentResponseDto searchById(Long commentNum) {
         Comment comment = commentRepository.findById(commentNum).orElseThrow(()
-                -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+                -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         return new CommentResponseDto(comment);
     }
