@@ -27,7 +27,7 @@ public class PostController {
     private final PostImgService postImgService;
     private final UserService userService;
 
-    @Operation(summary = "직가(postBoardNum=작가userNum)별 문의게시판에 게시글 등록")
+    @Operation(summary = "작가(postBoardNum=작가userNum)별 문의게시판에 게시글 등록")
     @PostMapping(path = "/board/{postBoardNum}/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@PathVariable Long postBoardNum, @ModelAttribute PostFileVO postFileVO) throws Exception {
@@ -109,7 +109,7 @@ public class PostController {
     }
 
     // 작가 번호(작가 userNum = postBoardNum)별 문의게시판 글 조회
-    @Operation(summary = "직가(postBoardNum=작가userNum)별 문의게시판에 게시글 목록 조회")
+    @Operation(summary = "작가(postBoardNum=작가userNum)별 문의게시판에 게시글 목록 조회")
     @GetMapping("/board/{postBoardNum}/post")
     public ResponseEntity<?> searchByPostBoardNum(@PathVariable Long postBoardNum) {
         rsMessage result;
