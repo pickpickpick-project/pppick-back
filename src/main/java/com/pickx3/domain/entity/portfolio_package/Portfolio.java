@@ -1,7 +1,6 @@
 package com.pickx3.domain.entity.portfolio_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pickx3.domain.entity.Favorites;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
