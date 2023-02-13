@@ -1,7 +1,7 @@
 package com.pickx3.controller;
 
-import com.pickx3.dto.FavoritesDto;
-import com.pickx3.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.FavoritesForm;
+import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
 import com.pickx3.service.FavoritesService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,28 +23,28 @@ public class FavoritesController {
 
     /**
      * 좋아요
-     * @param favoritesDto
+     * @param favoritesForm
      * @return
      */
     @Operation(summary = "좋아요", description = "{user : id }, {portfolio : id} 값 필요")
     @PostMapping("/portfolio/favorites/add")
-    public ResponseEntity<?> addLike(@RequestBody FavoritesDto favoritesDto){
+    public ResponseEntity<?> addLike(@RequestBody FavoritesForm favoritesForm){
         HashMap data = new HashMap<>();
-        favoritesService.addLike(favoritesDto);
+        favoritesService.addLike(favoritesForm);
 
         return getResponseEntity(data);
     }
 
     /**
      * 좋아요 취소
-     * @param favoritesDto
+     * @param favoritesForm
      * @return
      */
     @Operation(summary = "좋아요 취소", description = "좋아요 누른 {user : id }, {portfolio : id} 값 필요")
     @PatchMapping("/portfolio/favorites/cancelLike")
-    public ResponseEntity<?> cancelLike(@RequestBody FavoritesDto favoritesDto){
+    public ResponseEntity<?> cancelLike(@RequestBody FavoritesForm favoritesForm){
         HashMap data = new HashMap<>();
-        favoritesService.cancelLike(favoritesDto);
+        favoritesService.cancelLike(favoritesForm);
 
         return getResponseEntity(data);
     }

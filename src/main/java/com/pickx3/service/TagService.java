@@ -1,6 +1,6 @@
 package com.pickx3.service;
 
-import com.pickx3.dto.PortfolioRequestDto;
+import com.pickx3.domain.entity.portfolio_package.dto.PortfolioRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.pickx3.domain.repository;
 
-import com.pickx3.domain.entity.Favorites;
+import com.pickx3.domain.entity.portfolio_package.Favorites;
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.user_package.User;
 import org.springframework.data.jpa.repository.JpaRepository;

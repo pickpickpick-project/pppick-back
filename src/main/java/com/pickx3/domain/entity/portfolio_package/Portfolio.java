@@ -1,7 +1,6 @@
 package com.pickx3.domain.entity.portfolio_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pickx3.domain.entity.Favorites;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,9 +45,8 @@ public class Portfolio {
     public Set<Favorites> favorites = new HashSet<>();
 
     @Builder
-    public Portfolio(Long id, User user, String portfolioName, int portfolioType,
+    public Portfolio(User user, String portfolioName, int portfolioType,
                      Date portfolioDate, Set<PortfolioTag> portfolioTagList) {
-        this.id = id;
         this.user = user;
         this.portfolioName = portfolioName;
         this.portfolioType = portfolioType;

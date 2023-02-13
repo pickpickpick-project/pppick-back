@@ -1,4 +1,4 @@
-package com.pickx3.domain.entity;
+package com.pickx3.domain.entity.portfolio_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pickx3.domain.entity.portfolio_package.Portfolio;

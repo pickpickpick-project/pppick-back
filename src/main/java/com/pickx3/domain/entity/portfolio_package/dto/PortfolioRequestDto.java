@@ -1,4 +1,4 @@
-package com.pickx3.dto;
+package com.pickx3.domain.entity.portfolio_package.dto;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
@@ -15,8 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class PortfolioRequestDto {
 
-    private Long id;
-
     private User user;
 
     private String portfolioName;
@@ -30,7 +28,6 @@ public class PortfolioRequestDto {
     // DTO -> Entity
     public Portfolio toEntity(){
         return Portfolio.builder()
-                .id(id)
                 .user(user)
                 .portfolioDate(portfolioDate)
                 .portfolioName(portfolioName)
