@@ -85,7 +85,7 @@ public class WorkImgService {
                 WorkImg workImg = WorkImg.builder()
                         .workImgName(new_file_name)
                         .workImgOriginName(multipartFile.getOriginalFilename())
-                        .workImgSrcPath(absolutePath+ path +new_file_name)
+                        .workImgSrcPath(absolutePath+ path + File.separator + new_file_name)
                         .work(work)
                         .build();
 
