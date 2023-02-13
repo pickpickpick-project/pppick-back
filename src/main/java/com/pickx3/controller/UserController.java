@@ -12,6 +12,7 @@ import com.pickx3.security.token.TokenProvider;
 import com.pickx3.security.UserPrincipal;
 import com.pickx3.service.UserService;
 import com.pickx3.util.rsMessage;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,12 +41,14 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
-//    @PutMapping(path = "/user/{userNum}")
-//    public ResponseEntity<?> update(@PathVariable Long userNum, UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+//    @PutMapping(path = "/user/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+////    @PutMapping(path = "/user")
+//    public ResponseEntity<?> update(@ModelAttribute UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+////    public ResponseEntity<?> update(@PathVariable(name = "userNum") Long userNum, @ModelAttribute UserUpdateRequestDto userUpdateRequestDto) throws Exception {
 //        rsMessage result;
 //
 //        try{
-//            Long newUserNum = userService.update(userNum,userUpdateRequestDto);
+//            Long newUserNum = userService.update(userUpdateRequestDto);
 //            User newUser = userService.searchUserById(newUserNum);
 //            result = new rsMessage(true, "Success" ,"200", "", newUser );
 //            return new ResponseEntity<>(result, HttpStatus.OK);

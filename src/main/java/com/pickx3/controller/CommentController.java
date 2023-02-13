@@ -9,6 +9,7 @@ import com.pickx3.domain.repository.post_package.CommentRepository;
 import com.pickx3.service.UserService;
 import com.pickx3.service.post_package.CommentService;
 import com.pickx3.util.rsMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class CommentController {
     private final UserService userService;
 
     /* CREATE */
+    @Operation(summary = "댓글 저장")
     @PostMapping("/post/{postNum}/comment")
     public ResponseEntity<?> commentSave(@PathVariable Long postNum, @RequestBody CommentSetVO commentSetVO) {
         User user = userService.searchUserById(
@@ -50,6 +52,7 @@ public class CommentController {
 
     /* READ */
     // comment 번호로 조회
+    @Operation(summary = "댓글 상세 정보 조회")
     @GetMapping("/comment/{commentNum}")
     public ResponseEntity<?> searchById(@PathVariable Long commentNum) {
         rsMessage result;
@@ -63,6 +66,7 @@ public class CommentController {
         }
     }
 
+    @Operation(summary = "게시물별 댓글 목록 조회")
     @GetMapping("post/{postNum}/comment")
     public ResponseEntity<?> searchByPost(@PathVariable Long postNum) {
         rsMessage result;
@@ -76,6 +80,7 @@ public class CommentController {
         }
     }
     // 전체 조회
+    @Operation(summary = "댓글 전체 조회")
     @GetMapping("/comment")
     public ResponseEntity<?> searchAll() {
         rsMessage result;
@@ -91,6 +96,7 @@ public class CommentController {
 
 
     /* UPDATE */
+    @Operation(summary = "댓글 수정")
     @PutMapping("/comment/{commentNum}")
     public ResponseEntity<?> update(@PathVariable Long commentNum, @RequestBody CommentUpdateRequestDto requestDto) {
         rsMessage result;
@@ -106,6 +112,7 @@ public class CommentController {
     }
 
     /* DELETE */
+    @Operation(summary = "댓글 삭제")
     @DeleteMapping("/comment/{commentNum}")
     public ResponseEntity<?> delete(@PathVariable Long commentNum) {
         rsMessage result;

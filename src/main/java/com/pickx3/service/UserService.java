@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -40,14 +41,18 @@ public class UserService {
 
     private final WorkRepository workRepository;
 
+    private final WorkService workService;
+
+    private final WorkImgService workImgService;
+
     public User searchUserById(Long id) {
         return userRepository.findById(id).get();
     }
 
 
 //    @Transactional
-//    public Long update(Long userNum, UserUpdateRequestDto requestDto) throws IOException {
-//        User user = userRepository.findById(userNum)
+//    public Long update(UserUpdateRequestDto requestDto) throws IOException {
+//        User user = userRepository.findById(requestDto.getUserNum())
 //                .orElseThrow(() -> new
 //                        IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 //        user.setNickName(requestDto.getUserNick());
@@ -111,7 +116,7 @@ public class UserService {
 //        userRepository.save(user);
 //
 //
-//        return userNum;
+//        return requestDto.getUserNum();
 //
 //    }
     @Transactional
@@ -151,10 +156,12 @@ public class UserService {
             }
         }
 
-        List<Work> works = workRepository.findByUserInfo_id(userNum);
-        if(works.size()!=0){
-            for(Work work : works){
-                workRepository.delete(work);
+        List<Long> workNums = workRepository.findByUserInfo_id(userNum).stream().map(o->o.getWorkNum()).collect(Collectors.toList());
+        if(workNums.size()!=0){
+            for(Long workNum : workNums){
+                System.out.println(workNum);
+                workImgService.removeWorkImages(workNum);
+                workService.removeWork(workNum);
             }
         }
 
