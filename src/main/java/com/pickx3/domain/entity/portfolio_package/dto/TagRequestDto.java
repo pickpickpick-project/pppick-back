@@ -1,4 +1,4 @@
-package com.pickx3.dto;
+package com.pickx3.domain.entity.portfolio_package.dto;
 
 import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
 import com.pickx3.domain.entity.portfolio_package.Tag;

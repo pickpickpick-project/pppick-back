@@ -46,9 +46,8 @@ public class Portfolio {
     public Set<Favorites> favorites = new HashSet<>();
 
     @Builder
-    public Portfolio(Long id, User user, String portfolioName, int portfolioType,
+    public Portfolio(User user, String portfolioName, int portfolioType,
                      Date portfolioDate, Set<PortfolioTag> portfolioTagList) {
-        this.id = id;
         this.user = user;
         this.portfolioName = portfolioName;
         this.portfolioType = portfolioType;

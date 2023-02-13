@@ -7,7 +7,7 @@ import com.pickx3.domain.repository.FavoriteRepository;
 import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.dto.FavoritesDto;
-import com.pickx3.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +21,7 @@ import java.util.List;
 
 import static com.pickx3.domain.entity.QFavorites.favorites;
 import static com.pickx3.domain.entity.portfolio_package.QPortfolio.portfolio;
+
 
 @RequiredArgsConstructor
 @Transactional @Slf4j
@@ -71,8 +72,6 @@ public class FavoritesService {
                 .join(portfolio.favorites, favorites)
                 .on(favorites.user.id.eq(user.getId()).and(portfolio.user.id.eq(user.getId())))
                 .fetch();
-
-        log.debug("================= result check ================= " + result.size());
 
         // list add
         List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();

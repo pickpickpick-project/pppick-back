@@ -1,13 +1,15 @@
 package com.pickx3.controller;
 
-import com.pickx3.dto.PortfolioRequestDto;
-import com.pickx3.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.PortfolioForm;
+import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
+import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +21,19 @@ import java.util.List;
 @RestController
 public class PortfolioController {
     private final PortfolioService portfolioService;
-
+    private final PortfolioRepository portfolioRepository;
     /**
      * 포폴 등록
-     * @param pfDto
+     * @param portfolioForm
      * @return
      */
-    @Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
-    @PostMapping("/portfolio/save")
-    public ResponseEntity<?> savePf(@RequestBody PortfolioRequestDto pfDto) {
+    //@Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
+    @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws IllegalAccessException {
         HashMap data = new HashMap<>();
-        data.put("Portfolio_id", portfolioService.savePf(pfDto));
+        data.put("Portfolio_id", portfolioService.savePf(portfolioForm));
+
+
 
         return getResponseEntity(data);
     }
@@ -39,7 +43,7 @@ public class PortfolioController {
      * @param id
      * @return
      */
-    @Operation(summary = "포폴 삭제")
+    @Operation(summary = "포폴 삭제", description = "{portfolio : id} 값 필요")
     @DeleteMapping("/portfolio/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
@@ -54,7 +58,7 @@ public class PortfolioController {
      * @return
      * @throws IllegalAccessException
      */
-    @Operation(summary = "포폴 단건 조회")
+    @Operation(summary = "포폴 단건 조회", description = "{portfolio : id} 값 필요")
     @GetMapping("/portfolio/{id}")
     public ResponseEntity<?> read(@PathVariable long id) throws IllegalAccessException {
         PortfolioResponseDto data = portfolioService.read(id);
@@ -63,7 +67,7 @@ public class PortfolioController {
     }
 
     /**
-     * 포폴 목록 전체 조회
+     * 포폴 목록 전체 조회              // 수정 필요
      * @return
      */
     @Operation(summary = "포폴 전체 목록 조회")

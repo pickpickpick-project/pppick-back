@@ -1,7 +1,7 @@
 package com.pickx3.controller;
 
 import com.pickx3.dto.FavoritesDto;
-import com.pickx3.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
 import com.pickx3.service.FavoritesService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
