@@ -23,7 +23,7 @@ public class FavoritesController {
 
     /**
      * 좋아요
-     * @param favoritesDto
+     * @param favoritesForm
      * @return
      */
     @Operation(summary = "좋아요", description = "{user : id }, {portfolio : id} 값 필요")
@@ -37,7 +37,7 @@ public class FavoritesController {
 
     /**
      * 좋아요 취소
-     * @param favoritesDto
+     * @param favoritesForm
      * @return
      */
     @Operation(summary = "좋아요 취소", description = "좋아요 누른 {user : id }, {portfolio : id} 값 필요")
