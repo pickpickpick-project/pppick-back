@@ -13,11 +13,13 @@ public class PostCreateRequestDto {
     private String postTitle;
     private String postContent;
 
+    private Long postBoardNum;
     private String postPwd;
 
     @Builder
-    public PostCreateRequestDto(User user, String postTitle, String postContent, String postPwd) {
+    public PostCreateRequestDto(User user, String postTitle, String postContent, String postPwd, Long postBoardNum) {
         this.user = user;
+        this.postBoardNum = postBoardNum;
         this.postTitle = postTitle;
         this.postContent = postContent;
         this.postPwd = postPwd;
@@ -26,6 +28,7 @@ public class PostCreateRequestDto {
     public Post toEntity() {
         return Post.builder()
                 .user(user)
+                .postBoardNum(postBoardNum)
                 .title(postTitle)
                 .content(postContent)
                 .pwd(postPwd)

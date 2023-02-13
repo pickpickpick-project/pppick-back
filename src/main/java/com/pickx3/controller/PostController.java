@@ -7,6 +7,7 @@ import com.pickx3.service.post_package.PostService;
 import com.pickx3.service.post_package.PostImgService;
 import com.pickx3.service.UserService;
 import com.pickx3.util.rsMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,9 +25,10 @@ public class PostController {
     private final PostImgService postImgService;
     private final UserService userService;
 
-    @PostMapping(path = "/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "직가(postBoardNum=작가userNum)별 문의게시판에 게시글 등록")
+    @PostMapping(path = "/board/{postBoardNum}/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> create(@ModelAttribute PostFileVO postFileVO) throws Exception {
+    public ResponseEntity<?> create(@PathVariable Long postBoardNum, @ModelAttribute PostFileVO postFileVO) throws Exception {
         // Member id로 조회하는 메소드 존재한다고 가정하에 진행
         User user = userService.searchUserById(
                 Long.parseLong(postFileVO.getUserNum()));
@@ -34,6 +36,7 @@ public class PostController {
         PostCreateRequestDto requestDto =
                 PostCreateRequestDto.builder()
                         .user(user)
+                        .postBoardNum(postBoardNum)
                         .postTitle(postFileVO.getPostTitle())
                         .postContent(postFileVO.getPostContent())
                         .postPwd(postFileVO.getPostPwd())
@@ -52,6 +55,7 @@ public class PostController {
     }
 
 
+    @Operation(summary = "게시글 수정")
     @PutMapping("/post/{postNum}")
     public ResponseEntity<?> update(@PathVariable Long postNum, String postPwd, @RequestBody PostUpdateRequestDto requestDto) throws Exception {
         rsMessage result;
@@ -68,6 +72,7 @@ public class PostController {
     }
 
     //개별 조회
+    @Operation(summary = "게시글 상세 정보 조회")
     @GetMapping("/post/{postNum}")
     public ResponseEntity<?> searchById(@PathVariable Long postNum) {
         rsMessage result;
@@ -82,6 +87,7 @@ public class PostController {
     }
 
     //전체 조회(목록)
+    @Operation(summary = "게시글 전체 조회")
     @GetMapping("/post")
     public ResponseEntity<?> searchAllDesc() {
         rsMessage result;
@@ -95,6 +101,22 @@ public class PostController {
         }
     }
 
+    // 작가 번호(작가 userNum = postBoardNum)별 문의게시판 글 조회
+    @Operation(summary = "직가(postBoardNum=작가userNum)별 문의게시판에 게시글 목록 조회")
+    @GetMapping("/board/{postBoardNum}/post")
+    public ResponseEntity<?> searchByPostBoardNum(@PathVariable Long postBoardNum) {
+        rsMessage result;
+        try{
+            List<PostListResponseDto> postListResponseDtos =  postService.searchByPostBoardNum(postBoardNum);
+            result = new rsMessage(true, "Success" ,"200", "", postListResponseDtos );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "게시글 삭제")
     @DeleteMapping("/post/{postNum}")
     public ResponseEntity<?> delete(@PathVariable Long postNum) {
         rsMessage result;

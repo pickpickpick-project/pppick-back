@@ -25,10 +25,12 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postNum;
 
+    @Column(name = "postBoardNum")
+    private Long postBoardNum;
+
     @ManyToOne
     @JoinColumn(name = "userNum")
     private User user;
-
 
     @Column(name ="postTitle")
     private String title;
@@ -53,8 +55,9 @@ public class Post {
     private List<PostImg> postImg = new ArrayList<>();
 
     @Builder
-    public Post(User user, String title, String content, String pwd, String postDate) {
+    public Post(User user, Long postBoardNum, String title, String content, String pwd, String postDate) {
         this.user = user;
+        this.postBoardNum = postBoardNum;
         this.title = title;
         this.content = content;
         this.pwd = pwd;
