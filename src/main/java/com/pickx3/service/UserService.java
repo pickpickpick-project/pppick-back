@@ -1,13 +1,10 @@
 package com.pickx3.service;
 
 //import com.pickx3.domain.dto.UserUpdateRequestDto;
-import com.pickx3.domain.dto.post_package.PostUpdateRequestDto;
-import com.pickx3.domain.entity.Favorites;
+
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.post_package.Post;
-import com.pickx3.domain.entity.post_package.PostImg;
 import com.pickx3.domain.entity.user_package.User;
-import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.repository.FavoriteRepository;
 import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.UserRepository;
@@ -16,17 +13,9 @@ import com.pickx3.domain.repository.post_package.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -141,14 +130,14 @@ public class UserService {
 //            }
 //
 //        }
-
+/*
         List<Favorites> favorites = favoriteRepository.findByUser_id(userNum);
         if(favorites.size()!=0){
             for(Favorites favorite : favorites){
                 favoriteRepository.delete(favorite);
             }
         }
-
+*/
         List<Portfolio> portfolios = portfolioRepository.findByUser_id(userNum);
         if(portfolios.size()!=0){
             for(Portfolio portfolio : portfolios){

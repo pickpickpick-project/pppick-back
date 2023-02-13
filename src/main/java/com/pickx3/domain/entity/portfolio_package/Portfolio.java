@@ -33,16 +33,16 @@ public class Portfolio {
     /* 연관관계 */
     @JsonIgnore
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    private List<PortfolioImg> portfolioImgList = new ArrayList<>();
+    private List<PortfolioImg> portfolioImgList;
 
     /* 연관관계 */
     @OneToMany(mappedBy = "portfolio")
-    private Set<PortfolioTag> portfolioTagList = new HashSet<>();
+    private Set<PortfolioTag> portfolioTagList;
 
     /* 연관관계 */  //N+1 SET 으로 해결
     @JsonIgnore
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
-    public Set<Favorites> favorites = new HashSet<>();
+    public Set<Favorites> favorites;
 
     @Builder
     public Portfolio(User user, String portfolioName, int portfolioType,

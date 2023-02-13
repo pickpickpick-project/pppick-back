@@ -22,12 +22,14 @@ import java.util.List;
 public class PortfolioController {
     private final PortfolioService portfolioService;
     private final PortfolioRepository portfolioRepository;
+
     /**
      * 포폴 등록
      * @param portfolioForm
      * @return
      */
-    //@Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
+
+    @Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws IllegalAccessException {
         HashMap data = new HashMap<>();
