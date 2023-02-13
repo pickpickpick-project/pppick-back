@@ -1,7 +1,8 @@
 package com.pickx3.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pickx3.domain.dto.post_package.*;
+//import com.pickx3.domain.dto.*;
+import com.pickx3.domain.entity.post_package.dto.*;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.service.post_package.PostService;
 import com.pickx3.service.post_package.PostImgService;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -44,9 +46,12 @@ public class PostController {
         rsMessage result;
 
         try{
-            long postNum= postService.create(requestDto, postFileVO.getFiles());
-            PostResponseDto postResponseDto = postService.searchByPostNum(postNum);
-            result = new rsMessage(true, "Success" ,"200", "", postResponseDto );
+            HashMap data = new HashMap<>();
+            data.put("postNum", postService.create(requestDto, postFileVO.getFiles()));
+            result = new rsMessage(true, "Success" ,"200", "", data );
+//            Long postNum = postService.create(requestDto, postFileVO.getFiles());
+//            PostResponseDto postResponseDto = postService.searchByPostNum(postNum);
+//            result = new rsMessage(true, "Success" ,"200", "", postResponseDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             result = new rsMessage(false, "", "400", e.getMessage());
@@ -59,11 +64,13 @@ public class PostController {
     @PutMapping("/post/{postNum}")
     public ResponseEntity<?> update(@PathVariable Long postNum, String postPwd, @RequestBody PostUpdateRequestDto requestDto) throws Exception {
         rsMessage result;
-        ObjectMapper objectMapper = new ObjectMapper();
         try{
-            Long newPostNum = postService.update(postNum,postPwd,requestDto);
-            PostResponseDto postResponseDto = postService.searchByPostNum(newPostNum);
-            result = new rsMessage(true, "Success" ,"200", "", postResponseDto );
+            HashMap data = new HashMap<>();
+            data.put("postNum", postService.update(postNum,postPwd,requestDto));
+            result = new rsMessage(true, "Success" ,"200", "", data);
+//            Long newPostNum = postService.update(postNum,postPwd,requestDto);
+//            PostResponseDto postResponseDto = postService.searchByPostNum(newPostNum);
+//            result = new rsMessage(true, "Success" ,"200", "",postResponseDto);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             result = new rsMessage(false, "", "400", e.getMessage());

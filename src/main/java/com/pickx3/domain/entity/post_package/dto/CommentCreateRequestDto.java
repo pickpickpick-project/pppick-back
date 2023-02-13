@@ -1,4 +1,4 @@
-package com.pickx3.domain.dto.post_package;
+package com.pickx3.domain.entity.post_package.dto;
 
 import com.pickx3.domain.entity.post_package.Comment;
 import com.pickx3.domain.entity.post_package.Post;

@@ -1,9 +1,6 @@
 package com.pickx3.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 //import com.pickx3.domain.dto.UserUpdateRequestDto;
-import com.pickx3.domain.dto.post_package.PostResponseDto;
-import com.pickx3.domain.dto.post_package.PostUpdateRequestDto;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.exception.ResourceNotFoundException;
@@ -12,11 +9,9 @@ import com.pickx3.security.token.TokenProvider;
 import com.pickx3.security.UserPrincipal;
 import com.pickx3.service.UserService;
 import com.pickx3.util.rsMessage;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.RequiredArgsConstructor;
+        import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+        import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;

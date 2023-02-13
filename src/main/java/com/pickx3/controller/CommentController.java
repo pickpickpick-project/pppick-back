@@ -1,9 +1,9 @@
 package com.pickx3.controller;
 
-import com.pickx3.domain.dto.post_package.CommentCreateRequestDto;
-import com.pickx3.domain.dto.post_package.CommentResponseDto;
-import com.pickx3.domain.dto.post_package.CommentSetVO;
-import com.pickx3.domain.dto.post_package.CommentUpdateRequestDto;
+import com.pickx3.domain.entity.post_package.dto.CommentCreateRequestDto;
+import com.pickx3.domain.entity.post_package.dto.CommentResponseDto;
+import com.pickx3.domain.entity.post_package.dto.CommentSetVO;
+import com.pickx3.domain.entity.post_package.dto.CommentUpdateRequestDto;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.post_package.CommentRepository;
 import com.pickx3.service.UserService;
