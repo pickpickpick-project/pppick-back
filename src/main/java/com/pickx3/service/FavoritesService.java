@@ -37,12 +37,10 @@ public class FavoritesService {
     // 좋아요
     public Long addLike(FavoritesDto favoritesDto){
         Portfolio portfolio = portfolioRepository.findById(favoritesDto.getPortfolio().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
-
         User user = userRepository.findById(favoritesDto.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
+
         // 좋아요 유무 확인 .isPresent ( == ) 값이 있으면 True 반환
-        if(favoriteRepository.findByUserAndPortfolio(user, portfolio).isPresent()){
-            throw new RuntimeException();
-        }
+        if(favoriteRepository.findByUserAndPortfolio(user, portfolio).isPresent()){throw new RuntimeException();}
 
         Favorites favorites = Favorites.builder()
                 .portfolio(portfolio)
@@ -57,9 +55,7 @@ public class FavoritesService {
     // 좋아요 취소
     public void cancelLike(FavoritesDto favoritesDto) {
         Portfolio portfolio = portfolioRepository.findById(favoritesDto.getPortfolio().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
-
         User user = userRepository.findById(favoritesDto.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("id가 존재하지 않습니다." ));
-
         Favorites favorites = favoriteRepository.findByUserAndPortfolio(user, portfolio).orElseThrow(() -> new IllegalArgumentException("id(user, portfolio)가 존재하지 않습니다." ));
 
         favoriteRepository.delete(favorites);
@@ -68,7 +64,7 @@ public class FavoritesService {
     //좋아요한 작업물 목록 조회
     public List<PortfolioResponseDto> select(Long id) {
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(" userid가 존재하지 않습니다."));
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("user_id가 존재하지 않습니다."));
 
         //조회
         List<Portfolio> result = queryFactory.selectFrom(portfolio)
@@ -81,7 +77,6 @@ public class FavoritesService {
         // list add
         List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();
         result.forEach(s -> portfolioResponseDtos.add(new PortfolioResponseDto(s)));
-
 
         return portfolioResponseDtos;
     }

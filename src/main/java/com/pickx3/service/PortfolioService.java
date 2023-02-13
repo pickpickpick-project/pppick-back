@@ -69,4 +69,14 @@ public class PortfolioService {
 
         return portfolioResponseDtos;
     }
+
+    public List<PortfolioResponseDto> userId_list(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("user_id가 존재하지 않습니다." ));
+        List<Portfolio> portfolio = portfolioRepository.findByUser_id(user.getId());
+
+        List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();
+        portfolio.forEach(s -> portfolioResponseDtos.add(new PortfolioResponseDto(s)));
+
+        return portfolioResponseDtos;
+    }
 }

@@ -39,6 +39,7 @@ public class PortfolioController {
      * @param id
      * @return
      */
+    @Operation(summary = "포폴 삭제")
     @DeleteMapping("/portfolio/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
@@ -53,6 +54,7 @@ public class PortfolioController {
      * @return
      * @throws IllegalAccessException
      */
+    @Operation(summary = "포폴 단건 조회")
     @GetMapping("/portfolio/{id}")
     public ResponseEntity<?> read(@PathVariable long id) throws IllegalAccessException {
         PortfolioResponseDto data = portfolioService.read(id);
@@ -64,9 +66,23 @@ public class PortfolioController {
      * 포폴 목록 전체 조회
      * @return
      */
+    @Operation(summary = "포폴 전체 목록 조회")
     @GetMapping("/portfolio/list")
     public ResponseEntity<?> list(){
         List<PortfolioResponseDto> data = portfolioService.list();
+
+        return getResponseEntity(data);
+    }
+
+    /**
+     * 특정 회원 포폴 전체 조회
+     * @param id
+     * @return
+     */
+    @Operation(summary = "회원이 작성한 포폴 목록 조회" , description = "user : id 필요")
+    @GetMapping("/portfolio/list/user/{id}")
+    public ResponseEntity<?> userId_list(@PathVariable Long id){
+        List<PortfolioResponseDto> data = portfolioService.userId_list(id);
 
         return getResponseEntity(data);
     }
