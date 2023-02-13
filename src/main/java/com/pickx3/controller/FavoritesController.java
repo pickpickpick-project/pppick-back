@@ -1,18 +1,18 @@
 package com.pickx3.controller;
 
 import com.pickx3.dto.FavoritesDto;
+import com.pickx3.dto.PortfolioResponseDto;
 import com.pickx3.service.FavoritesService;
 import com.pickx3.util.rsMessage;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +26,7 @@ public class FavoritesController {
      * @param favoritesDto
      * @return
      */
+    @Operation(summary = "좋아요", description = "{user : id }, {portfolio : id} 값 필요")
     @PostMapping("/favorites/add")
     public ResponseEntity<?> addLike(@RequestBody FavoritesDto favoritesDto){
         HashMap data = new HashMap<>();
@@ -39,6 +40,7 @@ public class FavoritesController {
      * @param favoritesDto
      * @return
      */
+    @Operation(summary = "좋아요 취소", description = "좋아요 누른 {user : id }, {portfolio : id} 값 필요")
     @PatchMapping("/favorites/cancelLike")
     public ResponseEntity<?> cancelLike(@RequestBody FavoritesDto favoritesDto){
         HashMap data = new HashMap<>();
@@ -52,15 +54,14 @@ public class FavoritesController {
      * @param id
      * @return
      */
-    /*
+
     @GetMapping("/favorites/{id}")
     public ResponseEntity<?> select(@PathVariable Long id){
-      //  HashMap data = new HashMap<>();
-     //   favoritesService.select(id);
+
         List<PortfolioResponseDto> data = favoritesService.select(id);
         return getResponseEntity(data);
     }
-*/
+
     /**
      * 에러 메세지 호출
      * @param data
