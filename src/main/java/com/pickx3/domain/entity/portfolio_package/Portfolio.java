@@ -36,7 +36,7 @@ public class Portfolio {
     private List<PortfolioImg> portfolioImgList = new ArrayList<>();
 
     /* 연관관계 */
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "portfolio")
     private List<PortfolioTag> portfolioTagList = new ArrayList<>();
 
     /* 연관관계 */  //N+1 SET 으로 해결

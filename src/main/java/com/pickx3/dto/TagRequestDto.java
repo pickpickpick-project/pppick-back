@@ -6,7 +6,7 @@ import com.pickx3.domain.entity.portfolio_package.Tag;
 
 import java.util.List;
 
-public class TagDto {
+public class TagRequestDto {
 
     private Long id;
 
@@ -14,7 +14,7 @@ public class TagDto {
 
     private List<PortfolioTag> tags ;
 
-
+    // DTO -> Entity
     public Tag toEntity(){
         return Tag.builder()
                 .id(id)
