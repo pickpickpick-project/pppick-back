@@ -1,12 +1,13 @@
 package com.pickx3.domain.entity.portfolio_package;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -18,12 +19,12 @@ public class Tag {
     private Long id;
 
     private String tagName;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "tag")
-    private List<PortfolioTag> tags = new ArrayList<>();
+    private Set<PortfolioTag> tags = new HashSet<>();
 
     @Builder
-    public Tag(Long id, String tagName, List<PortfolioTag> tags) {
+    public Tag(Long id, String tagName, Set<PortfolioTag> tags) {
         this.id = id;
         this.tagName = tagName;
         this.tags = tags;

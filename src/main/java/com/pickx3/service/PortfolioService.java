@@ -25,12 +25,11 @@ public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
+    private final TagService tagService;
 
     // 저장
     @Transactional
     public Long savePf(PortfolioRequestDto pfDto){
-
-        log.debug(" 로그인 유저 ID 값 ========================= " + pfDto.getUser().getId());
         User user = userRepository.findById(pfDto.getUser().getId()).orElseThrow(() -> new IllegalArgumentException("user_id가 존재하지 않습니다." ));
 
         pfDto.setUser(user);
@@ -43,6 +42,8 @@ public class PortfolioService {
                 .build();
 
         portfolioRepository.save(portfolio);
+        // 태그
+        tagService.createTag(pfDto);
 
         return portfolio.getId();
     }
@@ -64,16 +65,18 @@ public class PortfolioService {
     //전체 목록 조회보기
     public List<PortfolioResponseDto> list(){
         List<Portfolio> portfolio = portfolioRepository.findAll();
+
         List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();
         portfolio.forEach(s -> portfolioResponseDtos.add(new PortfolioResponseDto(s)));
 
         return portfolioResponseDtos;
     }
 
+    //자기가 작성한 포폴 목록 조회
     public List<PortfolioResponseDto> userId_list(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("user_id가 존재하지 않습니다." ));
-        List<Portfolio> portfolio = portfolioRepository.findByUser_id(user.getId());
 
+        List<Portfolio> portfolio = portfolioRepository.findByUser_id(user.getId());
         List<PortfolioResponseDto> portfolioResponseDtos = new ArrayList<>();
         portfolio.forEach(s -> portfolioResponseDtos.add(new PortfolioResponseDto(s)));
 

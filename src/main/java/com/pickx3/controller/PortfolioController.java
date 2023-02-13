@@ -93,7 +93,6 @@ public class PortfolioController {
      * @param data
      * @return
      */
-
     private ResponseEntity<?> getResponseEntity(Object data){
         rsMessage result = null;
         try{
