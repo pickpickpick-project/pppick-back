@@ -6,6 +6,7 @@ import com.pickx3.domain.dto.post_package.PostResponseDto;
 import com.pickx3.domain.dto.post_package.PostUpdateRequestDto;
 import com.pickx3.domain.entity.post_package.Post;
 import com.pickx3.domain.entity.post_package.PostImg;
+import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import com.pickx3.domain.repository.post_package.PostRepository;
 import com.pickx3.domain.repository.post_package.PostImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -37,6 +43,7 @@ public class PostService {
         // 파일 처리를 위한 Board 객체 생성
         Post post = new Post(
                 requestDto.getUser(),
+                requestDto.getPostBoardNum(),
                 requestDto.getPostTitle(),
                 requestDto.getPostContent(),
                 requestDto.getPostPwd(),
@@ -101,12 +108,29 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<PostListResponseDto> searchByPostBoardNum(Long postBoardNum) {
+        return postRepository.findByPostBoardNum(postBoardNum).stream()
+                .map(PostListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
-    public void delete(Long id) {
-        Post post = postRepository.findById(id)
+    public void delete(Long postNum) throws IOException {
+        Post post = postRepository.findById(postNum)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
 
+        // post에 할당된 postimg 있을 경우 post img도 같이 삭제
+        List<PostImg> postImgs = postImgRepository.findByPost_PostNum(postNum);
+        if(postImgs.size()!=0){
+            for(PostImg postImg : postImgs){
+                Path filePath = Paths.get(postImg.getFilePath());
+                Files.delete(filePath);
+            }
+
+        }
         postRepository.delete(post);
+
     }
 
 }

@@ -24,9 +24,9 @@ public class PostController {
     private final PostImgService postImgService;
     private final UserService userService;
 
-    @PostMapping(path = "/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "/board/{postBoardNum}/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> create(@ModelAttribute PostFileVO postFileVO) throws Exception {
+    public ResponseEntity<?> create(@PathVariable Long postBoardNum, @ModelAttribute PostFileVO postFileVO) throws Exception {
         // Member id로 조회하는 메소드 존재한다고 가정하에 진행
         User user = userService.searchUserById(
                 Long.parseLong(postFileVO.getUserNum()));
@@ -34,6 +34,7 @@ public class PostController {
         PostCreateRequestDto requestDto =
                 PostCreateRequestDto.builder()
                         .user(user)
+                        .postBoardNum(postBoardNum)
                         .postTitle(postFileVO.getPostTitle())
                         .postContent(postFileVO.getPostContent())
                         .postPwd(postFileVO.getPostPwd())
@@ -87,6 +88,20 @@ public class PostController {
         rsMessage result;
         try{
             List<PostListResponseDto> postListResponseDtos =  postService.searchAllDesc();
+            result = new rsMessage(true, "Success" ,"200", "", postListResponseDtos );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // 작가 번호(작가 userNum = postBoardNum)별 문의게시판 글 조회
+    @GetMapping("/board/{postBoardNum}/post")
+    public ResponseEntity<?> searchByPostBoardNum(@PathVariable Long postBoardNum) {
+        rsMessage result;
+        try{
+            List<PostListResponseDto> postListResponseDtos =  postService.searchByPostBoardNum(postBoardNum);
             result = new rsMessage(true, "Success" ,"200", "", postListResponseDtos );
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){

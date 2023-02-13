@@ -5,12 +5,14 @@ import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "UserInfo")
 @NoArgsConstructor
@@ -74,9 +76,15 @@ public class User {
 
     public User update(String name, String imageUrl) {
         this.name = name;
+//        this.phone = phone;
+//        this.intro = userIntro;
+//        this.nickName = userNick;
         this.imageUrl = imageUrl;
         return this;
     }
+
+
+
 
 
 }

@@ -1,16 +1,24 @@
 package com.pickx3.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.pickx3.domain.dto.UserUpdateRequestDto;
+import com.pickx3.domain.dto.post_package.PostResponseDto;
+import com.pickx3.domain.dto.post_package.PostUpdateRequestDto;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.exception.ResourceNotFoundException;
 import com.pickx3.security.CurrentUser;
 import com.pickx3.security.token.TokenProvider;
 import com.pickx3.security.UserPrincipal;
+import com.pickx3.service.UserService;
+import com.pickx3.util.rsMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 일반 회원 가입
@@ -21,7 +29,7 @@ public class UserController {
 
     private final UserRepository userRepository;
 
-
+    private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final TokenProvider tokenProvider;
 
@@ -30,6 +38,34 @@ public class UserController {
     public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
         return userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+    }
+
+//    @PutMapping(path = "/user/{userNum}")
+//    public ResponseEntity<?> update(@PathVariable Long userNum, UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+//        rsMessage result;
+//
+//        try{
+//            Long newUserNum = userService.update(userNum,userUpdateRequestDto);
+//            User newUser = userService.searchUserById(newUserNum);
+//            result = new rsMessage(true, "Success" ,"200", "", newUser );
+//            return new ResponseEntity<>(result, HttpStatus.OK);
+//        }catch (Exception e){
+//            result = new rsMessage(false, "", "400", e.getMessage());
+//            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+//        }
+//    }
+
+    @DeleteMapping("/user/delete/{userNum}")
+    public ResponseEntity<?> delete(@PathVariable Long userNum) {
+        rsMessage result;
+        try{
+            userService.delete(userNum);
+            result = new rsMessage(true, "Success" ,"200", "", null );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
     }
 
 
