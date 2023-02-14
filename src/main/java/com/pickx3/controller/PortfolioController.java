@@ -32,7 +32,11 @@ public class PortfolioController {
      * @return
      */
 
-    @Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
+    @Operation(summary = "포폴 등록", description = "샘플 데이터 : <br>{ <br>&nbsp; &nbsp; files: 확장자가 jpg,png인 파일,<br>"+
+            "&nbsp; &nbsp; portfolioDate : 공백으로 보내주셔도 됩니다, <br>" +
+            "&nbsp; &nbsp; portfolioName : 김대박의 포트폴리오 입니다 , <br>" +
+            "&nbsp; &nbsp; portfolioType: 50000, <br>" +
+            "&nbsp; &nbsp; userNum :2 <br>}")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws Exception {
         HashMap data = new HashMap<>();
@@ -56,7 +60,7 @@ public class PortfolioController {
      * @param id
      * @return
      */
-    @Operation(summary = "포폴 삭제", description = "{portfolio : id} 값 필요")
+    @Operation(summary = "포폴 삭제", description = "delete api 이용할 경우 포트폴리오 신규 등록 시, 결과 값으로 나온 고유번호로 이용 부탁드립니다. <br> 고유번호 ex) portfolioNum")
     @DeleteMapping("/portfolio/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
@@ -71,7 +75,7 @@ public class PortfolioController {
      * @return
      * @throws IllegalAccessException
      */
-    @Operation(summary = "포폴 단건 조회", description = "{portfolio : id} 값 필요")
+    @Operation(summary = "포폴 단건 조회", description = "샘플 데이터 = id : 2 ")
     @GetMapping("/portfolio/{id}")
     public ResponseEntity<?> read(@PathVariable long id) throws IllegalAccessException {
         PortfolioResponseDto data = portfolioService.read(id);
@@ -96,7 +100,7 @@ public class PortfolioController {
      * @param id
      * @return
      */
-    @Operation(summary = "회원이 작성한 포폴 목록 조회" , description = "user : id 필요")
+    @Operation(summary = "회원이 작성한 포폴 목록 조회" , description = "샘플 데이터 = id : 2")
     @GetMapping("/portfolio/list/user/{id}")
     public ResponseEntity<?> userId_list(@PathVariable Long id){
         List<PortfolioResponseDto> data = portfolioService.userId_list(id);

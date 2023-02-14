@@ -26,7 +26,9 @@ public class FavoritesController {
      * @param favoritesForm
      * @return
      */
-    @Operation(summary = "좋아요", description = "{user : id }, {portfolio : id} 값 필요")
+    @Operation(summary = "좋아요",  description = "샘플 데이터 : <br>{ <br>&nbsp; &nbsp; portfolioNum: 2 ,<br>" +
+            "&nbsp; &nbsp; userNum : 2 <br> } <br>* 이미 좋아요 누른 포트폴리오를 요청할 경우 오류가 발생합니다"
+    )
     @PostMapping("/portfolio/favorites/add")
     public ResponseEntity<?> addLike(@RequestBody FavoritesForm favoritesForm){
         HashMap data = new HashMap<>();
@@ -40,8 +42,9 @@ public class FavoritesController {
      * @param favoritesForm
      * @return
      */
-    @Operation(summary = "좋아요 취소", description = "좋아요 누른 {user : id }, {portfolio : id} 값 필요")
-    @PatchMapping("/portfolio/favorites/cancelLike")
+    @Operation(summary = "좋아요 취소",description = "샘플 데이터 : <br>{ <br>&nbsp; &nbsp; portfolioNum: 2 ,<br>" +
+            "&nbsp; &nbsp; userNum : 2 <br>}<br> * 이미 좋아요 취소한 포트폴리오를 요청할 경우 오류가 발생합니다"
+    )
     public ResponseEntity<?> cancelLike(@RequestBody FavoritesForm favoritesForm){
         HashMap data = new HashMap<>();
         favoritesService.cancelLike(favoritesForm);
@@ -54,7 +57,7 @@ public class FavoritesController {
      * @param id
      * @return
      */
-    @Operation(summary = "회원이 누른 좋아요 포폴 목록 전체 조회", description = "좋아요 누른 회원 Id 필요")
+    @Operation(summary = "회원이 누른 좋아요 포폴 목록 전체 조회", description = "샘플 데이터 = id : 2")
     @GetMapping("/portfolio/favorites/{id}")
     public ResponseEntity<?> select(@PathVariable Long id){
 
