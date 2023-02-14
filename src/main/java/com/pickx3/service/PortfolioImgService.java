@@ -91,13 +91,5 @@ public class PortfolioImgService {
         }
         return fileList;
 
-
-//            String fileType = multipartFile.getContentType();
-//            String originalFilename = multipartFile.getOriginalFilename();
-//
-////           파일 타입이 png/jpeg가 아닐 경우  exception 처리
-//            String fileName = timeStamp + StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-
     }
 }
