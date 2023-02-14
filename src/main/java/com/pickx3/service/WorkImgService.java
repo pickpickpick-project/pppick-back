@@ -154,6 +154,7 @@ public class WorkImgService {
      */
     public void removeWorkImages(Long workNum) {
         List<WorkImgForm> images = workImgRepository.findByWork_workNum(workNum);
+        log.debug(" images =================  " + images);
 
         try {
             for (WorkImgForm workImgForm : images) {
@@ -166,6 +167,7 @@ public class WorkImgService {
                 workImg.setWorkImgSrcPath(workImgForm.getWorkImgSrcPath());
 
                 Path filePath = Paths.get(workImgForm.getWorkImgSrcPath());
+
                 Files.delete(filePath);
 
                 workImgRepository.delete(workImg);

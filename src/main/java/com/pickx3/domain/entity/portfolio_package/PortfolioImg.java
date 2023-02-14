@@ -3,10 +3,12 @@ package com.pickx3.domain.entity.portfolio_package;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 
+@Setter
 @Getter
 @NoArgsConstructor
 @Entity
@@ -21,20 +23,20 @@ public class PortfolioImg {
     private Portfolio portfolio;
 
     @Column(name="portfolioImgOriginName")
-    private String originFilename;  //원본
+    private String portfolioImgOriginName;  //원본
 
     @Column(name="portfolioImgName")
-    private String storeFilename;   //서버저장이름
+    private String portfolioImgName;   //서버저장이름
 
     private String portfolioImgAddr;
 
 
     @Builder
-    public PortfolioImg(Long id, Portfolio portfolio, String originFilename, String storeFilename, String portfolioImgAddr) {
+    public PortfolioImg(Long id, Portfolio portfolio, String portfolioImgOriginName, String portfolioImgName, String portfolioImgAddr) {
         this.id = id;
         this.portfolio = portfolio;
-        this.originFilename = originFilename;
-        this.storeFilename = storeFilename;
+        this.portfolioImgOriginName = portfolioImgOriginName;
+        this.portfolioImgName = portfolioImgName;
         this.portfolioImgAddr = portfolioImgAddr;
     }
 }

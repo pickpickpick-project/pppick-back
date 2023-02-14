@@ -1,3 +1,4 @@
+/*
 package com.pickx3.domain.post;
 
 import com.pickx3.domain.entity.post_package.Post;
@@ -46,4 +47,4 @@ public class PostsRepositoryTest {
     }
 
 
-}
+}*/

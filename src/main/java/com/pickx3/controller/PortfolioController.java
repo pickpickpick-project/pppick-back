@@ -60,7 +60,12 @@ public class PortfolioController {
     @DeleteMapping("/portfolio/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
+        portfolioImgService.removeWorkImages(id);
+
         portfolioService.delete(id);
+
+
+
 
         return getResponseEntity(data);
     }
@@ -104,6 +109,17 @@ public class PortfolioController {
         return getResponseEntity(data);
     }
 
+/*
+    @GetMapping("/portfolio/delete/{id}")
+    public ResponseEntity<?> removeWorkImg(@PathVariable(name = "workImgNum") Long id){
+        HashMap data = new HashMap<>();
+
+        portfolioImgService.removeWorkImages(id);
+
+
+        return getResponseEntity(data);
+    }
+*/
 
     /**
      * 에러 메세지 호출
