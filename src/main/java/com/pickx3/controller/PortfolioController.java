@@ -36,7 +36,6 @@ public class PortfolioController {
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws Exception {
         HashMap data = new HashMap<>();
-        //data.put("Portfolio_id", portfolioService.savePf(portfolioForm));
 
         Portfolio portfolio = portfolioService.createPf(portfolioForm);
         log.debug(" =========== porfort id ======= ========================================== " + portfolio.getId());
@@ -45,7 +44,7 @@ public class PortfolioController {
 
         List<PortfolioImg> portfolioImgs = portfolioImgService.uploadPortfolioImg(files, portfolio);
 
-        data.put("Portfolio_id", portfolio.getId());
+        data.put("Portfolio", portfolio);
         data.put("PortImges", portfolioImgs);
 
         return getResponseEntity(data);
