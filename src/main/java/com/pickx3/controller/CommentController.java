@@ -27,7 +27,7 @@ public class CommentController {
     private final UserService userService;
 
     /* CREATE */
-    @Operation(summary = "댓글 저장")
+    @Operation(summary = "댓글 저장", description = "test example:<br>postNum - 1<br>commentContent - 네 인물 작업 가능합니다<br>userNum - 3")
     @PostMapping("/post/{postNum}/comment")
     public ResponseEntity<?> commentSave(@PathVariable Long postNum, @RequestBody CommentSetVO commentSetVO) {
         User user = userService.searchUserById(
@@ -52,7 +52,7 @@ public class CommentController {
 
     /* READ */
     // comment 번호로 조회
-    @Operation(summary = "댓글 상세 정보 조회")
+    @Operation(summary = "댓글 상세 정보 조회", description = "test example :<br>commentNum - 1")
     @GetMapping("/comment/{commentNum}")
     public ResponseEntity<?> searchById(@PathVariable Long commentNum) {
         rsMessage result;
@@ -66,7 +66,7 @@ public class CommentController {
         }
     }
 
-    @Operation(summary = "게시물별 댓글 목록 조회")
+    @Operation(summary = "게시물별 댓글 목록 조회", description = "test example:<br>postNum - 1")
     @GetMapping("post/{postNum}/comment")
     public ResponseEntity<?> searchByPost(@PathVariable Long postNum) {
         rsMessage result;
@@ -96,7 +96,7 @@ public class CommentController {
 
 
     /* UPDATE */
-    @Operation(summary = "댓글 수정")
+    @Operation(summary = "댓글 수정", description = "test example:<br>commentNum - 1<br>commentContent - 네, 캐릭터 작업 가능합니다")
     @PutMapping("/comment/{commentNum}")
     public ResponseEntity<?> update(@PathVariable Long commentNum, @RequestBody CommentUpdateRequestDto requestDto) {
         rsMessage result;
@@ -112,7 +112,8 @@ public class CommentController {
     }
 
     /* DELETE */
-    @Operation(summary = "댓글 삭제")
+    @Operation(summary = "댓글 삭제", description = "delete api 이용할 경우 post api로 등록하여 결과 값으로 나온 고유번호로 이용 부탁드립니다.<br>" +
+            "고유번호 ex) postNum , portfolioNum, WorkNum, commentNum")
     @DeleteMapping("/comment/{commentNum}")
     public ResponseEntity<?> delete(@PathVariable Long commentNum) {
         rsMessage result;
