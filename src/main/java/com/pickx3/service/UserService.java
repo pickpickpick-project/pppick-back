@@ -1,7 +1,8 @@
 package com.pickx3.service;
 
 //import com.pickx3.domain.dto.UserUpdateRequestDto;
-
+//import com.pickx3.domain.entity.Favorites;
+import com.pickx3.domain.entity.portfolio_package.Favorites;
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.post_package.Post;
 import com.pickx3.domain.entity.user_package.User;
@@ -10,6 +11,7 @@ import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
 import com.pickx3.domain.repository.post_package.PostRepository;
+import com.pickx3.service.post_package.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,7 @@ public class UserService {
 
     private final WorkRepository workRepository;
 
+    private final PostService postService;
     private final WorkService workService;
 
     private final WorkImgService workImgService;
@@ -39,7 +42,7 @@ public class UserService {
     }
 
 
-//    @Transactional
+    //    @Transactional
 //    public Long update(UserUpdateRequestDto requestDto) throws IOException {
 //        User user = userRepository.findById(requestDto.getUserNum())
 //                .orElseThrow(() -> new
@@ -113,31 +116,31 @@ public class UserService {
         User user = userRepository.findById(userNum)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
+        //유저 지우면 썼던 포스트들 삭제
+        List<Post> postss = postRepository.findByUser_Id(userNum);
+        if(postss.size()!=0){
+            for(Post post : postss){
+                postService.delete(post.getPostNum());
+            }
+
+        }
         // 유저 지우면 개인 유저 문의게시판 삭제
         List<Post> posts = postRepository.findByPostBoardNum(userNum);
         if(posts.size()!=0){
             for(Post post : posts){
-                postRepository.delete(post);
+                postService.delete(post.getPostNum());
             }
 
         }
 
-        //유저 지우면 썼던 포스트들 삭제
-//        List<Post> postss = postRepository.findByUser_Id(userNum);
-//        if(posts.size()!=0){
-//            for(Post post : postss){
-//                postRepository.delete(post);
-//            }
-//
-//        }
-/*
+
         List<Favorites> favorites = favoriteRepository.findByUser_id(userNum);
         if(favorites.size()!=0){
             for(Favorites favorite : favorites){
                 favoriteRepository.delete(favorite);
             }
         }
-*/
+
         List<Portfolio> portfolios = portfolioRepository.findByUser_id(userNum);
         if(portfolios.size()!=0){
             for(Portfolio portfolio : portfolios){
