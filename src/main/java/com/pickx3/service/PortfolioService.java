@@ -52,11 +52,10 @@ public class PortfolioService {
         return portfolio.getId();
     }
 */
-    // 저장(이미지 진행중)
+    // 저장
     @Transactional
     public Portfolio createPf(PortfolioForm portfolioForm) throws IllegalAccessException {
         User user = userRepository.findById(portfolioForm.getUserNum()).get();
-        //User user = userRepository.findById(portfolioForm.getPortfolioNum()).orElseThrow(() -> new IllegalAccessException("portfolioForm.getUserNum())id ="+id));
 
         Portfolio portfolio = Portfolio.builder()
                 .portfolioName(portfolioForm.getPortfolioName())
@@ -69,8 +68,6 @@ public class PortfolioService {
 
         return portfolio;
     }
-
-
 
     //삭제
     public void delete(long id) throws IllegalAccessException {
@@ -106,11 +103,5 @@ public class PortfolioService {
 
         return portfolioResponseDtos;
     }
-    // 반환용
-    public PortfolioResponseDto searchByPfId(Long id) {
-        Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(()
-                -> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
 
-        return new PortfolioResponseDto(portfolio);
-    }
 }

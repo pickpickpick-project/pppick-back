@@ -36,7 +36,7 @@ public class Portfolio {
     private List<PortfolioImg> portfolioImgList;
 
     /* 연관관계 */
-    @OneToMany(mappedBy = "portfolio")
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private Set<PortfolioTag> portfolioTagList;
 
     /* 연관관계 */  //N+1 SET 으로 해결

@@ -29,8 +29,6 @@ public class PortfolioImg {
     private String portfolioImgAddr;
 
 
-
-
     @Builder
     public PortfolioImg(Long id, Portfolio portfolio, String originFilename, String storeFilename, String portfolioImgAddr) {
         this.id = id;
