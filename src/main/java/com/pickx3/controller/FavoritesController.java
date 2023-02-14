@@ -45,6 +45,7 @@ public class FavoritesController {
     @Operation(summary = "좋아요 취소",description = "샘플 데이터 : <br>{ <br>&nbsp; &nbsp; portfolioNum: 2 ,<br>" +
             "&nbsp; &nbsp; userNum : 2 <br>}<br> * 이미 좋아요 취소한 포트폴리오를 요청할 경우 오류가 발생합니다"
     )
+    @PatchMapping("/portfolio/favorites/cancelLike")
     public ResponseEntity<?> cancelLike(@RequestBody FavoritesForm favoritesForm){
         HashMap data = new HashMap<>();
         favoritesService.cancelLike(favoritesForm);
