@@ -9,6 +9,7 @@ import com.pickx3.service.post_package.PostImgService;
 import com.pickx3.service.UserService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,7 +28,7 @@ public class PostController {
     private final PostImgService postImgService;
     private final UserService userService;
 
-    @Operation(summary = "작가(postBoardNum=작가userNum)별 문의게시판에 게시글 등록")
+    @Operation(summary = "작가별 문의게시판에 게시글 등록" , description = "작가 유저 번호 = postBoardNum <br><br>test example:<br>postBoardNum - 2, <br> files - jpg/jpeg/png 파일,<br> postContent - 일러스트 가격 문의 드립니다. ,<br> postPwd - test,<br> postTitle - 인물도 첨부사진처럼 작업 가능한가요?,<br>userNum - 3")
     @PostMapping(path = "/board/{postBoardNum}/post", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@PathVariable Long postBoardNum, @ModelAttribute PostFileVO postFileVO) throws Exception {
@@ -60,7 +61,7 @@ public class PostController {
     }
 
 
-    @Operation(summary = "게시글 수정")
+    @Operation(summary = "게시글 수정", description = "test example:<br>postNum - 1,<br> postPwd - test,<br> postContent - 지금 작업 가능하신가요?,<br> postTitle - 안녕하세요 ")
     @PutMapping("/post/{postNum}")
     public ResponseEntity<?> update(@PathVariable Long postNum, String postPwd, @RequestBody PostUpdateRequestDto requestDto) throws Exception {
         rsMessage result;
@@ -79,7 +80,7 @@ public class PostController {
     }
 
     //개별 조회
-    @Operation(summary = "게시글 상세 정보 조회")
+    @Operation(summary = "게시글 상세 정보 조회", description = "test example:<br>postNum - 1")
     @GetMapping("/post/{postNum}")
     public ResponseEntity<?> searchById(@PathVariable Long postNum) {
         rsMessage result;
@@ -109,9 +110,9 @@ public class PostController {
     }
 
     // 작가 번호(작가 userNum = postBoardNum)별 문의게시판 글 조회
-    @Operation(summary = "작가(postBoardNum=작가userNum)별 문의게시판에 게시글 목록 조회")
+    @Operation(summary = "작가별 문의게시판의 게시글 목록 조회", description = "작가 유저 번호 = postBoardNum <br><br>test example:<br>postBoardNum - 2")
     @GetMapping("/board/{postBoardNum}/post")
-    public ResponseEntity<?> searchByPostBoardNum(@PathVariable Long postBoardNum) {
+    public ResponseEntity<?> searchByPostBoardNum( @PathVariable Long postBoardNum) {
         rsMessage result;
         try{
             List<PostListResponseDto> postListResponseDtos =  postService.searchByPostBoardNum(postBoardNum);
@@ -123,7 +124,8 @@ public class PostController {
         }
     }
 
-    @Operation(summary = "게시글 삭제")
+    @Operation(summary = "게시글 삭제", description = "delete api 이용할 경우 post api로 등록하여 결과 값으로 나온 고유번호로 이용 부탁드립니다.<br>" +
+            "고유번호 ex) postNum , portfolioNum, WorkNum")
     @DeleteMapping("/post/{postNum}")
     public ResponseEntity<?> delete(@PathVariable Long postNum) {
         rsMessage result;
