@@ -42,7 +42,7 @@ public class UserService {
     }
 
 
-//    @Transactional
+    //    @Transactional
 //    public Long update(UserUpdateRequestDto requestDto) throws IOException {
 //        User user = userRepository.findById(requestDto.getUserNum())
 //                .orElseThrow(() -> new

@@ -1,8 +1,10 @@
 package com.pickx3.controller;
 
+import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.portfolio_package.PortfolioForm;
+import com.pickx3.domain.entity.portfolio_package.PortfolioImg;
 import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
-import com.pickx3.domain.repository.PortfolioRepository;
+import com.pickx3.service.PortfolioImgService;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,19 +24,29 @@ import java.util.List;
 @RestController
 public class PortfolioController {
     private final PortfolioService portfolioService;
-    private final PortfolioRepository portfolioRepository;
+    private final PortfolioImgService portfolioImgService;
+
     /**
      * 포폴 등록
      * @param portfolioForm
      * @return
      */
-    //@Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
+
+    @Operation(summary = "포폴 등록", description = "{user : id} 값 필요")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws IllegalAccessException {
+    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws Exception {
         HashMap data = new HashMap<>();
-        data.put("Portfolio_id", portfolioService.savePf(portfolioForm));
+        //data.put("Portfolio_id", portfolioService.savePf(portfolioForm));
 
+        Portfolio portfolio = portfolioService.createPf(portfolioForm);
+        log.debug(" =========== porfort id ======= ========================================== " + portfolio.getId());
+        List<MultipartFile> files = portfolioForm.getFiles();
+        log.debug(" =========== files ======= ========================================== " + files);
 
+        List<PortfolioImg> portfolioImgs = portfolioImgService.uploadPortfolioImg(files, portfolio);
+
+        data.put("Portfolio_id", portfolio.getId());
+        data.put("PortImges", portfolioImgs);
 
         return getResponseEntity(data);
     }
