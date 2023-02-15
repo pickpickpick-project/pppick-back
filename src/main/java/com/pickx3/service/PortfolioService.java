@@ -32,17 +32,23 @@ public class PortfolioService {
 
     // 저장
     @Transactional
-    public Portfolio createPf(PortfolioForm portfolioForm, TagRequestDto tagDto) throws IllegalAccessException {
+    public Portfolio createPf(PortfolioForm portfolioForm, TagRequestDto tagDto){
         User user = userRepository.findById(portfolioForm.getUserNum()).get();
 
         String[] arr = tagDto.getTagName().split("#");
+        Set<String> tagSet = new HashSet<>(Arrays.asList(arr));
 
-//
-        Tag tag = Tag.builder().tagName(Arrays.toString(arr))
-                .build();
+        //태그 등록
+        Tag saveTag = null;
+        for (String s : tagSet) {
+            if(s.isEmpty()) continue;
+            Tag a = Tag.builder().tagName(s)
+                    .build();
 
-        Tag saveTag = tagRepository.save(tag);
-//
+            saveTag = tagRepository.save(a);
+        }
+
+        //포폴 등록
         Portfolio portfolio = Portfolio.builder()
                 .portfolioName(portfolioForm.getPortfolioName())
                 .portfolioType(Integer.parseInt(portfolioForm.getPortfolioType()))
@@ -51,17 +57,19 @@ public class PortfolioService {
                 .build();
 
         Portfolio savePort = portfolioRepository.save(portfolio);
-//
+
+        //태그+ 포폴 = 포폴태그 등록
         PortfolioTag portfolioTag = PortfolioTag.builder()
                 .portfolio(savePort)
                 .tag(saveTag)
                 .build();
 
-
+        portfolioTagRepository.save(portfolioTag);
 
 
         return portfolio;
     }
+
 
     //삭제
     public void delete(long id) throws IllegalAccessException {
