@@ -40,7 +40,6 @@ public class PortfolioController {
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws Exception {
         HashMap data = new HashMap<>();
-        //data.put("Portfolio_id", portfolioService.savePf(portfolioForm));
 
         Portfolio portfolio = portfolioService.createPf(portfolioForm);
         log.debug(" =========== porfort id ======= ========================================== " + portfolio.getId());
@@ -49,7 +48,7 @@ public class PortfolioController {
 
         List<PortfolioImg> portfolioImgs = portfolioImgService.uploadPortfolioImg(files, portfolio);
 
-        data.put("Portfolio_id", portfolio.getId());
+        data.put("Portfolio", portfolio);
         data.put("PortImges", portfolioImgs);
 
         return getResponseEntity(data);
@@ -64,7 +63,12 @@ public class PortfolioController {
     @DeleteMapping("/portfolio/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
+        portfolioImgService.removeWorkImages(id);
+
         portfolioService.delete(id);
+
+
+
 
         return getResponseEntity(data);
     }
@@ -108,6 +112,17 @@ public class PortfolioController {
         return getResponseEntity(data);
     }
 
+/*
+    @GetMapping("/portfolio/delete/{id}")
+    public ResponseEntity<?> removeWorkImg(@PathVariable(name = "workImgNum") Long id){
+        HashMap data = new HashMap<>();
+
+        portfolioImgService.removeWorkImages(id);
+
+
+        return getResponseEntity(data);
+    }
+*/
 
     /**
      * 에러 메세지 호출

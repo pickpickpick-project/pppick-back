@@ -29,30 +29,6 @@ public class PortfolioService {
     private final TagService tagService;
 
     // 저장
-    /*
-    @Transactional
-    public Portfolio savePf(PortfolioForm portfolioForm) throws IllegalAccessException {
-        User user = userRepository.findById(portfolioForm.getUserNum()).get();
-
-        Portfolio portfolio = Portfolio.builder()
-                .portfolioName(portfolioForm.getPortfolioName())
-                .portfolioType(Integer.parseInt(portfolioForm.getPortfolioType()))
-                .portfolioDate(new Date())
-                .user(user)
-                .build();
-
-        portfolioRepository.save(portfolio);
-        ///////////
-
-        // 태그
-        //tagService.createTag(pfDto);
-
-
-
-        return portfolio.getId();
-    }
-*/
-    // 저장
     @Transactional
     public Portfolio createPf(PortfolioForm portfolioForm) throws IllegalAccessException {
         User user = userRepository.findById(portfolioForm.getUserNum()).get();

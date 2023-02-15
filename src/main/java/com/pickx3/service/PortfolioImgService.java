@@ -2,16 +2,22 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.portfolio_package.PortfolioImg;
+import com.pickx3.domain.entity.portfolio_package.PortfolioImgForm;
 import com.pickx3.domain.repository.PortfolioImgRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,12 +25,17 @@ import java.util.List;
 
 @Slf4j
 @Transactional
+@RequiredArgsConstructor
 @Service
 public class PortfolioImgService {
 
-    @Autowired
-    private PortfolioImgRepository portfolioImgRepository;
 
+    private final PortfolioImgRepository portfolioImgRepository;
+
+    @PersistenceContext // 영속성 객체를 자동으로 삽입해줌
+    private EntityManager em;
+
+    //이미지 업로드
     public List<PortfolioImg> uploadPortfolioImg(List<MultipartFile> files, Portfolio portfolio) throws Exception {
         List<PortfolioImg> fileList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(files)) {
@@ -67,8 +78,8 @@ public class PortfolioImgService {
                 String new_file_name = System.nanoTime() + originalFileExtension;
 
                 PortfolioImg portfolioImg = PortfolioImg.builder()
-                        .storeFilename(new_file_name)
-                        .originFilename(multipartFile.getOriginalFilename())
+                        .portfolioImgName(new_file_name)
+                        .portfolioImgOriginName(multipartFile.getOriginalFilename())
                         .portfolioImgAddr(absolutePath+ path+File.separator +new_file_name)
                         .portfolio(portfolio)
                         .build();
@@ -91,5 +102,31 @@ public class PortfolioImgService {
         }
         return fileList;
 
+    }
+    // 이미지 목록 삭제
+    public void removeWorkImages(Long id) {
+        List<PortfolioImgForm> portfolioImgForms = portfolioImgRepository.findByPortfolio_id(id);
+
+        log.debug(" portfolioImgForm check   =================  " + portfolioImgForms);
+
+        try {
+            for (PortfolioImgForm portfolioImgForm : portfolioImgForms) {
+                PortfolioImg portfolioImgList = new PortfolioImg();
+
+                portfolioImgList.setId(portfolioImgForm.getId());
+                portfolioImgList.setPortfolioImgName(portfolioImgForm.getPortfolioImgName());
+                portfolioImgList.setPortfolioImgOriginName(portfolioImgForm.getPortfolioImgOriginName());
+                portfolioImgList.setPortfolioImgAddr(portfolioImgForm.getPortfolioImgAddr());
+
+                Path filePath = Paths.get(portfolioImgForm.getPortfolioImgAddr());
+                log.debug(" path =================  " + filePath);
+
+                Files.delete(filePath);
+
+                portfolioImgRepository.delete(portfolioImgList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

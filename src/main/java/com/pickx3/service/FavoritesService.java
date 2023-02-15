@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-//import static com.pickx3.domain.entity.QFavorites.favorites;
 import static com.pickx3.domain.entity.portfolio_package.QFavorites.favorites;
 import static com.pickx3.domain.entity.portfolio_package.QPortfolio.portfolio;
 
