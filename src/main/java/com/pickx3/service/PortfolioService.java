@@ -3,36 +3,46 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.portfolio_package.PortfolioForm;
+import com.pickx3.domain.entity.portfolio_package.PortfolioTag;
+import com.pickx3.domain.entity.portfolio_package.Tag;
 import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.dto.TagRequestDto;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.TagRepository;
 import com.pickx3.domain.repository.UserRepository;
+import com.pickx3.domain.repository.post_package.PortfolioTagRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
-@Slf4j
+@Slf4j  @Transactional
 @RequiredArgsConstructor
 @Service
 public class PortfolioService {
 
     private final PortfolioRepository portfolioRepository;
+    private final PortfolioTagRepository portfolioTagRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
-    private final TagService tagService;
 
     // 저장
     @Transactional
-    public Portfolio createPf(PortfolioForm portfolioForm) throws IllegalAccessException {
+    public Portfolio createPf(PortfolioForm portfolioForm, TagRequestDto tagDto) throws IllegalAccessException {
         User user = userRepository.findById(portfolioForm.getUserNum()).get();
 
+        String[] arr = tagDto.getTagName().split("#");
+
+//
+        Tag tag = Tag.builder().tagName(Arrays.toString(arr))
+                .build();
+
+        Tag saveTag = tagRepository.save(tag);
+//
         Portfolio portfolio = Portfolio.builder()
                 .portfolioName(portfolioForm.getPortfolioName())
                 .portfolioType(Integer.parseInt(portfolioForm.getPortfolioType()))
@@ -40,7 +50,15 @@ public class PortfolioService {
                 .user(user)
                 .build();
 
-        portfolioRepository.save(portfolio);
+        Portfolio savePort = portfolioRepository.save(portfolio);
+//
+        PortfolioTag portfolioTag = PortfolioTag.builder()
+                .portfolio(savePort)
+                .tag(saveTag)
+                .build();
+
+
+
 
         return portfolio;
     }

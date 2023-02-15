@@ -4,8 +4,10 @@ import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.portfolio_package.PortfolioForm;
 import com.pickx3.domain.entity.portfolio_package.PortfolioImg;
 import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.dto.TagRequestDto;
 import com.pickx3.service.PortfolioImgService;
 import com.pickx3.service.PortfolioService;
+import com.pickx3.service.TagService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final PortfolioImgService portfolioImgService;
 
+    private final TagService tagService;
     /**
      * 포폴 등록
      * @param portfolioForm
@@ -35,13 +38,22 @@ public class PortfolioController {
     @Operation(summary = "포폴 등록", description = "샘플 데이터 : <br>{ <br>&nbsp; &nbsp; files: 확장자가 jpg,png인 파일,<br>"+
             "&nbsp; &nbsp; portfolioDate : 공백으로 보내주셔도 됩니다, <br>" +
             "&nbsp; &nbsp; portfolioName : 김대박의 포트폴리오 입니다 , <br>" +
-            "&nbsp; &nbsp; portfolioType: 50000, <br>" +
+            "&nbsp; &nbsp; portfolioType: 1, <br>" +
             "&nbsp; &nbsp; userNum :2 <br>}")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws Exception {
+    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm, TagRequestDto tagDto) throws Exception {
         HashMap data = new HashMap<>();
 
-        Portfolio portfolio = portfolioService.createPf(portfolioForm);
+
+
+        Portfolio portfolio = portfolioService.createPf(portfolioForm,tagDto);
+
+        //Tag tag = tagService.createTag(portfolio,tagDto);
+
+
+
+
+
         log.debug(" =========== porfort id ======= ========================================== " + portfolio.getId());
         List<MultipartFile> files = portfolioForm.getFiles();
         log.debug(" =========== files ======= ========================================== " + files);
@@ -50,6 +62,7 @@ public class PortfolioController {
 
         data.put("Portfolio", portfolio);
         data.put("PortImges", portfolioImgs);
+       // data.put("tagList", tag);
 
         return getResponseEntity(data);
     }
