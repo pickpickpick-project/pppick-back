@@ -26,8 +26,5 @@ public class PortfolioForm {
     @Schema(title = "이미지 파일", description = "이미지 파일")
     private List<MultipartFile> files;
 
-
-    // private List<PortfolioImg> portfolioImgList;
-
-    //private Set<PortfolioTag> portfolioTagLis;
+   // private String tags;
 }

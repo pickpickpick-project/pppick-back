@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
@@ -27,6 +29,7 @@ public class Portfolio {
     private String portfolioName;
 
     private int portfolioType;
+
     @CreationTimestamp
     private Date portfolioDate;
 
@@ -36,22 +39,25 @@ public class Portfolio {
     private List<PortfolioImg> portfolioImgList;
 
     /* 연관관계 */
+    @JsonIgnore
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private Set<PortfolioTag> portfolioTagList;
 
     /* 연관관계 */  //N+1 SET 으로 해결
-    @JsonIgnore
+
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     public Set<Favorites> favorites;
 
     @Builder
-    public Portfolio(User user, String portfolioName, int portfolioType,
-                     Date portfolioDate, Set<PortfolioTag> portfolioTagList) {
+    public Portfolio(Long id, User user, String portfolioName, int portfolioType,
+                     Date portfolioDate, Set<PortfolioTag> portfolioTagList, List<PortfolioImg> portfolioImgList) {
+        this.id = id;
         this.user = user;
         this.portfolioName = portfolioName;
         this.portfolioType = portfolioType;
         this.portfolioDate = portfolioDate;
         this.portfolioTagList = portfolioTagList;
+        this.portfolioImgList = portfolioImgList;
     }
 }
 

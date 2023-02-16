@@ -1,18 +1,17 @@
 package com.pickx3.domain.entity.portfolio_package.dto;
 
-import com.pickx3.domain.entity.portfolio_package.Tag;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TagRequestDto {
 
     private String tagName;
 
-   // private Set<PortfolioTag> tags ;
 
-    // DTO -> Entity
-    public Tag toEntity(){
-        return Tag.builder()
-                .tagName(tagName)
-                //.tags(tags)
-                .build();
-    }
 }

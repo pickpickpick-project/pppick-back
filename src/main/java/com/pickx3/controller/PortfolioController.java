@@ -4,6 +4,7 @@ import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.portfolio_package.PortfolioForm;
 import com.pickx3.domain.entity.portfolio_package.PortfolioImg;
 import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
+import com.pickx3.domain.entity.portfolio_package.dto.TagRequestDto;
 import com.pickx3.service.PortfolioImgService;
 import com.pickx3.service.PortfolioService;
 import com.pickx3.util.rsMessage;
@@ -16,8 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,30 +26,33 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final PortfolioImgService portfolioImgService;
 
+
     /**
-     * 포폴 등록
+     * 포폴 + 포폴 이미지 + 포폴 태그 등록
      * @param portfolioForm
      * @return
      */
-
     @Operation(summary = "포폴 등록", description = "샘플 데이터 : <br>{ <br>&nbsp; &nbsp; files: 확장자가 jpg,png인 파일,<br>"+
             "&nbsp; &nbsp; portfolioDate : 공백으로 보내주셔도 됩니다, <br>" +
             "&nbsp; &nbsp; portfolioName : 김대박의 포트폴리오 입니다 , <br>" +
-            "&nbsp; &nbsp; portfolioType: 50000, <br>" +
+            "&nbsp; &nbsp; portfolioType: 1, <br>" +
+            "&nbsp; &nbsp; TagName: #태그 #태그1 #태그2 #태그3 (중복, 공백 막아놓음) <br>" +
             "&nbsp; &nbsp; userNum :2 <br>}")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm) throws Exception {
+    public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm, TagRequestDto tagDto) throws Exception {
         HashMap data = new HashMap<>();
-
-        Portfolio portfolio = portfolioService.createPf(portfolioForm);
-        log.debug(" =========== porfort id ======= ========================================== " + portfolio.getId());
+        //포폴
+        Portfolio portfolio = portfolioService.createPf(portfolioForm,tagDto);
+        //이미지
         List<MultipartFile> files = portfolioForm.getFiles();
-        log.debug(" =========== files ======= ========================================== " + files);
-
         List<PortfolioImg> portfolioImgs = portfolioImgService.uploadPortfolioImg(files, portfolio);
+        //태그
+        String[] arr = tagDto.getTagName().replaceAll("\\s", "").split("#");
+        Set<String> tagSet = new HashSet<>(Arrays.asList(arr));
 
         data.put("Portfolio", portfolio);
         data.put("PortImges", portfolioImgs);
+        data.put("tags", tagSet);
 
         return getResponseEntity(data);
     }
@@ -64,11 +67,7 @@ public class PortfolioController {
     public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
         HashMap data = new HashMap<>();
         portfolioImgService.removeWorkImages(id);
-
         portfolioService.delete(id);
-
-
-
 
         return getResponseEntity(data);
     }
@@ -112,17 +111,6 @@ public class PortfolioController {
         return getResponseEntity(data);
     }
 
-/*
-    @GetMapping("/portfolio/delete/{id}")
-    public ResponseEntity<?> removeWorkImg(@PathVariable(name = "workImgNum") Long id){
-        HashMap data = new HashMap<>();
-
-        portfolioImgService.removeWorkImages(id);
-
-
-        return getResponseEntity(data);
-    }
-*/
 
     /**
      * 에러 메세지 호출
