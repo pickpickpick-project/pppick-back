@@ -46,7 +46,7 @@ public class PortfolioService {
         //포폴 등록
         Portfolio portfolio = Portfolio.builder()
                 .portfolioName(portfolioForm.getPortfolioName())
-                .portfolioType(Integer.parseInt(portfolioForm.getPortfolioType()))
+                .portfolioType(portfolioForm.getPortfolioType())
                 .portfolioDate(new Date())
                 .user(user)
                 .build();
