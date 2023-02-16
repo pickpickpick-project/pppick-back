@@ -77,9 +77,16 @@ public class PortfolioService {
     //조회
     public PortfolioResponseDto read(long id) throws IllegalAccessException {
         Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오 찾을 수 없음 id =" + id));
+        Portfolio portfolioResponse = Portfolio.builder()
+                .id(portfolio.getId())
+                .portfolioName(portfolio.getPortfolioName())
+                .portfolioType(portfolio.getPortfolioType())
+                .portfolioDate(new Date())
+                .user(portfolio.getUser())
+                .portfolioImgList(portfolio.getPortfolioImgList())
+        .build();
 
-
-        return new PortfolioResponseDto(portfolio);
+        return new PortfolioResponseDto(portfolioResponse);
     }
 
     //전체 목록 조회보기
@@ -102,5 +109,6 @@ public class PortfolioService {
 
         return portfolioResponseDtos;
     }
+
 
 }

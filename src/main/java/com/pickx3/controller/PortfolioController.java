@@ -7,7 +7,6 @@ import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
 import com.pickx3.domain.entity.portfolio_package.dto.TagRequestDto;
 import com.pickx3.service.PortfolioImgService;
 import com.pickx3.service.PortfolioService;
-import com.pickx3.service.TagService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +26,6 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
     private final PortfolioImgService portfolioImgService;
 
-    private final TagService tagService;
-
 
     /**
      * 포폴 + 포폴 이미지 + 포폴 태그 등록
@@ -44,12 +41,12 @@ public class PortfolioController {
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm, TagRequestDto tagDto) throws Exception {
         HashMap data = new HashMap<>();
-
+        //포폴
         Portfolio portfolio = portfolioService.createPf(portfolioForm,tagDto);
-
+        //이미지
         List<MultipartFile> files = portfolioForm.getFiles();
         List<PortfolioImg> portfolioImgs = portfolioImgService.uploadPortfolioImg(files, portfolio);
-
+        //태그
         String[] arr = tagDto.getTagName().replaceAll("\\s", "").split("#");
         Set<String> tagSet = new HashSet<>(Arrays.asList(arr));
 

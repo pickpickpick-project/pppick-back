@@ -49,13 +49,15 @@ public class Portfolio {
     public Set<Favorites> favorites;
 
     @Builder
-    public Portfolio(User user, String portfolioName, int portfolioType,
-                     Date portfolioDate, Set<PortfolioTag> portfolioTagList) {
+    public Portfolio(Long id, User user, String portfolioName, int portfolioType,
+                     Date portfolioDate, Set<PortfolioTag> portfolioTagList, List<PortfolioImg> portfolioImgList) {
+        this.id = id;
         this.user = user;
         this.portfolioName = portfolioName;
         this.portfolioType = portfolioType;
         this.portfolioDate = portfolioDate;
         this.portfolioTagList = portfolioTagList;
+        this.portfolioImgList = portfolioImgList;
     }
 }
 
