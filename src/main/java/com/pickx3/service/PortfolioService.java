@@ -68,7 +68,6 @@ public class PortfolioService {
         return portfolio;
     }
 
-
     //삭제
     public void delete(long id) throws IllegalAccessException {
         Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오가 존재하지 않음 id ="+id));

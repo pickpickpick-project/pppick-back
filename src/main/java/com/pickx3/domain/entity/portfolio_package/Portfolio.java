@@ -39,11 +39,12 @@ public class Portfolio {
     private List<PortfolioImg> portfolioImgList;
 
     /* 연관관계 */
+    @JsonIgnore
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     private Set<PortfolioTag> portfolioTagList;
 
     /* 연관관계 */  //N+1 SET 으로 해결
-    @JsonIgnore
+
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL)
     public Set<Favorites> favorites;
 

@@ -18,8 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,6 +39,7 @@ public class PortfolioController {
             "&nbsp; &nbsp; portfolioDate : 공백으로 보내주셔도 됩니다, <br>" +
             "&nbsp; &nbsp; portfolioName : 김대박의 포트폴리오 입니다 , <br>" +
             "&nbsp; &nbsp; portfolioType: 1, <br>" +
+            "&nbsp; &nbsp; TagName: #태그 #태그1 #태그2 #태그3 (중복, 공백 막아놓음) <br>" +
             "&nbsp; &nbsp; userNum :2 <br>}")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm, TagRequestDto tagDto) throws Exception {
@@ -50,8 +50,12 @@ public class PortfolioController {
         List<MultipartFile> files = portfolioForm.getFiles();
         List<PortfolioImg> portfolioImgs = portfolioImgService.uploadPortfolioImg(files, portfolio);
 
+        String[] arr = tagDto.getTagName().replaceAll("\\s", "").split("#");
+        Set<String> tagSet = new HashSet<>(Arrays.asList(arr));
+
         data.put("Portfolio", portfolio);
         data.put("PortImges", portfolioImgs);
+        data.put("tags", tagSet);
 
         return getResponseEntity(data);
     }
