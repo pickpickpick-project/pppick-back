@@ -52,6 +52,7 @@ public class WorkService {
         List<Work> works = workRepository.findByUserInfo_id(workerNum);
         for(Work work : works){
             WorkResponseDTO dto = new WorkResponseDTO();
+            dto.setWorkNum(work.getWorkNum());
             dto.setWorkName(work.getWorkName());
             dto.setWorkDesc(work.getWorkDesc());
             dto.setWorkPrice(work.getWorkPrice());
@@ -74,7 +75,9 @@ public class WorkService {
         List<WorkImgForm> workImages = workImgRepository.findByWork_workNum(workNum);
 
         log.info("상품 이미지 정보" + workImages.get(0).getWorkImgName());
+
         WorkDetailDTO workDetailDTO = new WorkDetailDTO();
+        workDetailDTO.setWorkNum(work.getWorkNum());
         workDetailDTO.setWorkerNum(work.getUserInfo().getId());
         workDetailDTO.setWorkName(work.getWorkName());
         workDetailDTO.setWorkDesc(work.getWorkDesc());
