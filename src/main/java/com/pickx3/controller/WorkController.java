@@ -125,13 +125,27 @@ public class WorkController {
             "&nbsp; &nbsp; workDesc : 만화 그려드려요 ,<br>" +
             "&nbsp; &nbsp; workName : 만화 그려드립니다, <br>" +
             "&nbsp; &nbsp; workPrice: 70000, <br>" +
-            "&nbsp; &nbsp; workerNum :2 <br>}")
-    @PatchMapping
-    public ResponseEntity<?> updateWork(@RequestBody @Valid WorkUpdateForm workUpdateForm){
+            "&nbsp; &nbsp; workerNum :2 <br>} <br>" +
+            "@PutMapping은 파일 전송을 지원하지않아, @Postmapping으로 변경했습니다!")
+    @PostMapping(value = "/edit", consumes =  MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> updateWork(@ModelAttribute WorkUpdateForm workUpdateForm){
         ApiResponseMessage result;
         try{
             HashMap data = new HashMap();
-            data.put("workInfo", workService.updateWork(workUpdateForm));
+            Work work = workService.updateWork(workUpdateForm);
+
+            workImgService.removeWorkImages(workUpdateForm.getWorkNum());
+
+            List<MultipartFile> files = workUpdateForm.getFiles();
+            List<WorkImg> workImages = workImgService.uploadWorkImg(files, work);
+
+            data.put("workNum",work.getWorkNum());
+            data.put("workerNum",work.getUserInfo().getId());
+            data.put("workName",work.getWorkName());
+            data.put("workPrice",work.getWorkPrice());
+            data.put("workDesc",work.getWorkDesc());
+            data.put("workImages", workImages);
+
             result = new ApiResponseMessage(true, "Success" ,"200", "", data );
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
