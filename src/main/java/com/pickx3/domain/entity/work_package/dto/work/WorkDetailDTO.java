@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class WorkDetailDTO {
+    private Long workNum;
+
     private Long workerNum;
 
     private String workName;
