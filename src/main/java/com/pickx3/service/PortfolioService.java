@@ -50,25 +50,26 @@ public class PortfolioService {
         Portfolio savePort = portfolioRepository.save(portfolio);
 
         //태그 등록
-        Tag saveTag = null;
+
         for (String s : tagSet) {
             if(s.isEmpty()) continue;
             Tag a = Tag.builder().tagName(s)
                     .build();
 
-            saveTag = tagRepository.save(a);
+            Tag saveTag = tagRepository.save(a);
+
+            //태그+ 포폴 = 포폴태그 등록
+            PortfolioTag portfolioTag = PortfolioTag.builder()
+                    .portfolio(savePort)
+                    .tag(saveTag)
+                    .build();
+
+            portfolioTagRepository.save(portfolioTag);
 
         }
-        log.debug("save tag test ===== " + saveTag.getTagName());
 
+       // log.debug("save tag test ===== " + saveTag.getTagName());
 
-        //태그+ 포폴 = 포폴태그 등록
-        PortfolioTag portfolioTag = PortfolioTag.builder()
-                .portfolio(savePort)
-                .tag(saveTag)
-                .build();
-
-        portfolioTagRepository.save(portfolioTag);
 
 
         return portfolio;
