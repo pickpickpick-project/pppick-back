@@ -64,7 +64,10 @@ public class User {
 
 
     @Builder
-    private User(String name, String email, String imageUrl, Role role, Boolean emailVerified, String password, AuthProvider provider, String providerId, String nickName, String phone) {
+    private User(long id, String name, String email, String imageUrl, Role role,
+                 Boolean emailVerified, String password, AuthProvider provider,
+                 String providerId, String nickName, String phone, String intro) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.imageUrl = imageUrl;
@@ -75,6 +78,7 @@ public class User {
         this.providerId = providerId;
         this.nickName = nickName;
         this.phone = phone;
+        this.intro = intro;
     }
 
     public User update(String name, String imageUrl) {

@@ -36,7 +36,7 @@ public class PortfolioController {
             "&nbsp; &nbsp; portfolioDate : 공백으로 보내주셔도 됩니다, <br>" +
             "&nbsp; &nbsp; portfolioName : 김대박의 포트폴리오 입니다 , <br>" +
             "&nbsp; &nbsp; portfolioType: 1, <br>" +
-            "&nbsp; &nbsp; TagName: #태그 #태그1 #태그2 #태그3 (중복, 공백 막아놓음) <br>" +
+            "&nbsp; &nbsp; TagName: #태그 #태그1 #태그2 #태그3 (중복, 공백 처리해서 저장) <br>" +
             "&nbsp; &nbsp; userNum :2 <br>}")
     @PostMapping(path = "/portfolio/save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> savePf(@ModelAttribute PortfolioForm portfolioForm, TagRequestDto tagDto) throws Exception {
