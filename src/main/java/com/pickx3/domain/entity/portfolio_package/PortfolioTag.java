@@ -12,16 +12,17 @@ import javax.persistence.*;
 @Entity
 public class PortfolioTag {
 
+    @JsonIgnore
     @Column(name="portfolioTagNum")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "portfolioNum")
     private Portfolio portfolio;
-    @JsonIgnore
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tagNum")
     private Tag tag;
 

@@ -12,10 +12,13 @@ import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.TagRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.post_package.PortfolioTagRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -29,6 +32,8 @@ public class PortfolioService {
     private final PortfolioTagRepository portfolioTagRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
+    @PersistenceContext // 영속성 객체를 자동으로 삽입해줌
+    private EntityManager em;
 
     // 저장
     @Transactional
@@ -77,6 +82,8 @@ public class PortfolioService {
     //조회
     public PortfolioResponseDto read(long id) throws IllegalAccessException {
         Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오 찾을 수 없음 id =" + id));
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+
         Portfolio portfolioResponse = Portfolio.builder()
                 .id(portfolio.getId())
                 .portfolioName(portfolio.getPortfolioName())
@@ -84,6 +91,7 @@ public class PortfolioService {
                 .portfolioDate(new Date())
                 .user(portfolio.getUser())
                 .portfolioImgList(portfolio.getPortfolioImgList())
+                .portfolioTagList(portfolio.getPortfolioTagList())
         .build();
 
         return new PortfolioResponseDto(portfolioResponse);

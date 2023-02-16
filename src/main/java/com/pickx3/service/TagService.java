@@ -10,9 +10,6 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 @Service
 public class TagService {
-/*
-    public Set<Tag> findByPfTagId(Long id){
 
-    }
-*/
+
 }

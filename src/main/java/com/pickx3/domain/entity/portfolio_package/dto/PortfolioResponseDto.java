@@ -19,7 +19,7 @@ public class PortfolioResponseDto {
     private Date portfolioDate;
 
     private List<PortfolioImg> portfolioImgList;
-    private Set<PortfolioTag> tags;
+    private Set<PortfolioTag> PortfolioTags;
 
 
     // Entitiy -> DTO
@@ -30,7 +30,7 @@ public class PortfolioResponseDto {
         this.portfolioType = portfolio.getPortfolioType();
         this.portfolioDate = portfolio.getPortfolioDate();
         this.portfolioImgList = portfolio.getPortfolioImgList();
-        this.tags = portfolio.getPortfolioTagList();
+        this.PortfolioTags = portfolio.getPortfolioTagList();
     }
 }
 
