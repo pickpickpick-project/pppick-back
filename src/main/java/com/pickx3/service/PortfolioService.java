@@ -35,18 +35,9 @@ public class PortfolioService {
     public Portfolio createPf(PortfolioForm portfolioForm, TagRequestDto tagDto){
         User user = userRepository.findById(portfolioForm.getUserNum()).get();
 
-        String[] arr = tagDto.getTagName().split("#");
+        String[] arr = tagDto.getTagName().replaceAll("\\s", "").split("#");
         Set<String> tagSet = new HashSet<>(Arrays.asList(arr));
-
-        //태그 등록
-        Tag saveTag = null;
-        for (String s : tagSet) {
-            if(s.isEmpty()) continue;
-            Tag a = Tag.builder().tagName(s)
-                    .build();
-
-            saveTag = tagRepository.save(a);
-        }
+        log.info("tagset list = " + tagSet.size());
 
         //포폴 등록
         Portfolio portfolio = Portfolio.builder()
@@ -57,6 +48,19 @@ public class PortfolioService {
                 .build();
 
         Portfolio savePort = portfolioRepository.save(portfolio);
+
+        //태그 등록
+        Tag saveTag = null;
+        for (String s : tagSet) {
+            if(s.isEmpty()) continue;
+            Tag a = Tag.builder().tagName(s)
+                    .build();
+
+            saveTag = tagRepository.save(a);
+
+        }
+        log.debug("save tag test ===== " + saveTag.getTagName());
+
 
         //태그+ 포폴 = 포폴태그 등록
         PortfolioTag portfolioTag = PortfolioTag.builder()
