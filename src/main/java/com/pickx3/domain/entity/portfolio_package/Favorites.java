@@ -1,7 +1,6 @@
 package com.pickx3.domain.entity.portfolio_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class Favorites {
 
     @Column(name="favoritesNum")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long favoritesNum;
 
     @JsonIgnore
     @ManyToOne
@@ -28,8 +27,8 @@ public class Favorites {
     private Portfolio portfolio;
 
     @Builder
-    public Favorites(Long id, User user, Portfolio portfolio) {
-        this.id = id;
+    public Favorites(Long favoritesNum, User user, Portfolio portfolio) {
+        this.favoritesNum = favoritesNum;
         this.user = user;
         this.portfolio = portfolio;
     }

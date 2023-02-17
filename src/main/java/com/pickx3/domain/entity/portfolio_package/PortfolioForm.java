@@ -19,7 +19,7 @@ public class PortfolioForm {
 
     private String portfolioName;
 
-    private String portfolioType;
+    private int portfolioType;
 
     private String portfolioDate;
 

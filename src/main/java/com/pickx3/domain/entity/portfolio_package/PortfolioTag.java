@@ -15,7 +15,7 @@ public class PortfolioTag {
     @JsonIgnore
     @Column(name="portfolioTagNum")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long portfolioTagNum;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -27,8 +27,8 @@ public class PortfolioTag {
     private Tag tag;
 
     @Builder
-    public PortfolioTag(Long id, Portfolio portfolio, Tag tag) {
-        this.id = id;
+    public PortfolioTag(Long portfolioTagNum, Portfolio portfolio, Tag tag) {
+        this.portfolioTagNum = portfolioTagNum;
         this.portfolio = portfolio;
         this.tag = tag;
     }

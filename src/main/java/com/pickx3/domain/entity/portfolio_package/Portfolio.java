@@ -16,10 +16,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 public class Portfolio {
-
-    @Column(name="portfolioNum")
+    
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long portfolioNum;
 
     @JsonIgnore
     @ManyToOne
@@ -49,9 +48,9 @@ public class Portfolio {
     public Set<Favorites> favorites;
 
     @Builder
-    public Portfolio(Long id, User user, String portfolioName, int portfolioType,
+    public Portfolio(Long portfolioNum, User user, String portfolioName, int portfolioType,
                      Date portfolioDate, Set<PortfolioTag> portfolioTagList, List<PortfolioImg> portfolioImgList) {
-        this.id = id;
+        this.portfolioNum = portfolioNum;
         this.user = user;
         this.portfolioName = portfolioName;
         this.portfolioType = portfolioType;

@@ -63,11 +63,11 @@ public class PortfolioController {
      * @return
      */
     @Operation(summary = "포폴 삭제", description = "delete api 이용할 경우 포트폴리오 신규 등록 시, 결과 값으로 나온 고유번호로 이용 부탁드립니다. <br> 고유번호 ex) portfolioNum")
-    @DeleteMapping("/portfolio/{id}")
-    public ResponseEntity<?> delete(@PathVariable long id) throws IllegalAccessException {
+    @DeleteMapping("/portfolio/{portfolioNm}")
+    public ResponseEntity<?> delete(@PathVariable long portfolioNm) throws IllegalAccessException {
         HashMap data = new HashMap<>();
-        portfolioImgService.removeWorkImages(id);
-        portfolioService.delete(id);
+        portfolioImgService.removeWorkImages(portfolioNm);
+        portfolioService.delete(portfolioNm);
 
         return getResponseEntity(data);
     }
@@ -79,9 +79,9 @@ public class PortfolioController {
      * @throws IllegalAccessException
      */
     @Operation(summary = "포폴 단건 조회", description = "샘플 데이터 = id : 2 ")
-    @GetMapping("/portfolio/{id}")
-    public ResponseEntity<?> read(@PathVariable long id) throws IllegalAccessException {
-        PortfolioResponseDto data = portfolioService.read(id);
+    @GetMapping("/portfolio/{portfolioNm}")
+    public ResponseEntity<?> read(@PathVariable long portfolioNm) throws IllegalAccessException {
+        PortfolioResponseDto data = portfolioService.read(portfolioNm);
 
         return getResponseEntity(data);
     }

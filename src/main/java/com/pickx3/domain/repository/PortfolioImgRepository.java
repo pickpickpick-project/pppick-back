@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PortfolioImgRepository extends JpaRepository<PortfolioImg, Long> {
 
-    List<PortfolioImgForm> findByPortfolio_id(Long id);
+    List<PortfolioImgForm> findByPortfolio_portfolioNum(Long portfolioNum);
 
 
 }
