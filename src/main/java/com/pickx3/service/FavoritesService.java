@@ -70,7 +70,7 @@ public class FavoritesService {
         //조회
         List<Portfolio> result = queryFactory.selectFrom(portfolio)
                 .join(portfolio.favorites, favorites)
-                .on(favorites.user.id.eq(user.getId()).and(portfolio.user.id.eq(user.getId())))
+                .on(favorites.user.id.eq(user.getId()))
                 .fetch();
 
         // list add
