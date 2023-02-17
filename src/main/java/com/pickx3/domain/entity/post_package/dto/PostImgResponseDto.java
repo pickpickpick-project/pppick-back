@@ -8,6 +8,6 @@ public class PostImgResponseDto {
     private Long fileId;  // 파일 id
 
     public PostImgResponseDto(PostImg entity){
-        this.fileId = entity.getId();
+        this.fileId = entity.getPostImgNum();
     }
 }
