@@ -80,7 +80,7 @@ public class PortfolioImgService {
                 PortfolioImg portfolioImg = PortfolioImg.builder()
                         .portfolioImgName(new_file_name)
                         .portfolioImgOriginName(multipartFile.getOriginalFilename())
-                        .portfolioImgAddr(absolutePath+ path+File.separator +new_file_name)
+                        .portfolioImgAddr(path+File.separator +new_file_name)
                         .portfolio(portfolio)
                         .build();
 
