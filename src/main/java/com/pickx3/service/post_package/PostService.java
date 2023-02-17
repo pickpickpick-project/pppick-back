@@ -1,11 +1,13 @@
 package com.pickx3.service.post_package;
 
+import com.pickx3.domain.entity.post_package.Comment;
 import com.pickx3.domain.entity.post_package.dto.PostCreateRequestDto;
 import com.pickx3.domain.entity.post_package.dto.PostListResponseDto;
 import com.pickx3.domain.entity.post_package.dto.PostResponseDto;
 import com.pickx3.domain.entity.post_package.dto.PostUpdateRequestDto;
 import com.pickx3.domain.entity.post_package.Post;
 import com.pickx3.domain.entity.post_package.PostImg;
+import com.pickx3.domain.repository.post_package.CommentRepository;
 import com.pickx3.domain.repository.post_package.PostRepository;
 import com.pickx3.domain.repository.post_package.PostImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,6 +33,8 @@ public class PostService {
     private final PostRepository postRepository;
     private final PostImgRepository postImgRepository;
     private final FileHandler fileHandler;
+
+    private final CommentRepository commentRepository;
 
 
     @Transactional
@@ -68,18 +73,39 @@ public class PostService {
     }
 
     @Transactional
-    public Long update(Long id, String postPwd, PostUpdateRequestDto requestDto) throws Exception {
-        Post post = postRepository.findById(id)
+    public Long update(Long postNum, PostUpdateRequestDto requestDto) throws Exception {
+        Post post = postRepository.findById(postNum)
                 .orElseThrow(() -> new
                         IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-        if (!post.getPwd().equals(postPwd)) {
-            throw new Exception("비밀번호가 일치하지 않습니다.");
-        }
         post.update(requestDto.getPostTitle(),
                 requestDto.getPostContent());
 
-        return id;
+        List<PostImg> postImgList = fileHandler.parseFileInfo(requestDto.getFiles());
+
+        String absolutePath = new File("").getAbsolutePath() + File.separator;
+
+
+        // post에 할당된 postimg 있을 경우 post img 삭제
+        List<PostImg> postImgs = postImgRepository.findByPost_PostNum(postNum);
+        if(postImgs.size()!=0){
+            for(PostImg postImg : postImgs){
+                Path filePath = Paths.get(absolutePath+postImg.getFilePath());
+                Files.delete(filePath);
+                postImgRepository.delete(postImg);
+            }
+        }
+
+        // 파일이 존재할 때에만 처리 - list size 0이면 저장 x
+        if (postImgList.size()!=0) {
+            for (PostImg postImg : postImgList) {
+                // 파일을 DB에 저장
+                postImg.setPost(post);
+                post.addPostImg(postImgRepository.save(postImg));
+            }
+        }
+
+        return postNum;
 
     }
 
@@ -122,12 +148,20 @@ public class PostService {
 
         // post에 할당된 postimg 있을 경우 post img도 같이 삭제
         List<PostImg> postImgs = postImgRepository.findByPost_PostNum(postNum);
+        String absolutePath = new File("").getAbsolutePath() + File.separator;
         if(postImgs.size()!=0){
             for(PostImg postImg : postImgs){
-                Path filePath = Paths.get(postImg.getFilePath());
+                Path filePath = Paths.get(absolutePath+postImg.getFilePath());
                 Files.delete(filePath);
+                postImgRepository.delete(postImg);
             }
+        }
 
+        List<Comment> comments = commentRepository.findByPost_PostNum(postNum);
+        if(comments.size()!=0){
+            for(Comment comment : comments){
+                commentRepository.delete(comment);
+            }
         }
         postRepository.delete(post);
 

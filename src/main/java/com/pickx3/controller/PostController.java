@@ -62,12 +62,13 @@ public class PostController {
 
 
     @Operation(summary = "게시글 수정", description = "test example:<br>postNum - 1,<br> postPwd - test,<br> postContent - 지금 작업 가능하신가요?,<br> postTitle - 안녕하세요 ")
-    @PutMapping("/post/{postNum}")
-    public ResponseEntity<?> update(@PathVariable Long postNum, String postPwd, @RequestBody PostUpdateRequestDto requestDto) throws Exception {
+    @PostMapping(path = "/post/{postNum}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> update(@PathVariable Long postNum, @ModelAttribute PostUpdateRequestDto requestDto) throws Exception {
         rsMessage result;
         try{
             HashMap data = new HashMap<>();
-            data.put("postNum", postService.update(postNum,postPwd,requestDto));
+            data.put("postNum", postService.update(postNum,requestDto));
             result = new rsMessage(true, "Success" ,"200", "", data);
 //            Long newPostNum = postService.update(postNum,postPwd,requestDto);
 //            PostResponseDto postResponseDto = postService.searchByPostNum(newPostNum);

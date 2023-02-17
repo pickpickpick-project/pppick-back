@@ -44,14 +44,10 @@ public class Post {
     @Column(name = "postDate")
     private String postDate;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments;
 
-    @OneToMany(
-            mappedBy = "post",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "post")
     private List<PostImg> postImg = new ArrayList<>();
 
     @Builder
