@@ -45,7 +45,7 @@ public class PortfolioImgService {
 
             String current_date = now.format(dateTimeFormatter);
 
-            String absolutePath = new File("").getAbsolutePath() + File.separator +  File.separator;
+            String absolutePath = new File("").getAbsolutePath() + File.separator;
 
             // 파일을 저장할 세부 경로 지정
             String path = "images" + File.separator +"Portfolio"+ File.separator+current_date;
