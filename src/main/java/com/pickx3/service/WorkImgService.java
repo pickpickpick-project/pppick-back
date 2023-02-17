@@ -6,6 +6,7 @@ import com.pickx3.domain.entity.work_package.dto.work.WorkImgForm;
 import com.pickx3.domain.repository.WorkImgRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -50,9 +51,12 @@ public class WorkImgService {
 
             String current_date = now.format(dateTimeFormatter);
 
-            String absolutePath = new File("").getAbsolutePath() + File.separator +  File.separator;
+            String absolutePath = new File("").getAbsolutePath() + File.separator;
+//            String absolutePath = new ClassPathResource("/static/images/").getFile().getAbsolutePath();
+//            log.info("앱솔루트" + absolutePath);
 
             // 파일을 저장할 세부 경로 지정
+//            String path = "images" + File.separator +"work"+ File.separator+current_date;
             String path = "images" + File.separator +"work"+ File.separator+current_date;
 
             File file = new File(path);
@@ -85,7 +89,7 @@ public class WorkImgService {
                 WorkImg workImg = WorkImg.builder()
                         .workImgName(new_file_name)
                         .workImgOriginName(multipartFile.getOriginalFilename())
-                        .workImgSrcPath(absolutePath+ path+File.separator +new_file_name)
+                        .workImgSrcPath(path+File.separator +new_file_name)
                         .work(work)
                         .build();
 
@@ -155,7 +159,7 @@ public class WorkImgService {
     public void removeWorkImages(Long workNum) {
         List<WorkImgForm> images = workImgRepository.findByWork_workNum(workNum);
         log.debug(" images =================  " + images);
-
+        
         try {
             for (WorkImgForm workImgForm : images) {
                 WorkImg workImg = new WorkImg();
