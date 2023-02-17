@@ -61,7 +61,7 @@ public class PostController {
     }
 
 
-    @Operation(summary = "게시글 수정", description = "test example:<br>postNum - 1,<br> postPwd - test,<br> postContent - 지금 작업 가능하신가요?,<br> postTitle - 안녕하세요 ")
+    @Operation(summary = "게시글 수정", description = "게시글 수정 시 기존 게시글의 이미지는 삭제되고 수정 api로 보낸 이미지가 등록 됩니다. <br><br>test example:<br>postNum - 1,<br>files - jpg/jpeg/png 파일<br>postContent - 지금 작업 가능하신가요?,<br> postTitle - 안녕하세요 ")
     @PostMapping(path = "/post/{postNum}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> update(@PathVariable Long postNum, @ModelAttribute PostUpdateRequestDto requestDto) throws Exception {
