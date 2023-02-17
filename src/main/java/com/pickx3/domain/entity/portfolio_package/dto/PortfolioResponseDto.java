@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 public class PortfolioResponseDto {
 
-    private Long id;
+    private Long portfolioNum;
     private Long user;
     private String portfolioName;
     private int portfolioType;
@@ -24,7 +24,7 @@ public class PortfolioResponseDto {
 
     // Entitiy -> DTO
     public PortfolioResponseDto(Portfolio portfolio) {
-        this.id = portfolio.getId();
+        this.portfolioNum = portfolio.getPortfolioNum();
         this.user = portfolio.getUser().getId();
         this.portfolioName = portfolio.getPortfolioName();
         this.portfolioType = portfolio.getPortfolioType();

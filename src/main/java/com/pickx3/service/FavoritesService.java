@@ -50,7 +50,7 @@ public class FavoritesService {
 
         favoriteRepository.save(favorites);
 
-        return favorites.getId();
+        return favorites.getFavoritesNum();
     }
 
     // 좋아요 취소

@@ -104,8 +104,8 @@ public class PortfolioImgService {
 
     }
     // 이미지 목록 삭제
-    public void removeWorkImages(Long id) {
-        List<PortfolioImgForm> portfolioImgForms = portfolioImgRepository.findByPortfolio_id(id);
+    public void removeWorkImages(Long portfolioNum) {
+        List<PortfolioImgForm> portfolioImgForms = portfolioImgRepository.findByPortfolio_portfolioNum(portfolioNum);
 
         log.debug(" portfolioImgForm check   =================  " + portfolioImgForms);
 
@@ -113,7 +113,7 @@ public class PortfolioImgService {
             for (PortfolioImgForm portfolioImgForm : portfolioImgForms) {
                 PortfolioImg portfolioImgList = new PortfolioImg();
 
-                portfolioImgList.setId(portfolioImgForm.getId());
+                portfolioImgList.setPortfolioImgNum(portfolioImgForm.getPortfolioImgNum());
                 portfolioImgList.setPortfolioImgName(portfolioImgForm.getPortfolioImgName());
                 portfolioImgList.setPortfolioImgOriginName(portfolioImgForm.getPortfolioImgOriginName());
                 portfolioImgList.setPortfolioImgAddr(portfolioImgForm.getPortfolioImgAddr());

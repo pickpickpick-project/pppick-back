@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class PortfolioImgForm {
 
-    private Long id;
+    private Long portfolioImgNum;
 
     private String portfolioImgOriginName;  //원본
 
@@ -27,9 +27,9 @@ public class PortfolioImgForm {
     @Schema(title = "이미지 파일", description = "이미지 파일")
     private List<MultipartFile> files;
 
-    public PortfolioImgForm(Long id, String portfolioImgOriginName, String portfolioImgName,
+    public PortfolioImgForm(Long portfolioImgNum, String portfolioImgOriginName, String portfolioImgName,
                             String portfolioImgAddr) {
-        this.id = id;
+        this.portfolioImgNum = portfolioImgNum;
         this.portfolioImgOriginName = portfolioImgOriginName;
         this.portfolioImgName = portfolioImgName;
         this.portfolioImgAddr = portfolioImgAddr;

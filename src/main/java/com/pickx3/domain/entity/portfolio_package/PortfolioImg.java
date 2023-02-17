@@ -15,9 +15,8 @@ import javax.persistence.*;
 @Entity
 public class PortfolioImg {
 
-    @Column(name="portfolioImgNum")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long portfolioImgNum;
 
     @JsonIgnore
     @ManyToOne
@@ -34,8 +33,8 @@ public class PortfolioImg {
 
 
     @Builder
-    public PortfolioImg(Long id, Portfolio portfolio, String portfolioImgOriginName, String portfolioImgName, String portfolioImgAddr) {
-        this.id = id;
+    public PortfolioImg(Long portfolioImgNum, Portfolio portfolio, String portfolioImgOriginName, String portfolioImgName, String portfolioImgAddr) {
+        this.portfolioImgNum = portfolioImgNum;
         this.portfolio = portfolio;
         this.portfolioImgOriginName = portfolioImgOriginName;
         this.portfolioImgName = portfolioImgName;

@@ -73,17 +73,17 @@ public class PortfolioService {
     }
 
     //삭제
-    public void delete(long id) throws IllegalAccessException {
-        Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오가 존재하지 않음 id ="+id));
+    public void delete(long portfolioNum) throws IllegalAccessException {
+        Portfolio portfolio = portfolioRepository.findById(portfolioNum).orElseThrow(() -> new IllegalAccessException("포트폴리오가 존재하지 않음 id ="+portfolioNum));
         portfolioRepository.delete(portfolio);
     }
 
     //조회
-    public PortfolioResponseDto read(long id) throws IllegalAccessException {
-        Portfolio portfolio = portfolioRepository.findById(id).orElseThrow(() -> new IllegalAccessException("포트폴리오 찾을 수 없음 id =" + id));
+    public PortfolioResponseDto read(long portfolioNum) throws IllegalAccessException {
+        Portfolio portfolio = portfolioRepository.findById(portfolioNum).orElseThrow(() -> new IllegalAccessException("포트폴리오 찾을 수 없음 id =" + portfolioNum));
 
         Portfolio portfolioResponse = Portfolio.builder()
-                .id(portfolio.getId())
+                .portfolioNum(portfolio.getPortfolioNum())
                 .portfolioName(portfolio.getPortfolioName())
                 .portfolioType(portfolio.getPortfolioType())
                 .portfolioDate(new Date())

@@ -15,7 +15,7 @@ public class Tag {
 
     @Column(name="tagNum")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long tagNum;
 
     private String tagName;
     @JsonIgnore
@@ -23,8 +23,8 @@ public class Tag {
     private Set<PortfolioTag> portfolioTags;
 
     @Builder
-    public Tag(Long id, String tagName , Set<PortfolioTag> portfolioTags) {
-        this.id = id;
+    public Tag(Long tagNum, String tagName , Set<PortfolioTag> portfolioTags) {
+        this.tagNum = tagNum;
         this.tagName = tagName;
         this.portfolioTags = portfolioTags;
     }
