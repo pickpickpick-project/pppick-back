@@ -16,12 +16,6 @@ import java.util.List;
 @Component
 public class FileHandler {
 
-    private final PostImgService postImgService;
-
-    public FileHandler(PostImgService postImgService) {
-        this.postImgService = postImgService;
-    }
-
     public List<PostImg> parseFileInfo(
     	List<MultipartFile> multipartFiles
     )throws Exception {
