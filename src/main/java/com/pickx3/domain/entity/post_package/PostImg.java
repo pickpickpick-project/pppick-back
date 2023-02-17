@@ -15,7 +15,7 @@ public class PostImg {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "postImgNum")
-    private Long id;
+    private Long postImgNum;
 
     @ManyToOne
     @JsonIgnore
