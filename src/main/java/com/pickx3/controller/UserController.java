@@ -1,18 +1,19 @@
 package com.pickx3.controller;
 
 //import com.pickx3.domain.dto.UserUpdateRequestDto;
+
+import com.pickx3.domain.entity.FollowForm;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.user_package.dto.UserUpdateRequestDto;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.exception.ResourceNotFoundException;
 import com.pickx3.security.CurrentUser;
-import com.pickx3.security.token.TokenProvider;
 import com.pickx3.security.UserPrincipal;
+import com.pickx3.security.token.TokenProvider;
+import com.pickx3.service.FollowService;
 import com.pickx3.service.UserService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +34,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     private final UserService userService;
+    private final FollowService followService;
     private final AuthenticationManager authenticationManager;
     private final TokenProvider tokenProvider;
 
@@ -88,5 +90,34 @@ public class UserController {
         }
     }
 
+    @Operation(summary = "팔로우 " , description = " followerNum : 팔로우하는사람 번호 , <br>followingNum : 당하는 사람 번호")
+    @PostMapping("/user/follow/")
+    public ResponseEntity<?> UserFollow(@RequestBody FollowForm followForm) {
+        rsMessage result;
+        try{
+            HashMap data = new HashMap<>();
+            followService.follow(followForm);
+            result = new rsMessage(true, "Success" ,"200", "팔로우 성공", data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "팔로우 취소 " , description = " followerNum : 팔로우하는사람 번호 , <br>followingNum : 당하는 사람 번호")
+    @PatchMapping("/user/follow/cancel")
+    public ResponseEntity<?> UserFollowCancel(@RequestBody FollowForm followForm) {
+        rsMessage result;
+        HashMap data = new HashMap<>();
+        try{
+            followService.followCancel(followForm);
+            result = new rsMessage(true, "Success" ,"200", "", data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
