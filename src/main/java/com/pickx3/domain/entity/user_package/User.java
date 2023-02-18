@@ -90,7 +90,11 @@ public class User {
         return this;
     }
 
-
+    public void updateUser(String nickName, String intro, String phone){
+        this.nickName = nickName;
+        this.intro = intro;
+        this.phone = phone;
+    }
 
 
 

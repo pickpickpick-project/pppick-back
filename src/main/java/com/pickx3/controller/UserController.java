@@ -2,6 +2,7 @@ package com.pickx3.controller;
 
 //import com.pickx3.domain.dto.UserUpdateRequestDto;
 import com.pickx3.domain.entity.user_package.User;
+import com.pickx3.domain.entity.user_package.dto.UserUpdateRequestDto;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.exception.ResourceNotFoundException;
 import com.pickx3.security.CurrentUser;
@@ -14,10 +15,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-        import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 
 /**
  * 일반 회원 가입
@@ -39,22 +43,22 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
     }
 
-//    @PutMapping(path = "/user/update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-////    @PutMapping(path = "/user")
-//    public ResponseEntity<?> update(@ModelAttribute UserUpdateRequestDto userUpdateRequestDto) throws Exception {
-////    public ResponseEntity<?> update(@PathVariable(name = "userNum") Long userNum, @ModelAttribute UserUpdateRequestDto userUpdateRequestDto) throws Exception {
-//        rsMessage result;
-//
-//        try{
-//            Long newUserNum = userService.update(userUpdateRequestDto);
-//            User newUser = userService.searchUserById(newUserNum);
-//            result = new rsMessage(true, "Success" ,"200", "", newUser );
-//            return new ResponseEntity<>(result, HttpStatus.OK);
-//        }catch (Exception e){
-//            result = new rsMessage(false, "", "400", e.getMessage());
-//            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @Operation(summary = "회원 정보 수정", description = "test example:<br>userNum - 9<br>userImg - jpg/jpeg/png 파일<br>userIntro - test 사용자입니다. <br>userNick - 테스트유저닉네임<br>userPhone - 010-0000-0000")
+    @PostMapping(path = "/user/update/{userNum}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> update(@PathVariable Long userNum, @ModelAttribute UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+        rsMessage result;
+
+        try{
+            HashMap data = new HashMap<>();
+            User user = userService.update(userNum,userUpdateRequestDto);
+            data.put("userNum",user.getId());
+            result = new rsMessage(true, "Success" ,"200", "", data );
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @Operation(summary = "회원 정보 조회" , description = "샘플 데이터 = id : 2")
     @GetMapping("/user/{userNum}")
