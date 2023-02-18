@@ -79,4 +79,49 @@ public class PaymentService {
         return token;
     }
 
+
+    public PaymentRequestDTO verifyPayment(String imp_uid, String merchant_uid, String token) throws Exception {
+
+//      결제 정보 단일 조회 API 호출
+        URI uri = UriComponentsBuilder
+                        .fromUriString("https://api.iamport.kr")
+                        .path("/payments/"+ imp_uid)
+                        .build().toUri();
+
+        RequestEntity<Void> req = RequestEntity.get(uri).header("Authorization", token).build();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<PaymentApiResponse> result = restTemplate.exchange(req, PaymentApiResponse.class);
+
+        HashMap resData = result.getBody().getResponse();
+
+        Orders order = ordersRepository.findByMerchantUid(merchant_uid);
+
+        int paymentAmount = Integer.parseInt(result.getBody().getResponse().get("amount").toString());
+        int orderPrice = order.getOrderPrice();
+
+        String res_merchant_uid = resData.get("merchant_uid").toString();
+        String paymethod = resData.get("pay_method").toString();
+        Long payerNum = order.getUser().getId();
+        Long workNum = order.getOrderNum();
+
+//      주문 금액과 결제 금액이 같을 경우 Payment 객체에 정보 저장
+        if(orderPrice == paymentAmount) {
+
+            PaymentRequestDTO paymentRequestDTO =PaymentRequestDTO.builder()
+                    .merchantUid(res_merchant_uid)
+                    .pg("KG이니시스")
+                    .paymentPrice(paymentAmount)
+                    .payMethod(paymethod)
+                    .paymentStatus(1)
+                    .payerNum(payerNum)
+                    .workNum(workNum)
+                    .build();
+
+            return paymentRequestDTO;
+        }else{
+            throw new IllegalStateException("결제 정보가 일치하지않습니다");
+        }
+    }
 }

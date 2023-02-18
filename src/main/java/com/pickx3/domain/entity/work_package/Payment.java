@@ -1,13 +1,17 @@
 package com.pickx3.domain.entity.work_package;
 
-import com.pickx3.domain.entity.user_package.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,26 +20,19 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentNum;
-
-    private String merchant_uid;
-
-    private LocalDate paymentDate;
-
-    private int paymentPrice;
-
-    private String payMethod;
-
+    private String merchantUid;
+    private String pg;
     private int paymentCount;
-
+    private int paymentPrice;
+    private String payMethod;
+    private LocalDate paymentDate;
     private int paymentStatus;
 
-    private String pg;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name="payerNum")
-    private User user;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name="workNum")
-    private Work work;
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JoinColumn(name="payerNum")
+//    private User user;
+//
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    @JoinColumn(name="workNum")
+//    private Work work;
 }
