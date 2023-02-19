@@ -3,6 +3,7 @@ package com.pickx3.controller;
 
 import com.pickx3.domain.entity.work_package.Orders;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersRequestDTO;
+import com.pickx3.domain.entity.work_package.dto.orders.OrdersResponseDTO;
 import com.pickx3.service.OrdersService;
 import com.pickx3.util.ApiResponseMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 
 //@Tag(name = "상품 CRUD", description = "상품 관련 API")
 @Slf4j
@@ -52,12 +54,20 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/{userNum}")
+    @Operation(summary = "상품 주문", description = "샘플 데이터 = userNum : 2<br>" +
+            "* merchantUid : 주문번호 <br> " +
+            "* workName : 상품명  <br>" +
+            "* workPrice : 상품 가격, <br>" +
+            "* orderCount : 주문 수량 <br>" +
+            "* orderPrice : 주문 금액 <br>" +
+            "* orderDate : 주문 날짜")
+    @GetMapping("/user/{userNum}")
     public ResponseEntity<?> getOrdersHistory(@PathVariable("userNum") Long userNum){
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
-            data.put("data",ordersService.getOrdersHistory(userNum));
+            List<OrdersResponseDTO> orders = ordersService.getOrdersHistory(userNum);
+            data.put("data",orders);
 //            data.put("payInfo",payForm);
             result = new ApiResponseMessage(true, "Success", "200", "",data);
             return new ResponseEntity<>(result, HttpStatus.OK);

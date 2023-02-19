@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class Orders {
     private String merchantUid;
     private int orderCount;
     private int orderPrice;
-    private LocalDate orderDate;
+    private LocalDateTime orderDate;
     private int orderStatus;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
