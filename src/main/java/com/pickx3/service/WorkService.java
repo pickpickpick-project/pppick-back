@@ -74,8 +74,6 @@ public class WorkService {
         Work work = workRepository.findById(workNum).get();
         List<WorkImgForm> workImages = workImgRepository.findByWork_workNum(workNum);
 
-        log.info("상품 이미지 정보" + workImages.get(0).getWorkImgName());
-
         WorkDetailDTO workDetailDTO = new WorkDetailDTO();
         workDetailDTO.setWorkNum(work.getWorkNum());
         workDetailDTO.setWorkerNum(work.getUserInfo().getId());
