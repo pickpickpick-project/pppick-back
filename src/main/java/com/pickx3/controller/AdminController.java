@@ -4,10 +4,11 @@ package com.pickx3.controller;
 
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.user_package.User;
+import com.pickx3.domain.entity.work_package.Orders;
+import com.pickx3.domain.entity.work_package.Payment;
 import com.pickx3.domain.entity.work_package.Work;
-import com.pickx3.domain.repository.PortfolioRepository;
-import com.pickx3.domain.repository.UserRepository;
-import com.pickx3.domain.repository.WorkRepository;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentResponseDTO;
+import com.pickx3.domain.repository.*;
 import com.pickx3.exception.ResourceNotFoundException;
 import com.pickx3.security.CurrentUser;
 import com.pickx3.security.UserPrincipal;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,6 +40,7 @@ public class AdminController {
     private final PortfolioRepository portfolioRepository;
 
     private final WorkRepository workRepository;
+    private final PaymentRepository paymentRepository;
 
     @Operation(summary = "회원 관리 - 회원 정보 전체 조회" , description = "")
     @GetMapping("/admin/manage/user")
@@ -80,4 +83,24 @@ public class AdminController {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
     }
+    @Operation(summary = "결제 관리 - 결제 정보 전체 조회" , description = "")
+    @GetMapping("/admin/manage/payment")
+    public ResponseEntity<?> getPayList() {
+        rsMessage result;
+        try{
+            List<Object[]> resulto = paymentRepository.findSameMerchant();
+            List<PaymentResponseDTO> paymentResponseDTOS = new ArrayList<>();
+            for(Object[] o : resulto){
+                Payment payment =  (Payment) o[0];
+                Orders orders = (Orders) o[1];
+                paymentResponseDTOS.add(new PaymentResponseDTO(payment,orders));
+            }
+            result = new rsMessage(true, "Success" ,"200", "", paymentResponseDTOS);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
