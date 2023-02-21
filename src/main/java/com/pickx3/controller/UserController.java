@@ -120,4 +120,19 @@ public class UserController {
         }
     }
 
+
+    @GetMapping("/follow/followList/user/{id}")
+    public ResponseEntity<?> userId_list(@PathVariable Long id){
+        rsMessage result;
+        HashMap data = new HashMap<>();
+        try{
+            followService.findFollow(id);
+            result = new rsMessage(true, "Success" ,"200", "", data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

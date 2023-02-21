@@ -2,6 +2,7 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.Follow;
 import com.pickx3.domain.entity.FollowForm;
+import com.pickx3.domain.entity.FollowResponse;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.FollowRepository;
 import com.pickx3.domain.repository.UserRepository;
@@ -10,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service @Transactional
@@ -51,4 +55,15 @@ public class FollowService {
     }
 
 
+    public List<FollowResponse> findFollow(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+        List<Follow> followList = followRepository.findByUser_id(id);
+
+        List<FollowResponse> followResponses = new ArrayList<>();
+
+        followList.forEach(s -> followResponses.add(new FollowResponse(s)));
+
+        return followResponses;
+    }
 }
