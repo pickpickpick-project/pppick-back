@@ -32,8 +32,8 @@ public class FollowService {
 */
 
         Follow follow = Follow.builder()
-                .followerNum(follower.getId())
-                .followingNum(following.getId())
+                .followerNum(follower)
+                .followingNum(following)
                 .build();
 
         followRepository.save(follow);
