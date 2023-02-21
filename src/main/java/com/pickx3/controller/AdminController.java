@@ -28,7 +28,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -95,6 +98,7 @@ public class AdminController {
                 Orders orders = (Orders) o[1];
                 paymentResponseDTOS.add(new PaymentResponseDTO(payment,orders));
             }
+            paymentResponseDTOS= paymentResponseDTOS.stream().sorted(Comparator.comparing(PaymentResponseDTO::getPaymentId).reversed()).collect(Collectors.toList());
             result = new rsMessage(true, "Success" ,"200", "", paymentResponseDTOS);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
