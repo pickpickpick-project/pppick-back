@@ -126,7 +126,7 @@ public class UserController {
         rsMessage result;
         HashMap data = new HashMap<>();
         try{
-            followService.findFollow(id);
+          //  followService.findFollow(id);
             result = new rsMessage(true, "Success" ,"200", "", data);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
