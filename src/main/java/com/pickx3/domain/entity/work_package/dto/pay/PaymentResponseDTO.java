@@ -5,6 +5,7 @@ import com.pickx3.domain.entity.work_package.Payment;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class PaymentResponseDTO {
@@ -15,7 +16,7 @@ public class PaymentResponseDTO {
     private int paymentPrice;
     private String payMethod;
     private int paymentStatus;
-    private LocalDate paymentDate;
+    private LocalDateTime paymentDate;
 
     private String payerName;
     private Long workNum;
