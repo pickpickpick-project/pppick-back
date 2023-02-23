@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -96,6 +93,24 @@ public class OrderController {
             List<OrdersResponseDTO> orders = ordersService.getOrdersHistory(userNum);
             data.put("data",orders);
 //            data.put("payInfo",payForm);
+            result = new ApiResponseMessage(true, "Success", "200", "",data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/status/")
+    public ResponseEntity<?> updateOrderStatus(@RequestParam("merchantUid") String merchantUid, @RequestParam("orderStatus") String orderStatus){
+        ApiResponseMessage result;
+        HashMap data = new HashMap<>();
+        try{
+            ordersService.updateOrderStatus(merchantUid, orderStatus);
+
+            log.info("주문 번호" +  merchantUid);
+            log.info("주문 상태" +  orderStatus);
+
             result = new ApiResponseMessage(true, "Success", "200", "",data);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
