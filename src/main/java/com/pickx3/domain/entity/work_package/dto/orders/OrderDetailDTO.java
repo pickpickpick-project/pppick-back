@@ -1,23 +1,33 @@
-package com.pickx3.domain.entity.work_package.dto.pay;
+package com.pickx3.domain.entity.work_package.dto.orders;
 
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class PaymentRequestDTO {
+@Data
+public class OrderDetailDTO {
+    private Long orderNum;
+    private int orderCount;
+
+    private OrderStatus orderStatus;
     private String merchantUid;
-    private String pg;
+
+    private String workName;
+    private int workPrice;
+
     private int paymentPrice;
     private String payMethod;
     private PaymentStatus paymentStatus;
+    private LocalDateTime paymentDate;
 
-    private Long payerNum;
-    private Long workNum;
+
 
 
 //    private String buyerEmail;

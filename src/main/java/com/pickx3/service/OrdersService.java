@@ -6,6 +6,7 @@ import com.pickx3.domain.entity.work_package.Orders;
 import com.pickx3.domain.entity.work_package.Payment;
 import com.pickx3.domain.entity.work_package.Work;
 import com.pickx3.domain.entity.work_package.dto.orders.OrderDetailDTO;
+import com.pickx3.domain.entity.work_package.dto.orders.OrderStatus;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersRequestDTO;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersResponseDTO;
 import com.pickx3.domain.repository.OrdersRepository;
@@ -48,7 +49,6 @@ public class OrdersService {
                 .orderCount(ordersRequestDTO.getOrderCount())
                 .orderPrice(ordersRequestDTO.getOrderPrice())
                 .orderDate(LocalDateTime.now())
-                .orderStatus(0)
                 .user(user)
                 .work(work)
                 .build();
@@ -102,5 +102,12 @@ public class OrdersService {
                 .build();
 
         return dto;
+    }
+
+    public void updateOrderStatus(Long orderNum, String orderStatus){
+        Orders orders = orderRepository.findById(orderNum).get();
+
+        OrderStatus status = OrderStatus.valueOf(orderStatus.toUpperCase());
+        orders.updateStatus(status);
     }
 }
