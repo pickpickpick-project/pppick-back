@@ -23,6 +23,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 일반 회원 가입
@@ -120,13 +121,28 @@ public class UserController {
         }
     }
 
-
-    @GetMapping("/follow/followList/user/{id}")
-    public ResponseEntity<?> userId_list(@PathVariable Long id){
+    @Operation(summary = "팔로잉 목록 " , description = " id : user 번호 ,<br> 16 검색 -> 17, 1, 2, 18 번")
+    @PatchMapping("/user/following/{id}")
+    public ResponseEntity<?> followingList(@PathVariable Long id) {
         rsMessage result;
-        HashMap data = new HashMap<>();
+      //  HashMap data = new HashMap<>();
         try{
-          //  followService.findFollow(id);
+            List<User> data = followService.followingList(id);
+            result = new rsMessage(true, "Success" ,"200", "", data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "팔로워 목록 " , description = " id : user 번호 , <br> 17 검색 -> 16번")
+    @PatchMapping("/user/follower/{id}")
+    public ResponseEntity<?> followerList(@PathVariable Long id) {
+        rsMessage result;
+       // HashMap data = new HashMap<>();
+        try{
+            List<User> data =  followService.followerList(id);
             result = new rsMessage(true, "Success" ,"200", "", data);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){

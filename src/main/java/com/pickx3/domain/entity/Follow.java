@@ -1,11 +1,13 @@
 package com.pickx3.domain.entity;
 
-import com.pickx3.domain.entity.user_package.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Getter
 @NoArgsConstructor
@@ -14,17 +16,12 @@ public class Follow {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long followNum;
 
-    @JoinColumn(name = "followerNum")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User followerNum;
-
-    @JoinColumn(name = "followingNum")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User followingNum;
+    private Long followerNum;
+    private Long followingNum;
 
 
     @Builder
-    public Follow(Long followNum, User followerNum, User followingNum) {
+    public Follow(Long followNum, Long followerNum, Long followingNum) {
         this.followNum = followNum;
         this.followerNum = followerNum;
         this.followingNum = followingNum;

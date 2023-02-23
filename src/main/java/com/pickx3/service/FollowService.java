@@ -9,7 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -18,6 +22,9 @@ public class FollowService {
 
     private final UserRepository userRepository;
     private final FollowRepository followRepository;
+
+    @PersistenceContext // 영속성 객체를 자동으로 삽입해줌
+    private EntityManager em;
 
     public Follow follow(FollowForm followForm) throws IllegalAccessException {
 
@@ -29,8 +36,8 @@ public class FollowService {
 */
 
         Follow follow = Follow.builder()
-                .followerNum(follower)
-                .followingNum(following)
+                .followerNum(follower.getId())
+                .followingNum(following.getId())
                 .build();
 
         followRepository.save(follow);
@@ -44,26 +51,63 @@ public class FollowService {
         User following = userRepository.findById(followForm.getFollowingNum()).orElseThrow(() -> new IllegalAccessException(" 팔로우 유저 Id 없음"));
 
 
-        Follow follow = followRepository.findByFollowerNumAndFollowingNum(follower, following);
-        log.debug("follow == = = = = = ==  == = " + follow);
+        Follow follow = followRepository.findFollowByFollowerNumAndFollowingNum(follower.getId(), following.getId());
 
         followRepository.delete(follow);
 
         return follow;
     }
 
-/*
-    public List<FollowResponse> findFollow(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+    /*
+    public List<Follow> followList(Long id) throws IllegalAccessException {
+        JPAQueryFactory query = new JPAQueryFactory(em);
+        QFollow qFollow = QFollow.follow;
 
-        List<Follow> followList = followRepository.findByUser_id(id);
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalAccessException("user id x "));
 
-        List<FollowResponse> followResponses = new ArrayList<>();
+        //팔로워
 
-        followList.forEach(s -> followResponses.add(new FollowResponse(s)));
 
-        return followResponses;
+        //팔로우
+
+
+        // list add
+        List<Follow> followList = new ArrayList<>();
+        result.forEach(s -> followList.add(new Follow(s)));
+
+
+        return //;
     }
     */
+    public List<User> followingList(Long id) throws IllegalAccessException {
 
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalAccessException("user id x "));
+
+        List<Follow> follow = followRepository.findByFollowerNum(id);
+
+        // list add
+        List<User> followList = new ArrayList<>();
+        for(Follow f : follow){
+            followList.add(userRepository.findById(f.getFollowingNum()).get());
+        }
+
+
+        return followList;
+    }
+
+    public List<User> followerList(Long id) throws IllegalAccessException {
+
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalAccessException("user id x "));
+
+        List<Follow> follow = followRepository.findByFollowingNum(id);
+
+        // list add
+        List<User> followList = new ArrayList<>();
+        for(Follow f : follow){
+            followList.add(userRepository.findById(f.getFollowerNum()).get());
+        }
+
+
+        return followList;
+    }
 }
