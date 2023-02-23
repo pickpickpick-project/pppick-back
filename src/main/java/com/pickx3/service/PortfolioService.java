@@ -11,7 +11,7 @@ import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.domain.repository.TagRepository;
 import com.pickx3.domain.repository.UserRepository;
-import com.pickx3.domain.repository.post_package.PortfolioTagRepository;
+import com.pickx3.domain.repository.PortfolioTagRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -117,6 +117,7 @@ public class PortfolioService {
 
         return portfolioResponseDtos;
     }
+
 
 
 }
