@@ -1,5 +1,6 @@
 package com.pickx3.domain.entity.work_package;
 
+import com.pickx3.domain.entity.work_package.dto.orders.OrderStatus;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,10 @@ public class Payment {
     private LocalDateTime paymentDate;
     @Enumerated(value = EnumType.STRING)
     private PaymentStatus paymentStatus;
+
+    public void updateStatus(PaymentStatus status){
+        this.paymentStatus = status;
+    }
 
 //    @ManyToOne(optional = false, fetch = FetchType.LAZY)
 //    @JoinColumn(name="payerNum")

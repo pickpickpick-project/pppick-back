@@ -2,6 +2,7 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.work_package.Orders;
 import com.pickx3.domain.entity.work_package.Payment;
+import com.pickx3.domain.entity.work_package.dto.orders.OrderStatus;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentApiResponse;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentCancelDTO;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentRequestDTO;
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+@Transactional
 @Slf4j
 @Service
 public class PaymentService {
@@ -168,5 +171,14 @@ public class PaymentService {
 
         return result;
 
+    }
+
+    public void updatePaymentStatus(String merchantUid, String paymentStatus){
+        Payment payment = payRepository.findByMerchantUid(merchantUid);
+
+        PaymentStatus status = PaymentStatus.valueOf(paymentStatus);
+
+        log.info("주문상태" + status);
+        payment.updateStatus(status);
     }
 }
