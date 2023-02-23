@@ -78,8 +78,8 @@ public class AdminController {
     public ResponseEntity<?> getPList() {
         rsMessage result;
         try{
-            List<Portfolio> portfolioss = portfolioRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-            result = new rsMessage(true, "Success" ,"200", "", portfolioss);
+            List<Portfolio> portfolios = portfolioRepository.findAll(Sort.by(Sort.Direction.DESC, "portfolioNum"));
+            result = new rsMessage(true, "Success" ,"200", "", portfolios);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e){
             result = new rsMessage(false, "", "400", e.getMessage());
