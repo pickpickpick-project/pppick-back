@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -28,6 +25,7 @@ public class Payment {
     private int paymentPrice;
     private String payMethod;
     private LocalDateTime paymentDate;
+    @Enumerated(value = EnumType.STRING)
     private PaymentStatus paymentStatus;
 
 //    @ManyToOne(optional = false, fetch = FetchType.LAZY)
