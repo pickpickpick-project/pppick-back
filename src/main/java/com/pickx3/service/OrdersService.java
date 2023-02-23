@@ -3,10 +3,13 @@ package com.pickx3.service;
 
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.work_package.Orders;
+import com.pickx3.domain.entity.work_package.Payment;
 import com.pickx3.domain.entity.work_package.Work;
+import com.pickx3.domain.entity.work_package.dto.orders.OrderDetailDTO;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersRequestDTO;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersResponseDTO;
 import com.pickx3.domain.repository.OrdersRepository;
+import com.pickx3.domain.repository.PaymentRepository;
 import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
 import com.pickx3.util.UUIDGenerateUtil;
@@ -24,6 +27,9 @@ import java.util.List;
 public class OrdersService {
     @Autowired
     private OrdersRepository orderRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -75,5 +81,26 @@ public class OrdersService {
         return resOrders;
     }
 
+    public OrderDetailDTO getOrdersDetail(Long orderNum){
 
+        Orders orders = orderRepository.findById(orderNum).get();
+        Long workId = orders.getWork().getWorkNum();
+        Work work = workRepository.findById(workId).get();
+        String merchantUid = orders.getMerchantUid();
+        Payment payment = paymentRepository.findByMerchantUid(merchantUid);
+
+        OrderDetailDTO dto = OrderDetailDTO
+                .builder()
+                .orderNum(orders.getOrderNum())
+                .orderCount(orders.getOrderCount())
+                .orderStatus(orders.getOrderStatus())
+                .merchantUid(payment.getMerchantUid())
+                .workName(work.getWorkName())
+                .workPrice(work.getWorkPrice())
+                .paymentStatus(payment.getPaymentStatus())
+                .paymentDate(payment.getPaymentDate())
+                .build();
+
+        return dto;
+    }
 }
