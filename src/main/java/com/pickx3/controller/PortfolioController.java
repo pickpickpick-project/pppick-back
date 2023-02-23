@@ -116,7 +116,7 @@ public class PortfolioController {
         return getResponseEntity(data);
     }
 
-    @Operation(summary = "태그들에 따른 포폴 목록 조회" , description = "")
+    @Operation(summary = "태그들에 따른 포폴 목록 조회" , description = "구분자는 띄어쓰기 입니다.<br> test example:<br>tags: 123 SelectTest")
     @GetMapping("/portfolio/list/tags")
     public ResponseEntity<?> tag_list(String tags){
         List<PortfolioResponseDto> data = tagService.portfolioSearchByTags(tags);
