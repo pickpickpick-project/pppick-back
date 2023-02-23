@@ -3,7 +3,9 @@ package com.pickx3.service;
 import com.pickx3.domain.entity.work_package.Orders;
 import com.pickx3.domain.entity.work_package.Payment;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentApiResponse;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentCancelDTO;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentRequestDTO;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentStatus;
 import com.pickx3.domain.repository.OrdersRepository;
 import com.pickx3.domain.repository.PaymentRepository;
 import com.pickx3.domain.repository.UserRepository;
@@ -102,6 +104,7 @@ public class PaymentService {
 
         String res_merchant_uid = resData.get("merchant_uid").toString();
         String paymethod = resData.get("pay_method").toString();
+        String impUid = resData.get("imp_uid").toString();
         Long payerNum = order.getUser().getId();
         Long workNum = order.getOrderNum();
 
@@ -113,7 +116,7 @@ public class PaymentService {
                     .pg("KG이니시스")
                     .paymentPrice(paymentAmount)
                     .payMethod(paymethod)
-                    .paymentStatus(1)
+                    .paymentStatus(PaymentStatus.COMPLETE)
                     .payerNum(payerNum)
                     .workNum(workNum)
                     .build();
@@ -129,5 +132,41 @@ public class PaymentService {
         Payment payment = payRepository.findByMerchantUid(merchantUid);
         return payment;
     }
+    public PaymentApiResponse cancelPayment(PaymentCancelDTO paymentDTO, String token){
+        String merchantUid = paymentDTO.getMerchantUid();
+        String cancelAmount = Integer.toString(paymentDTO.getCancelRequestAmount());
 
+        log.info("상품 아이디" + merchantUid);
+        log.info("취소 금액" +  cancelAmount);
+        Payment payment = findPaymentByMerchantUid(merchantUid);
+
+        String url = "https://api.iamport.kr/payments/cancel";
+//        URI uri = UriComponentsBuilder
+//                .fromUriString("https://api.iamport.kr")
+//                .path("/payments/cancel")
+//                .build().toUri();
+
+//        RequestEntity<Void> req = RequestEntity.get(uri).header("Authorization", token).build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", token);
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("merchant_uid", merchantUid);
+        params.put("amount", cancelAmount);
+        params.put("checksum", cancelAmount);
+
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(params, headers);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        PaymentApiResponse result = restTemplate.exchange(url, HttpMethod.POST, requestEntity, PaymentApiResponse.class).getBody();
+//        ResponseEntity<PaymentApiResponse> result = restTemplate.exchange(req, PaymentApiResponse.class);
+
+        log.info("환불 결과" +  result.toString());
+
+        return result;
+
+    }
 }

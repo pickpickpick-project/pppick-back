@@ -24,6 +24,7 @@ public class Orders {
     private int orderCount;
     private int orderPrice;
     private LocalDateTime orderDate;
+    @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
