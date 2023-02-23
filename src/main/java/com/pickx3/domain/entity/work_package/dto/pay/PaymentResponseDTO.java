@@ -15,7 +15,7 @@ public class PaymentResponseDTO {
     private int paymentCount;
     private int paymentPrice;
     private String payMethod;
-    private int paymentStatus;
+    private PaymentStatus paymentStatus;
     private LocalDateTime paymentDate;
 
     private String payerName;

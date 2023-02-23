@@ -1,6 +1,7 @@
 package com.pickx3.domain.entity.work_package;
 
 import com.pickx3.domain.entity.user_package.User;
+import com.pickx3.domain.entity.work_package.dto.orders.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class Orders {
     private int orderCount;
     private int orderPrice;
     private LocalDateTime orderDate;
-    private int orderStatus;
+    private OrderStatus orderStatus;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name="userNum")
@@ -32,4 +33,8 @@ public class Orders {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name="workNum")
     private Work work;
+
+    public void updateStatus(OrderStatus status){
+        this.orderStatus = status;
+    }
 }
