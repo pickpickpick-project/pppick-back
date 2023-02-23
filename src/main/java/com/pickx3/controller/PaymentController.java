@@ -1,10 +1,13 @@
 package com.pickx3.controller;
 
 import com.pickx3.domain.entity.work_package.Payment;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentApiResponse;
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentCancelDTO;
 import com.pickx3.domain.entity.work_package.dto.pay.PaymentRequestDTO;
 import com.pickx3.domain.entity.work_package.dto.pay.VerifyDTO;
 import com.pickx3.service.PaymentService;
 import com.pickx3.util.ApiResponseMessage;
+import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,7 @@ public class PaymentController {
     @Autowired
     private PaymentService payService;
 
-    @GetMapping("/verify")
+    @PostMapping("/verify")
     public ResponseEntity<?>  verifyPayment(String imp_uid, String merchant_uid, Model model) throws Exception {
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
@@ -53,6 +56,42 @@ public class PaymentController {
         }
     }
 
+
+    @PostMapping("/cancel")
+    public ResponseEntity<?> cancelPayment(@RequestParam("merchant_uid") String merchantUid, @RequestParam("cancel_request_amount") int cancelRequestAmount  ){
+        String token = payService.getToken();
+        rsMessage result;
+
+        PaymentCancelDTO paymentCancelDTO = new PaymentCancelDTO();
+        paymentCancelDTO.setCancelRequestAmount(cancelRequestAmount);
+        paymentCancelDTO.setMerchantUid(merchantUid);
+        try {
+            PaymentApiResponse data = payService.cancelPayment(paymentCancelDTO, token);
+
+            result = new rsMessage(true, "Success", "200", "", data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            result = new rsMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/status/")
+    public ResponseEntity<?> updatePaymentStatus(@RequestParam("merchantUid") String merchantUid, @RequestParam("orderStatus") String orderStatus){
+        ApiResponseMessage result;
+        HashMap data = new HashMap<>();
+        try{
+            payService.updatePaymentStatus(merchantUid, orderStatus);
+
+            log.info("주문 번호" +  merchantUid);
+            log.info("주문 상태" +  orderStatus);
+            result = new ApiResponseMessage(true, "Success", "200", "", data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
     /*
     * 상품 결제
     * */

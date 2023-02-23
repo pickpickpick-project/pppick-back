@@ -17,12 +17,14 @@ import com.pickx3.util.UUIDGenerateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Slf4j
 @Service
 public class OrdersService {
@@ -104,10 +106,12 @@ public class OrdersService {
         return dto;
     }
 
-    public void updateOrderStatus(Long orderNum, String orderStatus){
-        Orders orders = orderRepository.findById(orderNum).get();
+    public void updateOrderStatus(String merchantUid, String orderStatus){
+        Orders orders = orderRepository.findByMerchantUid(merchantUid);
 
-        OrderStatus status = OrderStatus.valueOf(orderStatus.toUpperCase());
+        OrderStatus status = OrderStatus.valueOf(orderStatus);
+
+        log.info("주문상태" + status);
         orders.updateStatus(status);
     }
 }
