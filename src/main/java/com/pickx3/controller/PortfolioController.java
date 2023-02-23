@@ -5,8 +5,10 @@ import com.pickx3.domain.entity.portfolio_package.PortfolioForm;
 import com.pickx3.domain.entity.portfolio_package.PortfolioImg;
 import com.pickx3.domain.entity.portfolio_package.dto.PortfolioResponseDto;
 import com.pickx3.domain.entity.portfolio_package.dto.TagRequestDto;
+import com.pickx3.domain.repository.PortfolioRepository;
 import com.pickx3.service.PortfolioImgService;
 import com.pickx3.service.PortfolioService;
+import com.pickx3.service.TagService;
 import com.pickx3.util.rsMessage;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,9 @@ import java.util.*;
 public class PortfolioController {
     private final PortfolioService portfolioService;
     private final PortfolioImgService portfolioImgService;
+
+    private final PortfolioRepository portfolioRepository;
+    private final TagService tagService;
 
 
     /**
@@ -110,6 +115,18 @@ public class PortfolioController {
 
         return getResponseEntity(data);
     }
+
+    @Operation(summary = "태그들에 따른 포폴 목록 조회" , description = "")
+    @GetMapping("/portfolio/list/tags")
+    public ResponseEntity<?> tag_list(String tags){
+        List<PortfolioResponseDto> data = tagService.portfolioSearchByTags(tags);
+//        List<Portfolio> portfolios = portfolioRepository.findAllById(pofoNum);
+        return getResponseEntity(data);
+    }
+
+
+
+
 
 
     /**
