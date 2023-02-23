@@ -2,6 +2,7 @@ package com.pickx3.controller;
 
 
 import com.pickx3.domain.entity.work_package.Orders;
+import com.pickx3.domain.entity.work_package.dto.orders.OrderDetailDTO;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersRequestDTO;
 import com.pickx3.domain.entity.work_package.dto.orders.OrdersResponseDTO;
 import com.pickx3.service.OrdersService;
@@ -46,6 +47,32 @@ public class OrderController {
             log.info("유저 아이디" + ordersRequestDTO.getUserNum());
             Orders orders = ordersService.addOrders(ordersRequestDTO);
             data.put("merchant_uid",orders.getMerchantUid());
+            result = new ApiResponseMessage(true, "Success", "200", "",data);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            result = new ApiResponseMessage(false, "Error", "400", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Operation(summary = "주문 상세 조회", description = "샘플 데이터 = orderNum : 6 <br>" +
+            "* orderNum : 주문 고유 번호(pk) <br> " +
+            "* orderCount : 주문 수량 <br>" +
+            "* merchantUid : 주문 번호 & 결제변호 <br> " +
+            "* workName : 상품명  <br>" +
+            "* workPrice : 상품 가격, <br>" +
+            "* paymentPrice : 결제 금액, <br>" +
+            "* payMethod : 결제수단 <br>" +
+            "* payMethod : 결제상태(1 : 결제, 2 : 거래 확정, 3: 환불) <br>" +
+            "* paymentDate : 결제일자")
+    @GetMapping("/{orderNum}")
+    public ResponseEntity<?> getOrdersDetail(@PathVariable("orderNum") Long orderNum){
+        ApiResponseMessage result;
+        HashMap data = new HashMap<>();
+        try{
+            OrderDetailDTO orders = ordersService.getOrdersDetail(orderNum);
+            data.put("data",orders);
+//            data.put("payInfo",payForm);
             result = new ApiResponseMessage(true, "Success", "200", "",data);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {

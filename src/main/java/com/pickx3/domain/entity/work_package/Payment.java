@@ -1,5 +1,6 @@
 package com.pickx3.domain.entity.work_package;
 
+import com.pickx3.domain.entity.work_package.dto.pay.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -25,8 +27,8 @@ public class Payment {
     private int paymentCount;
     private int paymentPrice;
     private String payMethod;
-    private LocalDate paymentDate;
-    private int paymentStatus;
+    private LocalDateTime paymentDate;
+    private PaymentStatus paymentStatus;
 
 //    @ManyToOne(optional = false, fetch = FetchType.LAZY)
 //    @JoinColumn(name="payerNum")

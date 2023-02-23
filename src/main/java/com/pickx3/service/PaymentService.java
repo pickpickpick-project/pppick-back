@@ -10,14 +10,13 @@ import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public class PaymentService {
 //        Work work = workRepository.findById(paymentRequestDTO.getWorkNum()).get();
 
         Payment payment = Payment.builder()
-                .paymentDate(LocalDate.now())
+                .paymentDate(LocalDateTime.now())
                 .paymentPrice(paymentRequestDTO.getPaymentPrice())
                 .payMethod(paymentRequestDTO.getPayMethod())
                 .pg(paymentRequestDTO.getPg())
@@ -124,4 +123,11 @@ public class PaymentService {
             throw new IllegalStateException("결제 정보가 일치하지않습니다");
         }
     }
+
+
+    public Payment findPaymentByMerchantUid(String merchantUid){
+        Payment payment = payRepository.findByMerchantUid(merchantUid);
+        return payment;
+    }
+
 }

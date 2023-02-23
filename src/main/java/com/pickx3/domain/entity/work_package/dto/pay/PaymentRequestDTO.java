@@ -14,7 +14,7 @@ public class PaymentRequestDTO {
     private String pg;
     private int paymentPrice;
     private String payMethod;
-    private int paymentStatus;
+    private PaymentStatus paymentStatus;
 
     private Long payerNum;
     private Long workNum;
