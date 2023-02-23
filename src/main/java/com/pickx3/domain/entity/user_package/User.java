@@ -1,6 +1,7 @@
 package com.pickx3.domain.entity.user_package;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pickx3.domain.entity.Follow;
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import lombok.Builder;
 import lombok.Getter;
@@ -61,7 +62,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Portfolio> portfolio = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "followerNum")
+    private List<Follow> followerNum = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "followingNum")
+    private List<Follow> followingNum = new ArrayList<>();
 
 
 

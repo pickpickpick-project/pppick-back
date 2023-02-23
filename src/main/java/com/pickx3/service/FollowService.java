@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service @Transactional
@@ -28,8 +29,8 @@ public class FollowService {
 */
 
         Follow follow = Follow.builder()
-                .followerNum(follower.getId())
-                .followingNum(following.getId())
+                .followerNum(follower)
+                .followingNum(following)
                 .build();
 
         followRepository.save(follow);
@@ -43,12 +44,26 @@ public class FollowService {
         User following = userRepository.findById(followForm.getFollowingNum()).orElseThrow(() -> new IllegalAccessException(" 팔로우 유저 Id 없음"));
 
 
-        Follow follow = followRepository.findFollowByFollowerNumAndFollowingNum(follower.getId(), following.getId());
+        Follow follow = followRepository.findByFollowerNumAndFollowingNum(follower, following);
+        log.debug("follow == = = = = = ==  == = " + follow);
 
         followRepository.delete(follow);
 
         return follow;
     }
 
+/*
+    public List<FollowResponse> findFollow(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+        List<Follow> followList = followRepository.findByUser_id(id);
+
+        List<FollowResponse> followResponses = new ArrayList<>();
+
+        followList.forEach(s -> followResponses.add(new FollowResponse(s)));
+
+        return followResponses;
+    }
+    */
 
 }
