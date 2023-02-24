@@ -122,7 +122,7 @@ public class UserController {
     }
 
     @Operation(summary = "팔로잉 목록 " , description = " id : user 번호 ,<br> 16 검색 -> 17, 1, 2, 18 번")
-    @PatchMapping("/user/following/{id}")
+    @GetMapping("/user/following/{id}")
     public ResponseEntity<?> followingList(@PathVariable Long id) {
         rsMessage result;
       //  HashMap data = new HashMap<>();
@@ -137,7 +137,7 @@ public class UserController {
     }
 
     @Operation(summary = "팔로워 목록 " , description = " id : user 번호 , <br> 17 검색 -> 16번")
-    @PatchMapping("/user/follower/{id}")
+    @GetMapping("/user/follower/{id}")
     public ResponseEntity<?> followerList(@PathVariable Long id) {
         rsMessage result;
        // HashMap data = new HashMap<>();
