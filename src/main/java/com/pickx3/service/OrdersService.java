@@ -71,6 +71,7 @@ public class OrdersService {
                     .orderNum(order.getOrderNum())
                     .orderCount(order.getOrderCount())
                     .orderPrice(order.getOrderPrice())
+                    .orderStatus(order.getOrderStatus())
                     .orderDate(order.getOrderDate())
                     .merchantUid(order.getMerchantUid())
                     .workName(order.getWork().getWorkName())
