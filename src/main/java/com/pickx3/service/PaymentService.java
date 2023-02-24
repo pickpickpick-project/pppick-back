@@ -13,6 +13,8 @@ import com.pickx3.domain.repository.UserRepository;
 import com.pickx3.domain.repository.WorkRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@PropertySource("classpath:config.properties")
 @Transactional
 @Slf4j
 @Service
@@ -37,6 +41,13 @@ public class PaymentService {
 
     @Autowired
     private OrdersRepository ordersRepository;
+
+    @Value("${imp_key}")
+    private String imp_key;
+
+    @Value("${imp_secret}")
+    private String imp_secret;
+
 
     public Payment payWork(PaymentRequestDTO paymentRequestDTO){
 //        User user = userRepository.findById(paymentRequestDTO.getPayerNum()).get();
@@ -70,8 +81,11 @@ public class PaymentService {
         String url = "https://api.iamport.kr/users/getToken";
 
         Map<String, String> params = new HashMap<String, String>();
-        params.put("imp_key", "3127507500400178");
-        params.put("imp_secret", "hNUfeDDzNTiiZ1OZ5f08pMVEanvdI8g0WbfbOSKCM2VM3JM9ZMhozc2KAyXjHekEqzPfszRfCM1GwNPv");
+        params.put("imp_key", imp_key);
+        params.put("imp_secret", imp_secret);
+
+        log.info("키값" + imp_key);
+        log.info("키값" + imp_secret);
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<PaymentApiResponse> response = restTemplate.postForEntity(url, params, PaymentApiResponse.class);
