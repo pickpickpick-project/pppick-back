@@ -2,15 +2,13 @@ package com.pickx3.service;
 
 //import com.pickx3.domain.dto.UserUpdateRequestDto;
 //import com.pickx3.domain.entity.Favorites;
+import com.pickx3.domain.entity.Follow;
 import com.pickx3.domain.entity.portfolio_package.Favorites;
 import com.pickx3.domain.entity.portfolio_package.Portfolio;
 import com.pickx3.domain.entity.post_package.Post;
 import com.pickx3.domain.entity.user_package.User;
 import com.pickx3.domain.entity.user_package.dto.UserUpdateRequestDto;
-import com.pickx3.domain.repository.FavoriteRepository;
-import com.pickx3.domain.repository.PortfolioRepository;
-import com.pickx3.domain.repository.UserRepository;
-import com.pickx3.domain.repository.WorkRepository;
+import com.pickx3.domain.repository.*;
 import com.pickx3.domain.repository.post_package.PostRepository;
 import com.pickx3.service.post_package.PostService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +38,8 @@ public class UserService {
     private final PortfolioRepository portfolioRepository;
 
     private final WorkRepository workRepository;
+
+    private final FollowRepository followRepository;
 
     private final PostService postService;
     private final WorkService workService;
@@ -131,6 +131,22 @@ public class UserService {
     public void delete(Long userNum) throws IOException {
         User user = userRepository.findById(userNum)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+
+        // 구독 내역 삭제
+        List<Follow> follows = followRepository.findByFollowerNum(userNum);
+        if(follows.size()!=0){
+            for(Follow f: follows){
+                followRepository.delete(f);
+            }
+
+        }
+        List<Follow> follows2 = followRepository.findByFollowingNum(userNum);
+        if(follows2.size()!=0){
+            for(Follow f: follows2){
+                followRepository.delete(f);
+            }
+
+        }
 
         //유저 지우면 썼던 포스트들 삭제
         List<Post> postss = postRepository.findByUser_Id(userNum);
