@@ -78,13 +78,14 @@ public class OrderController {
         }
     }
 
-    @Operation(summary = "상품 주문", description = "샘플 데이터 = userNum : 2<br>" +
+    @Operation(summary = "상품 주문 목록 조회", description = "샘플 데이터 = userNum : 2<br>" +
             "* merchantUid : 주문번호 <br> " +
             "* workName : 상품명  <br>" +
             "* workPrice : 상품 가격, <br>" +
-            "* orderCount : 주문 수량 <br>" +
-            "* orderPrice : 주문 금액 <br>" +
-            "* orderDate : 주문 날짜")
+            "* orderCount : 주문 수량, <br>" +
+            "* orderPrice : 주문 금액, <br>" +
+            "* orderDate : 주문 날짜, <br>" +
+            "* orderStatus : 주문 상태")
     @GetMapping("/user/{userNum}")
     public ResponseEntity<?> getOrdersHistory(@PathVariable("userNum") Long userNum){
         ApiResponseMessage result;

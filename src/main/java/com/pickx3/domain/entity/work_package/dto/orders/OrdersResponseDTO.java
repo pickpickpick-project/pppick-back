@@ -20,6 +20,7 @@ public class OrdersResponseDTO {
     private int orderCount;
     private int orderPrice;
     private LocalDateTime orderDate;
+    private OrderStatus orderStatus;
 
 //    private String buyerEmail;
 //    private String buyerName;
