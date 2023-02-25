@@ -26,14 +26,10 @@ public class PaymentController {
     private PaymentService payService;
 
     @PostMapping("/verify")
-    public ResponseEntity<?>  verifyPayment(String imp_uid, String merchant_uid, Model model) throws Exception {
+    public ResponseEntity<?>  verifyPayment(@RequestBody VerifyDTO verifyDTO, Model model) throws Exception {
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
 
-        VerifyDTO verifyDTO = VerifyDTO.builder()
-                .imp_uid(imp_uid)
-                .merchantUid(merchant_uid)
-                .build();
         log.info("여기로 들어오는지" + verifyDTO.getImp_uid());
         log.info("여기로 들어오는지" + verifyDTO.getMerchantUid());
 
