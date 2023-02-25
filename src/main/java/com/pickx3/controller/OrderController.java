@@ -37,11 +37,10 @@ public class OrderController {
             "workNum : 2 <br>} <br>" +
             "* merchantUid는 주문 고유 번호입니다 추후 결제 정보 검증 시 필요한 아이디 값 입니다")
     @PostMapping
-    public ResponseEntity<?> addOrders(OrdersRequestDTO ordersRequestDTO){
+    public ResponseEntity<?> addOrders(@RequestBody OrdersRequestDTO ordersRequestDTO){
         ApiResponseMessage result;
         HashMap data = new HashMap<>();
         try{
-            log.info("유저 아이디" + ordersRequestDTO.getUserNum());
             Orders orders = ordersService.addOrders(ordersRequestDTO);
             data.put("merchant_uid",orders.getMerchantUid());
             result = new ApiResponseMessage(true, "Success", "200", "",data);
