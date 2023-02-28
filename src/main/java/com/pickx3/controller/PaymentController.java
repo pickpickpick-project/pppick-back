@@ -54,13 +54,13 @@ public class PaymentController {
 
 
     @PostMapping("/cancel")
-    public ResponseEntity<?> cancelPayment(@RequestParam("merchant_uid") String merchantUid, @RequestParam("cancel_request_amount") int cancelRequestAmount  ){
+    public ResponseEntity<?> cancelPayment(@RequestBody PaymentCancelDTO paymentCancelDTO){
         String token = payService.getToken();
         rsMessage result;
 
-        PaymentCancelDTO paymentCancelDTO = new PaymentCancelDTO();
-        paymentCancelDTO.setCancelRequestAmount(cancelRequestAmount);
-        paymentCancelDTO.setMerchantUid(merchantUid);
+//        PaymentCancelDTO paymentCancelDTO = new PaymentCancelDTO();
+//        paymentCancelDTO.setCancelRequestAmount(cancelRequestAmount);
+//        paymentCancelDTO.setMerchantUid(merchantUid);
         try {
             PaymentApiResponse data = payService.cancelPayment(paymentCancelDTO, token);
 
