@@ -61,8 +61,17 @@ Front-End|박정도|https://github.com/jeongdopark
 - 포트폴리오 좋아요
 
 
-#### Work & Payment
+#### Work & Order
+- 상품 Create, Read, Update, Delete
+- 작가별 상품 목록 조회
+- 상품 이미지 파일 업로드 기능 구현
+- 상품 주문 기능 구현
+- 회원별 상품 주문 목록 조회 
 
+#### Payment
+- 아임포트 API를 연동하여, 상품 결제 기능 구현
+- 실제 결제한 정보와 주문정보 검증하는 로직 작성
+- 환불 버튼 클릭 시, 결제 정보 환불 처리 기능 구현
 
 
 
