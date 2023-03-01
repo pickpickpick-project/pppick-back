@@ -1,8 +1,10 @@
 # PPPick
 
 ## 📂 프로젝트 소개
-- PersonalPicturePick의 약자로, 회원이 작가의 포트폴리오를 확인 후, 작가를 선택(Pick)하여 개인 맞춤형 일러스트/그림/디자인을 제작 의뢰하는 서비스입니다.
-- 최근 개개인의 개성이 중요해지면서 같은 것이라도 남들과는 다름을 추구하는 사람들이 점점 많아지고 있습니다. 이러한 사람들이 쉽게 접근 할 수 있는 맞춤형 서비스가 필요하다고 생각하여 위 프로젝트를 기획하였습니다.
+- **P**ersonal**P**icture**Pick**의 약자로, 회원이 작가의 포트폴리오를 확인 후, <strong>작가를 선택(PICK)</strong>하여 <br>
+  **개인 맞춤형 일러스트/그림/디자인을 제작 의뢰하는 서비스**입니다.
+- 최근 개개인의 개성이 중요해지면서 같은 것이라도 남들과는 다름을 추구하는 사람들이 점점 많아지고 있습니다. <br>
+  이러한 사람들이 쉽게 접근 할 수 있는 **맞춤형 서비스가 필요**하다고 생각하여 위 프로젝트를 기획하였습니다.
 - 프로젝트 GitHub : https://github.com/pickpickpick-project
 
 ### 개발 인원 및 기간
@@ -36,7 +38,10 @@ Front-End|박정도|https://github.com/jeongdopark
 
 > - Server : <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white">&nbsp; <img src="https://img.shields.io/badge/AWS RDS/EC2-232F3E?style=for-the-badge&logo=Amazon&logoColor=white"/>&nbsp;<img src="https://img.shields.io/badge/AWS S3-색상?style=for-the-badge&logo=Amazon S3&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white">
 
-> - ETC : <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white">(http://api.pppick.store/swagger-ui/index.html#)
+> - ETC : <img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">&nbsp;<img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white">
+
+Swagger 문서 참고 링크 : http://api.pppick.store/swagger-ui/index.html#
+
 ### ERD 설계
 <img width="80%" height="80%" src="https://user-images.githubusercontent.com/47100801/222034401-12ae32c8-5a9c-40e3-8eb7-e09eab6a1fdd.png">
 
