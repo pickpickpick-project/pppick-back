@@ -42,8 +42,10 @@ Front-End|박정도|https://github.com/jeongdopark
 
 ### 구현 기능
 #### User
-- 회원 삭제 시, 관련 게시물, 댓글, 작업물, 상품, 좋아요 등 일괄 삭제
 - Oauth +  Jwt + Spring Security를 사용한 소셜 로그인 구현
+- 회원 삭제 시, 관련 게시물, 댓글, 작업물, 상품, 좋아요 등 일괄 삭제 기능
+- 회원 정보 수정(프로필 이미지, 소개, 닉네임, 전화번호) 기능
+- 회원 탈퇴 기능
 
 #### Post & Comment
 - 게시물 Create, Read, Update, Delete
