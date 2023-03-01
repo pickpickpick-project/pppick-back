@@ -57,6 +57,7 @@ Front-End|박정도|https://github.com/jeongdopark
 #### Portfolio & Tag
 - 다중 태그를 통한 작업물 목록 검색
 - 포트폴리오 등록, 조회, 삭제
+- 포트폴리오 이미지 
 - 포트폴리오 좋아요
 
 
