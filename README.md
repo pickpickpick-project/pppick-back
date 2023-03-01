@@ -46,6 +46,7 @@ Front-End|박정도|https://github.com/jeongdopark
 - 회원 삭제 시, 관련 게시물, 댓글, 작업물, 상품, 좋아요 등 일괄 삭제 기능
 - 회원 정보 수정(프로필 이미지, 소개, 닉네임, 전화번호) 기능
 - 회원 탈퇴 기능
+- 회원 팔로우
 
 #### Post & Comment
 - 게시물 Create, Read, Update, Delete
@@ -55,17 +56,11 @@ Front-End|박정도|https://github.com/jeongdopark
 
 #### Portfolio & Tag
 - 다중 태그를 통한 작업물 목록 검색
+- 포트폴리오 등록, 조회, 삭제
+- 포트폴리오 좋아요
+
 
 #### Work & Payment
-
-- SNS 로그인
-- 관리자 페이지
-- 포트폴리오 등록
-  - https://user-images.githubusercontent.com/117712307/222083838-df0cc1e3-784a-4565-afef-af3d1a0191b4.mov
-- 포트폴리오 좋아요
-  - https://user-images.githubusercontent.com/117712307/222084450-bfd8ead6-a967-4357-92a3-e301f50a380a.mov
-- 회원 팔로우
-  - https://user-images.githubusercontent.com/117712307/222084822-add88918-bf9d-4635-b91f-ed0a7fef4f1b.mov
 
 
 
