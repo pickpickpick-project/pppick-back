@@ -41,3 +41,29 @@ Front-End|박정도|https://github.com/jeongdopark
 <img width="80%" height="80%" src="https://user-images.githubusercontent.com/47100801/222034401-12ae32c8-5a9c-40e3-8eb7-e09eab6a1fdd.png">
 
 ### 구현 기능
+- 포트폴리오 등록
+  - https://user-images.githubusercontent.com/117712307/222083838-df0cc1e3-784a-4565-afef-af3d1a0191b4.mov
+  
+- 포트폴리오 좋아요
+  - https://user-images.githubusercontent.com/117712307/222084450-bfd8ead6-a967-4357-92a3-e301f50a380a.mov
+  
+- 회원 팔로우
+  - https://user-images.githubusercontent.com/117712307/222084822-add88918-bf9d-4635-b91f-ed0a7fef4f1b.mov
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
