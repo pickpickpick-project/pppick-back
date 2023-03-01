@@ -52,7 +52,7 @@ Front-End|박정도|https://github.com/jeongdopark
 - 회원 당 개인 게시판 생성
 
 #### Portfolio & Tag
-- 구분자 띄어쓰기를 이용하여 해당 태그를 가진 작업물 검색
+- 다중 태그를 통한 작업물 목록 검색
 
 #### Work & Payment
 
