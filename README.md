@@ -41,6 +41,21 @@ Front-End|박정도|https://github.com/jeongdopark
 <img width="80%" height="80%" src="https://user-images.githubusercontent.com/47100801/222034401-12ae32c8-5a9c-40e3-8eb7-e09eab6a1fdd.png">
 
 ### 구현 기능
+#### User
+- 회원 삭제 시, 관련 게시물, 댓글, 작업물, 상품, 좋아요 등 일괄 삭제
+- Oauth +  Jwt + Spring Security를 사용한 소셜 로그인 구현
+
+#### Post & Comment
+- 게시물 Create, Read, Update, Delete
+- 댓글 Create, Read, Update, Delete
+- 게시글 작성 시 다중 이미지 파일 업로드 기능
+- 회원 당 개인 게시판 생성
+
+#### Portfolio & Tag
+- 구분자 띄어쓰기를 이용하여 해당 태그를 가진 작업물 검색
+
+#### Work & Payment
+
 - SNS 로그인
 - 관리자 페이지
 - 포트폴리오 등록
