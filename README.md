@@ -7,7 +7,7 @@
   이러한 사람들이 쉽게 접근 할 수 있는 **맞춤형 서비스가 필요**하다고 생각하여 위 프로젝트를 기획하였습니다.
 - 프로젝트 GitHub : https://github.com/pickpickpick-project
 
-### 개발 인원 및 기간
+### 📆 개발 인원 및 기간
 - 개발기간 : 2023/01/14 ~ 2023/2/28
 - 개발 인원 : 백엔드 3명, 프론트엔드 2명 
 
@@ -20,12 +20,12 @@ Back-End|신승현|https://github.com/SSHTED
 Front-End|김호정|https://github.com/HJKim423
 Front-End|박정도|https://github.com/jeongdopark
 
-## 배포 URL
+## 🔗 배포 URL
 - http://www.pppick.store
 - 관리자 페이지 - http://www.pppick.store/admin/login
   - 관리자 계정 - ID : admin / Password : admin 
 
-## 📎 협업 문서
+## 📄 협업 문서
 - 요구사항 명세서 : https://docs.google.com/spreadsheets/d/1rjobxqth3hT1llzdAlExbxPFiDr5VKQ4-HNzSaPFTOs/edit#gid=0
 - 테이블 명세서 : https://docs.google.com/spreadsheets/d/1g7OMKohGoOJHb5zpbEZkxWEtyvjFE_WmQDpd1fIFgIY/edit#gid=0
 - 인스턴스 명세서 : https://docs.google.com/spreadsheets/d/1RTW6A1XULyyLET6QYOyFSAiDhvXmzM52XFMqolsMMrw/edit#gid=0
