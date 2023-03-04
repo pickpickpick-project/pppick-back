@@ -1,4 +1,4 @@
-# PPPick
+# PPPick 개발 branch
 
 ## 📂 프로젝트 소개
 - **P**ersonal**P**icture**Pick**의 약자로, 회원이 작가의 포트폴리오를 확인 후, <strong>작가를 선택(PICK)</strong>하여 <br>
